@@ -1,0 +1,25 @@
+echo "Building libRcpp.a in RcppSrc..."
+R_HOME=`R RHOME`
+cd RcppSrc
+make RHOME=$R_HOME -f Makefile.win
+cd ..
+if test \! -d inst
+then
+    mkdir inst
+fi
+cp RcppSrc/Rcpp-license.txt inst
+
+#echo "Building libims.a in imslib..."
+#cd imslib
+#./autogen.sh
+#sh ./configure
+#make ./src/libims.la
+#cp ./src/libims-0.dll src/win/
+#cd ..
+
+IMS_CFLAGS=-I../imslib/src/
+IMS_LIBS=../imslib/src/.libs/libims.a
+
+CPPFLAGS="$CPPFLAGS -I../RcppSrc $IMS_CFLAGS"
+LDFLAGS="${LDFLAGS} -L../RcppSrc -lRcpp $IMS_LIBS"
+LIBS="${LIBS} -lRcpp $IMS_LIBS"

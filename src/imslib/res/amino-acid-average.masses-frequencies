@@ -1,0 +1,23 @@
+# Amino acid residue masses used by mascot
+# Residue name (A-Z) : monoisotopic mass, average mass
+# frequencies in percentage due to swissprot
+A    71.0788  7.85 
+C   103.1388  1.54
+D   115.0886  5.31
+E   129.1155  6.61
+F   147.1766  4.00
+G    57.0520  6.95
+H   137.1412  2.27
+I   113.1595  5.92
+K   128.1742  5.92
+L   113.1595  9.63
+M   131.1925  2.38
+N   114.1039  4.18
+P    97.1167  4.83
+Q   128.1308  3.94
+R   156.1876  5.33
+S    87.0782  6.85
+T   101.1051  5.45
+V    99.1326  6.73
+W   186.2133  1.15
+Y   163.1760  3.06

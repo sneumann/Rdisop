@@ -1,0 +1,39 @@
+# Installation script for Gentoo.
+# Since we don't have a download location for imslib, this is not that easy.
+#
+# Author: Marcel Martin
+
+set -e
+
+source /etc/make.conf
+
+if [ "${PORTDIR_OVERLAY}" = "" ]; then
+	echo "You need to set PORTDIR_OVERLAY in your /etc/make.conf"
+	exit
+fi
+version=$(grep AC_INIT configure.ac|cut -d, -f2)
+version=$(echo $version) # remove spaces before and after
+
+# create a tarball (doing this in a build/ directory doesn't work)
+./configure
+make dist
+cp imslib-${version}.tar.bz2 ${DISTDIR}
+make distclean
+
+mkdir -p ${PORTDIR_OVERLAY}/sci-libs/imslib
+cp imslib.ebuild ${PORTDIR_OVERLAY}/sci-libs/imslib/imslib-${version}.ebuild
+ebuild ${PORTDIR_OVERLAY}/sci-libs/imslib/imslib-${version}.ebuild digest
+
+if ! grep -q sci-libs/imslib /etc/portage/package.keywords; then
+	echo "Run"
+	echo "echo sci-libs/imslib >> /etc/portage/package.keywords"
+	echo "before emerging imslib"
+fi
+if ! grep -q sci-libs/imslib /etc/portage/package.use; then
+	echo "You should run"
+	echo "echo sci-libs/imslib doc debug >> /etc/portage/package.use"
+	echo "before emerging imslib"
+fi
+echo
+echo "Now running emerge -av imslib"
+emerge -av imslib

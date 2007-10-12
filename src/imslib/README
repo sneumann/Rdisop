@@ -1,0 +1,67 @@
+Instructions for imslib installation 
+
+-------------------------
+Installation on x86 Linux
+-------------------------
+
+WANT_AUTOCONF="2.5" WANT_AUTOMAKE="1.8" autoreconf -f -v -i	
+./configure 		
+make
+make check (optional to compile and run tests)
+make install
+
+-----------------------------
+Installing an official imslib
+----------------------------- 
+
+./configure --prefix=/vol/ims-sw 
+			--libexecdir=/vol/ims-sw/lib 
+			--sysconfdir=/vol/ims-sw/share/etc 
+			--mandir=/vol/ims-sw/share/man 
+			--infodir=/vol/ims-sw/share/info 
+			--enable-debug
+
+-------------------------------------
+Installing on MacOSX Tiger (10.4.2)
+-------------------------------------
+
+LDFLAGS="-L/usr/lib/gcc/powerpc-apple-darwin8/4.0.0/ -lstdc++" ./configure
+
+This is possibly a bug... this should be used automagically.
+But for now this works.
+
+
+------
+Gentoo
+------
+
+./configure
+make
+make dist
+cp imslib-0.4.1.tar.bz2 /usr/portage/distfiles/
+mkdir -p /usr/local/portage/sci-libs/imslib/
+cp imslib.ebuild /usr/local/portage/sci-libs/imslib/imslib-0.4.1.ebuild
+ebuild /usr/local/portage/sci-libs/imslib/imslib-0.4.1.ebuild digest
+if not already done:
+	echo 'sci-libs/imslib' >> /etc/portage/package.keywords
+	echo 'sci-libs/imslib doc debug' >> /etc/portage/package.use
+end if
+emerge -av imslib
+
+---------------
+SunPro Compiler
+---------------
+mkdir sunpro && cd sunpro
+../configure CXX=CC CXXFLAGS="-fast -erroff=wvarhidemem -xarch=v8" LDFLAGS="-lm"
+
+
+-----
+libtool workaround for 64-bit:
+- use libtool64 in this directory instead of the auto-generated libtool
+script
+variables that were changed (added sparcv9):
+compiler_lib_search_path
+sys_lib_search_path_spec
+sys_lib_dlsearch_path_spec
+predep_objects
+postdep_objects

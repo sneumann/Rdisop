@@ -1,0 +1,59 @@
+2007-07-26  sneumann  <sneumann@ipb-halle.de>
+
+	* removed several get*Masses in favour of getMass
+	* polished vignette
+
+2007-07-11  sneumann  <sneumann@ipb-halle.de>
+
+	* R/elements.R, R/Rdisop.R: Formatting changes
+	* configure.in: disabled autogen for imslib
+
+2007-07-09  sneumann  <sneumann@ipb-halle.de>
+
+	* DESCRIPTION (Version): bumped Version following BioC scheme
+
+2007-07-03  sneumann  <sneumann@ipb-halle.de>
+
+	* src/disop.cpp: Clear error Message before running 
+
+2007-06-14  sneumann  <sneumann@ipb-halle.de>
+
+	* R/Rdisop.R: removed CHNOPS warning message
+	* Windows: first Windows build
+
+2007-06-07  sneumann  <sneumann@ipb-halle.de>
+
+	* R/Rdisop.R (decomposeMass): fixed call
+
+2007-06-05  sneumann  <sneumann@ipb-halle.de>
+
+	* src/disop.cpp: Fixed stack imbalance for empty decompositions
+	* src/disop.cpp: improved Error Handling 
+
+2007-05-25  sneumann  <sneumann@ipb-halle.de>
+
+	* R/elements.R: Added na, k, cl, br, f, i, fe, mg, ca
+
+	* R/Rdisop.R: moved isotope table to own file
+
+2007-05-15  Steffen Neumann  <sneumann@ipb-halle.de>
+
+	* Added addMolecule and subMolecule 
+	to do arithmetics with adducts / fragments
+
+2007-05-04  Steffen Neumann  <sneumann@ipb-halle.de>
+
+	* configure.in: Re-Added local copy of IMS as fallback
+
+2007-04-30  Steffen Neumann  <sneumann@ipb-halle.de>
+
+	* R/zzz.R: removed unnecesary library.dynam() 
+	which also caused problems on systems without libR.so
+	* src/ims/*: moved imslib sources into src/ subfolder
+	instead of using unchanged libims.a
+
+2007-03-23  Steffen Neumann  <sneumann@ipb-halle.de>
+
+	* src/disop.cpp: Removed decomposeMass(), this case is handled by
+	the R code.
+
