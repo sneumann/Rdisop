@@ -1,0 +1,28 @@
+ToDo:
+
+- use tclap in clients
+- use CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, actual, delta) (grep to find fabs in tests)
+- tests/imslib-tests must be run with a correct LD_LIBRARY_PATH. 
+	It should not be /vol/ims-sw/lib since we don't want to test the version that's already installed.
+- http://gcc.gnu.org/onlinedocs/libstdc++/17_intro/howto.html#6
+- remove empty destructors
+
+- Explain row AC_SUBST([AM_CPPFLAGS],['-I. -I./src -I$(srcdir)/src'])
+- Refactor TwoMassDecomposer2 (i.e. change name)
+
+
+recalibration
+=============
+
+- Polynom-Klasse
+- Calibrator-Klasse
+- Polygon => Polynom
+- interfaces for TOF, Mass, Intensity etc., then Multiple inheritance
+- implement functions, that work with peaklists, using iterators
+
+
+- max-lps-algorithm
+- transformation
+- linearpointsetmatcher.h
+
+- peaklist

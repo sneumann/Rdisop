@@ -1,0 +1,98 @@
+# installs an official imslib into /vol/ims-sw/
+# this script needs to be run on an Opteron once and then on a Sparc machine
+# (or vice versa).
+#                                     Marcel.Martin@CeBiTec.Uni-Bielefeld.DE
+
+# exit immediately if anything fails
+set -e
+
+if test "$(uname -m)" = sun4u; then
+	echo "Installing imslib for Sparc"
+	MACHINE=sparc
+elif test "$(uname -m)" = i86pc; then
+	echo "Installing imslib for x86"
+	MACHINE=i386
+fi
+
+TMPDIR=`mktemp -d -t` || { echo "Could not create temporary directory."; exit 1; }
+echo "Using temporary directory $TMPDIR"
+cd $TMPDIR
+svn export file:///vol/ims/svn/trunk/imslib imslib
+cd imslib
+autoreconf -fi || exit 1
+
+# first: 32-bit version
+mkdir build32
+cd build32
+
+if test "${MACHINE}" = i386; then
+	ARCHDIR=i386
+else
+	ARCHDIR=sparcv7
+	export CXXFLAGS="-mcpu=ultrasparc3 -O2 -g $CXXFLAGS"
+fi
+# some of the following parameters are currently not needed
+../configure \
+	--prefix=/vol/ims-sw \
+	--bindir=/vol/ims-sw/bin/${ARCHDIR} \
+	--libexecdir=/vol/ims-sw/lib \
+	--sysconfdir=/vol/ims-sw/share/etc \
+	--mandir=/vol/ims-sw/share/man \
+	--infodir=/vol/ims-sw/share/info \
+	--enable-debug || exit 1
+make -j 6 && make -j 6 check && make install || exit 1
+
+# See if there are any include files older than 10 minutes
+# and remove them. This is not perfect as it will in some
+# circumstances delete too many or too few files, but it's
+# more practical than deleting the installation directory
+# before 'make install'.
+echo "Deleting old include files ..."
+find /vol/ims-sw/include/ims -cmin +10 -type f -exec rm {} \;
+
+if test "${MACHINE}" = i386; then
+	echo Done
+	exit 0
+fi
+
+# second: 64-bit version
+
+echo "Sorry, the 64-bit version will not be built as the compilation"
+echo "will fail."
+
+# Documentation.
+
+echo "Making documentation."
+cd ..
+doxygen || exit 1
+rm -rf /vol/ims-sw/share/doc/imslib/
+mkdir -p /vol/ims-sw/share/doc/imslib/
+cp -av doxygen-doc/html/ /vol/ims-sw/share/doc/imslib/
+
+echo "Removing temporary directory."
+
+rm -rf "$TMPDIR"
+
+echo "Done."
+
+# mkdir ../build64 && cd ../build64 || exit 1
+# 
+# ARCHDIR=sparcv9
+# 
+# ../configure \
+# 	--prefix=/vol/ims-sw \
+# 	--bindir=/vol/ims-sw/bin/${ARCHDIR} \
+# 	--libdir=/vol/ims-sw/lib/${ARCHDIR} \
+# 	--libexecdir=/vol/ims-sw/lib/${ARCHDIR} \
+# 	--sysconfdir=/vol/ims-sw/share/etc \
+# 	--mandir=/vol/ims-sw/share/man \
+# 	--infodir=/vol/ims-sw/share/info \
+# 	--enable-64bit \
+# 	--enable-debug || exit 1
+# 
+# make -j 6 && make -j 6 check && make install || exit 1
+# cd /
+# rm -irf "$TMPDIR"
+# 
+# echo Done
+# 

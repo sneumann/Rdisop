@@ -1,0 +1,2 @@
+PKG_LIBS=-L./win -lims -L../RcppSrc -lRcpp
+PKG_CPPFLAGS=-I../RcppSrc -I../imslib/src 

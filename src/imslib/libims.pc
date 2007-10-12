@@ -1,0 +1,11 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libims
+Description: Informatics for Mass Spectrometry in Genomics and Proteomics
+Requires:
+Version: 0.5.0
+Libs: -L${libdir} -lims
+Cflags: -I${includedir}

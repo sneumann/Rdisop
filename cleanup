@@ -1,0 +1,16 @@
+rm -f confdefs.h config.log config.status config.sub config.guess
+rm -f src/Makevars
+rm -f src/*.o src/*.so
+rm -f src/libims.so*
+rm -f RcppSrc/*.[ao]
+make -C ./src/imslib/ clean
+rm -f RcppSrc/*.o RcppSrc/*.a inst/Rcpp-version.txt
+rm -f inst/doc/*.cpp inst/doc/*.hpp inst/doc/*.R 
+rm -f inst/doc/*.Rd inst/doc/*.aux inst/doc/*.log inst/doc/*.tex inst/doc/*.out
+rm -f inst/Rcpp-license.txt
+rm -rf inst/doc/auto
+rm -rf autom4te.cache
+rm -rf aclocal.m4
+find . -name \*~ -exec rm {} \;
+find . -name \*.flc -exec rm {} \;
+rm -f inst/doc/Rdisop.out

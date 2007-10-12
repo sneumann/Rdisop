@@ -1,0 +1,17 @@
+PKG_CXXFLAGS+=@CPPFLAGS@
+PKG_LIBS+=@LDFLAGS@ 
+#PKG_LIBS+=@IMS_LIBS@ 
+
+all: $(SHLIB) @WANT_IMS_TRUE@
+
+.PHONY: all libims
+
+# this is a hack to force SHLIB to run our sub-make
+# we don't really use has_jri
+
+Rdisop.so: libims
+
+libims:
+	$(MAKE) -C imslib all-am
+	@(cp -r ./imslib/src/.libs/libims.so*  .)
+

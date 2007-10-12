@@ -1,0 +1,87 @@
+/**
+@page coding Coding and Naming Conventions
+
+(for ims library and related modules)
+
+- Working language is English (functions, classes, comments, cvs commiting comments).
+
+- Encoding for all files is UTF-8. If you follow the rule to use only English,
+   this is likely not relevant for you.
+
+- Two empty lines between function definitions.
+
+- Object variables are differentiated from function parameters using keyword 'this'
+   (in case object variables and function parameters have the same name, for example in
+   setters).
+
+- Use one file per class.
+
+- Order of #include directives: System first, then other librarys (like cppunit),
+   then local headers. Never use #include "...", use #include <ims/...>
+   instead.
+
+- unit tests: Don't change tests.cpp, just write one .cpp file (no .h file necessary)
+   and add it to Makefile.am
+
+- Indent with tabs, format with spaces: only the first characters on a line can be
+  tabs, afterwards use spaces if you want sth. to line up vertically
+
+- Only if, while, for, etc. are followed by a space character,
+  no space after things as: Method, function, constructor and template names.
+
+if (cond) {
+	bla();
+	MyClass myclass(15);
+	vector<int> v;
+}
+  That applies not only to usage, but also to declarations and definitions: void func();
+
+- Within class declarations, methods are declared in the order public, protected, private.
+
+- Naming conventions:
+
+  a) Type
+  
+    Case 1. Template declaration.
+    Example: 
+        template <typename MassType> class MassPeak {};
+    
+    Type starts with the capital letter, has 'Type' at the end, i.e. 'MassType'.
+
+    Case 2. Class types.
+    Example: 
+        template <typename MassType>
+        class MassPeak {
+            public:
+                   typedef MassType mass_type;
+        };
+
+    Type consists of low case letters only with '_type' at the end, i.e. 'mass_type'.
+
+    Case 3. Global types in applications.
+    Example:
+         typedef MassPeak<double> peak_t;
+
+    Type consists of low case letters only with '_t' at the end, i.e. 'peak_t'.
+
+  b) Member variables
+  	
+  	Examples: 
+  		bool is_data_found;
+  		int total_counter;
+  
+- Construction 'using namespace' 
+  * is not allowed to be used in headers;
+  * is adviced to be used in tests or applications;
+  * is allowed to be used in sources, but the decision to use it or not is left to the coder.
+ 
+- Comments on classes and their public methods are placed in headers above corresponding declarations.
+	Comments specific to method implementation should be next to its implementation. 
+	This is usually in the .cpp file, unless template classes are used. 
+
+- Template parameters have to be commented (@param can be used for that)
+
+- see the Java coding conventions for everything not mentioned here:
+   http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html
+
+*/
