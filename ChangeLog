@@ -1,3 +1,7 @@
+2007-10-14  Steffen Neumann  <sneumann@ipb-halle.de>
+
+	* man: fixed some manpages 
+
 2007-07-26  sneumann  <sneumann@ipb-halle.de>
 
 	* removed several get*Masses in favour of getMass

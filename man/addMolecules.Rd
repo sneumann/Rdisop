@@ -4,8 +4,7 @@
 
 \title{Add/subtract sum formulae}
 \description{
-  Parse the sum formula and calculate the theoretical exacat mass and
-  the isotope distribution.
+  Simple arithmetic modifications of sum formulae.
 }
 \usage{
 addMolecules(formula1, formula2, elements = NULL)
@@ -19,14 +18,17 @@ subMolecules(formula1, formula2, elements = NULL)
 }
 
 \details{
-  Subtracts first from second molecule. This can be useful to revert
+  addMolecules() adds the second argument to the first.
+  subMolecules() subtracts the second argument from the first.
+
+  This can be useful to revert
   e.g. adduct/fragment formation found in ESI mass spectrometry,
   or to mimick simple chemical reactions. No chemical checks are
   performed.
 }
 
 \value{
-    \item{A list with the elements
+    \item{}{A list with the elements
       \item{formula}{
 	repeated sum formula
       }
