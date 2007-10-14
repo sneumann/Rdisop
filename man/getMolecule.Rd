@@ -8,7 +8,7 @@
 
 \title{Calculate mass and isotope information for a molecule given as sum formula}
 \description{
-  Parse the sum formula and calculate the theoretical exacat mass and
+  Parse the sum formula and calculate the theoretical exact mass and
   the isotope distribution.
 }
 \usage{
@@ -31,7 +31,7 @@ getValid(molecule)
 
 \details{
   getMolecule() Parse the sum formula and calculate the theoretical
-exacat mass and
+  exact mass and
   the isotope distribution. For a given element, return the different
   mass values. 
 }
