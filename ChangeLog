@@ -1,3 +1,7 @@
+2007-10-15  sneumann  <sneumann@ipb-halle.de>
+
+	* confogure.win, src/Makevars.win: Fix Windows build
+
 2007-10-14  Steffen Neumann  <sneumann@ipb-halle.de>
 
 	* man: fixed some manpages 
