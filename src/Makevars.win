@@ -1,0 +1,2 @@
+PKG_CXXFLAGS+=-I./imslib/src -I../RcppSrc/
+PKG_LIBS+=-L./imslib/src/.libs -lims -L../RcppSrc/ -lRcpp 
