@@ -1,12 +1,21 @@
 echo "Building libRcpp.a in RcppSrc..."
 R_HOME=`R RHOME`
-CXX=`R CMD config CXX`
 cd RcppSrc
-make RHOME=${R_HOME} CXX=${CXX} -f Makefile.win
+make RHOME=${R_HOME} -f Makefile.win
 cd ..
 if test \! -d inst
 then
     mkdir inst
 fi
 cp RcppSrc/Rcpp-license.txt inst
+
+echo "Building imslib.daa in src/imslib..."
+cd src/imslib/
+configure
+make src/libims.la
+mkdir $DPKG/libs
+cp src/.libs/libims-0.dll $DPKG/libs/
+cd ../..
+
+
 
