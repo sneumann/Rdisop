@@ -13,8 +13,13 @@ echo "Building imslib.daa in src/imslib..."
 cd src/imslib/
 configure
 make src/libims.la
-mkdir $DPKG/libs
-cp src/.libs/libims-0.dll $DPKG/libs/
+
+mkdir -f $DPKG/libs
+cp src/.libs/libims* $DPKG/libs/
+
+ls -l src/.libs/
+ls -l $DPKG/libs/
+
 cd ../..
 
 
