@@ -1,10 +1,18 @@
-2007-10-19  sneumann  <sneumann@lathan.ipb-sub.ipb-halle.de>
+2007-12-04  sneumann  <sneumann@ipb-halle.de>
+
+	* R/Rdisop.R, man/decomposeMass.Rd: added absolute mass deviation
+
+2007-10-29  begert  <begert@ipb-halle.de>
+
+	* R/elements.R: Fixed O mass
+
+2007-10-19  sneumann  <sneumann@ipb-halle.de>
 
 	* NAMESPACE: Re-enabled useDynLib(libims) to fix Linux Build
 
 2007-10-15  sneumann  <sneumann@ipb-halle.de>
 
-	* confogure.win, src/Makevars.win: Fix Windows build
+	* configure.win, src/Makevars.win: Fix Windows build
 
 2007-10-14  Steffen Neumann  <sneumann@ipb-halle.de>
 
