@@ -12,17 +12,17 @@ fi
 cp RcppSrc/Rcpp-license.txt inst
 
 echo "Building imslib.dll in src/imslib..."
-cd src/imslib/
-configure
-make src/libims.la
+#cd src/imslib/
+#configure
+#make src/libims.la
 
-mkdir -f $DPKG/libs
-cp src/.libs/libims* $DPKG/libs/
+mkdir ${DPKG}/libs
+cp src/win/libims-0.dll ${DPKG}/libs/
 
-ls -l src/.libs/
-ls -l $DPKG/libs/
+ls -l src/win/libims*.dll
+ls -l ${DPKG}/libs/
 
-cd ../..
+#cd ../..
 
 
 

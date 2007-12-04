@@ -1,5 +1,9 @@
 2007-12-04  sneumann  <sneumann@ipb-halle.de>
 
+	* configure.win, src/Makevars.win, src/win/*: Fix Windows build
+
+	2007-12-04  sneumann  <sneumann@ipb-halle.de>
+
 	* R/Rdisop.R, man/decomposeMass.Rd: added absolute mass deviation
 
 2007-10-29  begert  <begert@ipb-halle.de>
