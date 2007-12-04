@@ -126,11 +126,13 @@ subMolecules <- function(formula1, formula2,
 }
 
 
-decomposeMass <- function(mass, ppm=5.0, elements=NULL, filter=NULL, z=0) {
-    decomposeIsotopes(c(mass), c(1), elements=elements, filter=filter, z=z)
+decomposeMass <- function(mass, ppm=2.0, mzabs=0.0001,
+                          elements=NULL, filter=NULL, z=0) {
+    decomposeIsotopes(c(mass), c(1), ppm=ppm, mzabs=mzabs,
+                      elements=elements, filter=filter, z=z)
 }
 
-decomposeIsotopes <- function(masses, intensities, ppm=5.0,
+decomposeIsotopes <- function(masses, intensities, ppm=2.0, mzabs=0.0001,
                               elements=NULL, filter=NULL, z=0)
 {
     # Use limited limited CHNOPS unless stated otherwise
@@ -160,6 +162,11 @@ decomposeIsotopes <- function(masses, intensities, ppm=5.0,
     element_order <- sapply(elements, function(x){x$name})
     elements <- elements[order(sapply(elements, function(x){x$mass}))]
 
+    ##
+    ## Calculate relative Error based on masses[1] and mzabs
+    ##
+
+    ppm <- ppm + mzabs/masses[1]*1000000
     # Finally ready to make the call...
     molecules <- .Call("decomposeIsotopes",
                        masses, intensities, ppm, elements, element_order, z,

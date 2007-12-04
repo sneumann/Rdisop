@@ -55,8 +55,8 @@ initializePSE <- function() {
     h <- list(name="H", mass=1,  isotope = list(mass=c(0.007825,0.014102), abundance=c(0.99985, 0.00015)))
     n <- list(name="N", mass=14, isotope = list(mass=c(0.003074,0.000109), abundance=c(0.99634, 0.00366)))
 
-    o <- list(name="O", mass=16, isotope = list(mass =c(-0.005085,-0.000868,-0.000839),
-                                 abundance=c( 0.99762,  0.00038,  0.002)))
+    o <- list(name="O", mass=16, isotope = list(mass=c(-0.00509,-0.000868,-0.000839),
+                                 abundance=c(           0.99762, 0.00038,  0.002)))
 
     p <- list(name="P", mass=31, isotope = list(mass=c(-0.026238), abundance=c(1.0)))
 
