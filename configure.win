@@ -3,7 +3,7 @@ R_HOME=`R RHOME`
 CXX=`R CMD config CXX`
 CC=`R CMD config CC`
 cd RcppSrc
-make RHOME=${R_HOME} -f Makefile.win
+make CXX=${CXX} RHOME=${R_HOME} -f Makefile.win
 cd ..
 if test \! -d inst
 then
