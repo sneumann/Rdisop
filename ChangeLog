@@ -2,7 +2,7 @@
 
 	* configure.win, src/Makevars.win, src/win/*: Fix Windows build
 
-	2007-12-04  sneumann  <sneumann@ipb-halle.de>
+2007-12-04  sneumann  <sneumann@ipb-halle.de>
 
 	* R/Rdisop.R, man/decomposeMass.Rd: added absolute mass deviation
 
