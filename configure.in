@@ -42,7 +42,8 @@ cd RcppSrc
 make RHOME=${R_HOME}
 cd ..
 
-
+echo "Debugging Library stuff"
+ls -l ${DPKG}/libs/
 
 if test \! -d inst
 then
