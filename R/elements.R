@@ -64,7 +64,7 @@ initializePSE <- function() {
                                  abundance=c( 0.9502,    0.0075,     0.0421,   0,  0.0002)))
 
 
-    na <- list(name="Na", mass= 23, isotope = list(mass=c(0.0), abundance=c(1.0)))
+    na <- list(name="Na", mass= 23, isotope = list(mass=c(-0.01023072), abundance=c(1.0)))
 
     k  <- list(name="K",  mass= 39, isotope = list(     mass=c(-0.036293, -0.036001, -0.038175),
                                     abundance=c( 0.932581,  0.0117,    6.7302 )))
