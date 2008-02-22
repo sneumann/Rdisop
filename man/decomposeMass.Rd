@@ -46,7 +46,6 @@ isotopeScore(molecule, masses, intensities, elements = NULL, filter = NULL, z = 
 	 a list of isotopes 
   }
 
-  How to do error checking ?!
 }
 
 \examples{
