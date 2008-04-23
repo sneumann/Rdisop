@@ -75,7 +75,6 @@ initializePSE <- function() {
     br <- list(name="Br", mass= 79, isotope = list(     mass=c( -0.0817, 0.0, -0.0837 ),
                                     abundance=c(  0.505,  0.0,  0.495)))
 
-
     si <- list(name="Si", mass= 28, isotope = list(     mass=c( -0.0231, -0.0235, -0.0262  ),
                                     abundance=c(  0.9228,  0.0470,  0.0302  )))
 
@@ -87,14 +86,30 @@ initializePSE <- function() {
 
 
     mg <- list(name="Mg", mass=24, isotope = list(     mass=c( -0.0149577, -0.0141626, -0.017406 ),
-                                   abundance=c( 78.99,       0.1000 ,    0.1101)))
+                                   abundance=c( 0.7899,       0.1000 ,    0.1101)))
 
 
-    ca <- list(name="Ca", mass=40, isotope = list(     mass=c( -0.0374094, -0.0413824, -0.0412338, -0.0445194   ),
+    ca <- list(name="Ca", mass=40, isotope = list(     mass=c( -0.0374094, +0.9586176, +0.9587662, +0.9554806   ),
                                    abundance=c(  0.96941,    0.00647,    0.00135,    0.02086  )))
 
+    cd <- list(name="Cd", mass=106, isotope = list(    mass=c( -0.093539, +0.904176, +1.903005, +1.904182, +1.902757, +1.904400, +1.903357, +2.904755),
+				   abundance=c(0.0125, 0.0089, 0.1249, 0.1280, 0.2413, 0.1222, 0.2873, 0.0749)))
+    hg <- list(name="Hg", mass=196, isotope = list(    mass=c(-0.034193, +0.966743, +0.968254, +0.968300, +0.970277, +0.970617, +1.973467),
+				   abundance=c(0.0015, 0.0997, 0.1687, 0.2310, 0.1318, 0.2986, 0.0687)))
 
-    list(c,h,n,o,p,s, na, k, cl, br, f, i, fe, mg, ca)
+    zn <- list(name="Zn", mass=64, isotope = list(     mass=c(-0.0708552, 0.0, -0.0739653, -0.0728709, -0.0751541, 0.0, -0.074675),
+				   abundance=c(0.4863, 0.0, 0.2790, 0.0410, 0.1875, 0.0, 0.0062)))
+    
+    cu <- list(name="Cu", mass=63, isotope = list(	mass=c(-0.0704011, 0.0, -0.0722071),
+				   abundance=c(0.6917, 0.0, 0.3083)))
+
+    ni <- list(name="Ni", mass=58, isotope = list(	mass=c(-0.0646538, 0.0, -0.0692116, -0.0689421, -0.0716539, 0.0, -0.0720321),
+				  abundance=c(0.680769, 0.0, 0.262231, 0.011399, 0.036345, 0.0, 0.009256)))
+
+    mn <- list(name="Mn", mass=55, isotope = list(	mass=c(0.0619529),
+				  abundance=c(1.0)))
+    
+    list(c,h,n,o,p,s, na, k, cl, br, f, i, fe, mg, ca, cd, hg, zn, cu, ni, mn)
 }
 
 
