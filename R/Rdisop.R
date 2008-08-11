@@ -1,7 +1,7 @@
 
 .getElement <- function(name, elements = NULL) {
 
-    if (is.list(elements) || length(elements)==0 ) {
+    if (!is.list(elements) || length(elements)==0 ) {
         elements <- initializePSE()
     }
     rex <- paste ("^",name,"$", sep="")
@@ -43,7 +43,7 @@ getValid <- function(molecule) {
 
 getMolecule <- function(formula, elements = NULL, z = 0) {
     # Use full PSE unless stated otherwise
-    if (is.list(elements) || length(elements)==0 ) {
+    if (!is.list(elements) || length(elements)==0 ) {
         elements <- initializePSE()
     }
 
@@ -74,7 +74,7 @@ addMolecules <- function(formula1, formula2,
     }
 
     # Use full PSE unless stated otherwise
-    if (is.list(elements) || length(elements)==0 ) {
+    if (!is.list(elements) || length(elements)==0 ) {
         elements <- initializePSE()
     }
 
@@ -105,7 +105,7 @@ subMolecules <- function(formula1, formula2,
     }
 
     # Use full PSE unless stated otherwise
-    if (is.list(elements) || length(elements)==0 ) {
+    if (!is.list(elements) || length(elements)==0 ) {
         elements <- initializePSE()
     }
 
@@ -182,6 +182,35 @@ decomposeIsotopes <- function(masses, intensities, ppm=2.0, mzabs=0.0001,
 isotopeScore <- function(molecule, masses, intensities,
                          elements=NULL, filter=NULL, z=0) {
 
-    stop("NYI")
-}
+	# Use limited limited CHNOPS unless stated otherwise
+    	if (!is.list(elements) || length(elements)==0 ) {
+        elements <- initializeCHNOPS()
+    	}
 
+ 	# If only a single mass is given,
+    	# intensities are irrelevant
+    	if (length(masses) == 1) {
+        	intensities <- 1
+    	}
+
+    	if (length(masses) != length(intensities) )  {
+       	 stop("masses and intensities have different lengths!")
+    	}
+
+# 	molecule <- getMolecule(formula)
+# 	massintensities<-matrix(NA,ncol=length(masses),nrow=2)
+# 	for(i in 1:length(masses))
+	{
+# 		massintensities[1,i]<-masses[i];
+# 		massintensities[2,i]<-intensities[i];
+	}
+# 	molecule$isotopes <- list(massintensities)
+#         scoreMolecule(molecule,elements,filter,z);
+	predictedMass<-molecule$isotopes[[1]][1,];
+	predictedAbundances<-molecule$isotopes[[1]][2,];
+	score <- .Call("calculateScore",predictedMass,predictedAbundances,masses,intensities,PACKAGE="Rdisop")
+
+	score
+
+# 	molecule
+}

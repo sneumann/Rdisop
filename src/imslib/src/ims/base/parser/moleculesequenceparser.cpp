@@ -103,8 +103,11 @@ MoleculeSequenceParser::parseElements(const sequence_type& sequence)
 			start_pos += subsequence_end_pos - start_pos + 1 + number_range;
 			
 //			std::cout << "subsequence is parsed, continuing from letter " << sequence[start_pos] << '\n';
-		}	else if (std::isalpha(sequence[start_pos]) && 
-					   std::isupper(sequence[start_pos])) {
+		}	else if ((std::isalpha(sequence[start_pos]) 
+				  && std::isupper(sequence[start_pos]))
+				 || sequence[start_pos]=='+' 
+				 || sequence[start_pos]=='-' 
+				 ) {
 		
 			sequence_type::size_type number_pos_beg = 1;
 
@@ -114,7 +117,7 @@ MoleculeSequenceParser::parseElements(const sequence_type& sequence)
 			}
 
 			sequence_type letter = sequence.substr(start_pos, number_pos_beg);
-// 			std::cout << "new letter: " << letter << "number_pos_beg: " << number_pos_beg << std::endl;
+			// 			std::cout << "new letter: " << letter << "number_pos_beg: " << number_pos_beg << std::endl;
 			sequence_type::size_type number_range = 0;
 			for (;  start_pos + number_pos_beg + number_range < end_pos && 
 		    	    std::isdigit(sequence[start_pos + number_pos_beg + number_range]); ++number_range) {
@@ -127,7 +130,7 @@ MoleculeSequenceParser::parseElements(const sequence_type& sequence)
 					throw UnknownCharacterException("Sequence \"" + sequence + "\" cannot be parsed!" + " Stopped at digit '" + sequence[start_pos+number_pos_beg] + "'!");
 				}
 			}
-// 			std::cout << "new amount: " << amount << "number_pos_end:" << number_pos_end << std::endl; 
+			// 			std::cout << "new amount: " << amount << "number_pos_end:" << number_pos_end << std::endl; 
 			addElement(letter, amount, elements);
 			start_pos += number_pos_beg + number_range;
 		} else {

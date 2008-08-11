@@ -24,7 +24,7 @@ DistributionProbabilityScorer::DistributionProbabilityScorer(
 											predicted_masses(masses),
 											predicted_abundances(abundances), 
 											mass_precision_ppm(2),
-											isDebugMode(false) {
+											isDebugMode(true) {
 
 //  masses, absolute differences, wabi dataset
 //	mass_dists.push_back(NormalDistribution(0.0001433646, 6.564365e-07));

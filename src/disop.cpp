@@ -175,7 +175,7 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
 	if (l_alphabet == NULL || length(l_alphabet) < 1  ) {
 	  initializeCHNOPS(alphabet); 
 	  // initializes order of atoms in which one would
-	  // like them to appear in the molecule's sequence
+	  // like them to appear in the molecules sequence
 	  elements_order.push_back("C");
 	  elements_order.push_back("H");
 	  elements_order.push_back("N");
@@ -249,10 +249,10 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
 // 		if (!isValidMyNitrogenRule(candidate_molecule, z)) {
 // 			continue;
 // 		} 
-		// updates molecule's isotope distribution (since it's not calculated upon creation: 
+		// updates molecules isotope distribution (since its not calculated upon creation: 
 		// it would be time consuming before applying chemical filter)
 		candidate_molecule.updateIsotopeDistribution();
-		// updates molecule's sequence in a order of elements(atoms) one would like it
+		// updates molecules sequence in a order of elements(atoms) one would like it
 		// to appear
 		candidate_molecule.updateSequence(&elements_order);
 
@@ -328,6 +328,67 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
 
 // }}}
 
+RcppExport SEXP calculateScore(SEXP v_predictMasses, SEXP v_predictAbundances, SEXP v_measuredMasses, SEXP v_meausuredAbundances) {
+//  {{{
+	typedef DistributionProbabilityScorer scorer_type;
+    	typedef scorer_type::score_type score_type;
+    	typedef scorer_type::masses_container masses_container;
+    	typedef scorer_type::abundances_container abundances_container;
+    	typedef distribution_t::peaks_container peaks_container;
+    	typedef distribution_t::mass_type mass_type;
+    	typedef distribution_t::abundance_type abundance_type;
+
+
+
+	RcppVector<double> masses = RcppVector<double>(v_predictMasses);
+	RcppVector<double> abundances = RcppVector<double>(v_predictAbundances);
+
+	// fills peaklist masses and abundances, 
+	// since we cannot use masses and abundances - instances of RcppVector object - directly
+
+	masses_container peaklist_masses;
+	abundances_container peaklist_abundances;
+	for (masses_container::size_type mi = 0; mi < masses.size() && mi < abundances.size(); ++mi)
+	{
+		peaklist_masses.push_back(masses(mi));
+		peaklist_abundances.push_back(abundances(mi));
+	}
+
+	// initializes distribution probability scorer
+	scorer_type scorer(peaklist_masses, peaklist_abundances);
+
+	masses = RcppVector<double>(v_measuredMasses);
+	abundances = RcppVector<double>(v_meausuredAbundances);
+	//cout << "Mess:" << masses<<"\n";
+	masses_container mess_masses;
+	abundances_container mess_abundances;
+
+	// normalizes abundances
+	abundance_type abundances_sum = 0.0;
+	for (peaks_container::size_type i = 0; i < abundances.size(); ++i) {
+		abundances_sum += abundances(i);
+	}
+	for (peaks_container::size_type i = 0; i < abundances.size(); ++i) {
+		abundances(i) /= abundances_sum;
+	}	
+
+	for (masses_container::size_type mi = 0; mi < masses.size() && mi < abundances.size(); ++mi)
+	{
+		mess_masses.push_back(masses(mi));
+		mess_abundances.push_back(abundances(mi));
+	}
+
+	score_type score=scorer.score(mess_masses, mess_abundances);
+	SEXP output;
+	PROTECT(output = NEW_NUMERIC(1));
+	//cout<< score;
+	REAL(output)[0]=score;
+	UNPROTECT(1);
+ 	return (output);
+}
+// }}}
+
+
 RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet, SEXP v_element_order, SEXP z) {
   // {{{ 
 
@@ -350,7 +411,7 @@ RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet, SEXP v_element_orde
   if (l_alphabet == NULL || length(l_alphabet) < 1  ) {
     initializeCHNOPS(alphabet); 
     // initializes order of atoms in which one would
-    // like them to appear in the molecule's sequence
+    // like them to appear in the molecules sequence
     elements_order.push_back("C");
     elements_order.push_back("H");
     elements_order.push_back("N");
@@ -418,7 +479,7 @@ RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
   if (l_alphabet == NULL || length(l_alphabet) < 1  ) {
     initializeCHNOPS(alphabet); 
     // initializes order of atoms in which one would
-    // like them to appear in the molecule's sequence
+    // like them to appear in the molecules sequence
     elements_order.push_back("C");
     elements_order.push_back("H");
     elements_order.push_back("N");
@@ -480,7 +541,7 @@ RcppExport SEXP subMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
   if (l_alphabet == NULL || length(l_alphabet) < 1  ) {
     initializeCHNOPS(alphabet); 
     // initializes order of atoms in which one would
-    // like them to appear in the molecule's sequence
+    // like them to appear in the molecules sequence
     elements_order.push_back("C");
     elements_order.push_back("H");
     elements_order.push_back("N");
@@ -724,6 +785,7 @@ void initializeAlphabet(const SEXP l_alphabet,
     SEXP l = VECTOR_ELT(l_alphabet,i);
 	  
     const char *symbol = STRING_VALUE(getListElement(l, "name"));
+
     nominal_mass_type nominalmass = (nominal_mass_type) REAL(getListElement(l, "mass"))[0];
 	  	  
     SEXP isotope = getListElement(l, "isotope");	
@@ -758,6 +820,7 @@ extern "C" {
       {"addMolecules", (void* (*)())&addMolecules, 4},
       {"subMolecules", (void* (*)())&subMolecules, 4},
       {"decomposeIsotopes", (void* (*)())&decomposeIsotopes, 6},
+      {"calculateScore", (void* (*)())&calculateScore, 7},
       {NULL, NULL, 0}
     };
     
