@@ -3,6 +3,7 @@
 \alias{initializeCHNOPS}
 \alias{initializeCHNOPSMgKCaFe}
 \alias{initializeCHNOPSNaK}
+\alias{initializeCharges}
 \alias{initializePSE}
 
 \title{Initialize (a subset of) elements of the periodic system of
@@ -39,8 +40,8 @@ initializeElements(names)
        \item{isotopes}{
 	 a list of isotopes 
   }
-
-  How to do error checking ?!
+  The initializeCharges() is special, since it allows to parse charges
+	 such as \code{getMolecule("H3O+", elements=c(initializeCHNOPS(),initializeCharges()))}
 }
 
 \examples{

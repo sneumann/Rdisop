@@ -1,4 +1,4 @@
 # echo "useDynLib(Rdisop)" ; echo -n "export(" ; grep --no-filename "<- function" R/*.R | cut -d" " -f 1 | grep -v First.lib | grep -v getElement | sort |  xargs echo -n | tr " " , ; echo ")"
 useDynLib(libims)
 useDynLib(Rdisop)
-export(addMolecules,decomposeIsotopes,decomposeMass,getMass,getFormula,getIsotope,getValid,getMolecule,getScore,initializeCHNOPS,initializeCHNOPSMgKCaFe,initializeCHNOPSNaK,initializeElements,initializePSE,isotopeScore,RcppVersion,subMolecules)
+export(addMolecules,decomposeIsotopes,decomposeMass,getMass,getFormula,getIsotope,getValid,getMolecule,getScore,initializeCHNOPS,initializeCHNOPSMgKCaFe,initializeCHNOPSNaK,initializeElements,initializePSE,initializeCharges,isotopeScore,RcppVersion,subMolecules)

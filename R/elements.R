@@ -99,7 +99,7 @@ initializePSE <- function() {
 
     zn <- list(name="Zn", mass=64, isotope = list(     mass=c(-0.0708552, 0.0, -0.0739653, -0.0728709, -0.0751541, 0.0, -0.074675),
 				   abundance=c(0.4863, 0.0, 0.2790, 0.0410, 0.1875, 0.0, 0.0062)))
-    
+
     cu <- list(name="Cu", mass=63, isotope = list(	mass=c(-0.0704011, 0.0, -0.0722071),
 				   abundance=c(0.6917, 0.0, 0.3083)))
 
@@ -108,11 +108,18 @@ initializePSE <- function() {
 
     mn <- list(name="Mn", mass=55, isotope = list(	mass=c(0.0619529),
 				  abundance=c(1.0)))
-    
-    list(c,h,n,o,p,s, na, k, cl, br, f, i, fe, mg, ca, cd, hg, zn, cu, ni, mn)
+
+    mo <- list(name="Mo", mass=91, isotope = list(	mass=c(0.906809, 0.0, 0.9050853, 0.9058411, 0.9046785, 0.9060205, 0.905054073, 0.0, 0.907477),
+				abundance=c(0.1484, 0.0, 0.0925, 0.1668, 0.0955, 0.2413, 0.0, 0.0963)))
+
+    list(c,h,n,o,p,s, na, k, cl, br, f, i, fe, mg, ca, cd, hg, zn, cu, ni, mn, mo)
 }
 
-
+initializeCharges <- function() {
+    positive <- list(name="+", mass=0, isotope = list(mass=c(-0.005485), abundance=c(1)))
+    negative <- list(name="-", mass=0, isotope = list(mass=c(+0.005485), abundance=c(1)))
+    list(positive, negative)
+}
 
 #
 # Tests

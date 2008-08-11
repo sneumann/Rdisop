@@ -105,8 +105,11 @@ StandardMoleculeSequenceParser::parseElements(const sequence_type& sequence)
 			if(sequence.substr(start_pos, 1) == closeSpecialBrackets) ++start_pos; // If there are closing brackets continue one position further
 //			std::cout << "subsequence is parsed, continuing from letter " << sequence[start_pos] << '\n';
 
-		}	else if (std::isalpha(sequence[start_pos]) && 
-					   std::isupper(sequence[start_pos])) {
+		}	else if ((std::isalpha(sequence[start_pos]) 
+				  && std::isupper(sequence[start_pos]))
+				 || sequence[start_pos]=='+' 
+				 || sequence[start_pos]=='-' 
+				 ) {
 		
 			sequence_type::size_type number_pos_beg = 1;
 

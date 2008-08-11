@@ -1,3 +1,10 @@
+2008-08-11  sneumann  <sneumann@ipb-halle.de>
+
+	* R/elements.R (initializeCharges): added initializeCharges, which
+	can be useful for getMolecule("H3O+", elements=c(initializeCHNOPS(),initializeCharges()))
+	* R/Rdisop.R: fixed important bug which always initialised the
+	full PSE when supplying a special elements list
+	
 2008-04-23  sneumann  <sneumann@ipb-halle.de>
 
 	* R/elements.R: fixed some masses/abundances, 
