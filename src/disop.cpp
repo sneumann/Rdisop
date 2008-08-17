@@ -26,6 +26,8 @@
 #include <map>
 #include <sstream>
 #include <numeric>
+#include <string>
+#include <cstring>
 
 //
 // IMS Stuff
