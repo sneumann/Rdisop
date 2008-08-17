@@ -2,6 +2,8 @@
 #define IMS_MULTIMODIFIER_H
 
 #include <list>
+#include <memory>
+
 #include <ims/modifier/modifier.h>
 
 

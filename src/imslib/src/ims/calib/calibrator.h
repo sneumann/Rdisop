@@ -2,6 +2,8 @@
 #define IMS_CALIBRATOR_H
 
 #include <map>
+#include <memory>
+
 #include <ims/transformation.h>
 #include <ims/logger.h>
 #include <ims/chebyshevfitter.h>

@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <stdexcept>
+#include <memory>
 
 #include <ims/base/exception/exception.h>
 #include <ims/transformation.h>

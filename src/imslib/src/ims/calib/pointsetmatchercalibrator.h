@@ -3,6 +3,7 @@
 
 #include <map>
 #include <algorithm>
+#include <memory>
 
 #include <ims/logger.h>
 #include <ims/transformation.h>

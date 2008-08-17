@@ -2,6 +2,8 @@
 #define IMS_REALMASSDECOMPOSER_H
 
 #include <utility>
+#include <memory>
+
 #include <ims/decomp/integermassdecomposer.h>
 
 namespace ims {

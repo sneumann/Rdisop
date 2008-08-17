@@ -3,6 +3,7 @@
 
 #include <map>
 #include <ostream>
+#include <memory>
 #include <ims/element.h>
 #include <ims/alphabet.h>
 #include <ims/elementsortcriteria.h>
