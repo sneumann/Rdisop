@@ -2,6 +2,7 @@
 #define IMS_FRAGMENTER_H
 
 #include <vector>
+#include <memory>
 
 #include <ims/peaklist.h>
 #include <ims/fragmentpeak.h>

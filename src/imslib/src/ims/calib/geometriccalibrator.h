@@ -4,6 +4,8 @@
 #include <vector>
 #include <utility>
 #include <cmath>
+#include <memory>
+
 #include <ims/calib/matchmatrix.h>
 #include <ims/calib/calibrator.h>
 

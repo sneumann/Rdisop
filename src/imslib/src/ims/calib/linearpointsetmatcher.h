@@ -5,6 +5,7 @@
 #include <map>
 #include <cmath>
 #include <limits>
+#include <memory>
 
 #include <ims/logger.h>
 #include <ims/transformation.h>
