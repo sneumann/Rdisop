@@ -11,7 +11,7 @@ all: $(SHLIB) @WANT_IMS_TRUE@
 Rdisop.so: libims
 
 libims:
-	$(MAKE) -C imslib all-am
+	$(MAKE) -C imslib src/libims.la
 	ls -l ./imslib/src/.libs/
 	cp -rv ./imslib/src/.libs/*ims*$(DYLIB_EXT)* .
 
