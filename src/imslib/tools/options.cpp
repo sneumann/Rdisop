@@ -1,3 +1,5 @@
+#include <limits>
+#include <stdlib.h>
 #include "options.h"
 
 Options::Options() :
