@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include <limits>
+
 #include <ims/tclap/CmdLine.h>
 #include <ims/base/exception/exception.h>
 

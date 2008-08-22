@@ -7,6 +7,7 @@
 #include <cassert>
 #include <sstream>
 
+#include <cstring>
 #include <config.h>
 
 #include <ims/alphabet.h>

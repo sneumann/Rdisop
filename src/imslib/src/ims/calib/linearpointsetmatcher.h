@@ -6,6 +6,7 @@
 #include <cmath>
 #include <limits>
 #include <memory>
+#include <algorithm>
 
 #include <ims/logger.h>
 #include <ims/transformation.h>

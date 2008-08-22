@@ -2,6 +2,7 @@
  * Author: Anton Pervukhin <Anton.Pervukhin@CeBiTec.Uni-Bielefeld.DE>
  */
 #include <functional>
+#include <algorithm>
 #include <ims/alphabet.h>
 #include <ims/utils/compose_f_gx_t.h>
 #include <ims/utils/compose_f_gx_hy_t.h>
