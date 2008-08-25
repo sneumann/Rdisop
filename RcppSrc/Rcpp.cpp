@@ -17,6 +17,7 @@
 // Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA 
 
 #include "Rcpp.hpp"
+#include <cstring>
 
 RcppParams::RcppParams(SEXP params) {
     if(!isNewList(params))
@@ -881,7 +882,7 @@ void RcppFunction::appendToRList(string name, RcppDate& date) {
 // a setjmp() call), and he suggested the following work-around.
 char *copyMessageToR(const char* const mesg) {
     char* Rmesg;
-    char* prefix = "Exception: ";
+    const char* prefix = "Exception: ";
     void* Rheap = R_alloc(std::strlen(prefix)+std::strlen(mesg)+1,sizeof(char));
     Rmesg = static_cast<char*>(Rheap);
     std::strcpy(Rmesg, prefix);
