@@ -17,7 +17,7 @@ echo "Building imslib.dll in src/imslib..."
 #make src/libims.la
 
 mkdir ${DPKG}/libs
-cp src/win/libims*.dll ${DPKG}/libs/
+cp src/winlibs/libims*.dll ${DPKG}/libs/
 
 ls -l src/win/libims*.dll
 ls -l ${DPKG}/libs/
