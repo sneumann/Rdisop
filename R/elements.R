@@ -52,6 +52,7 @@ initializeCHNOPSNaK <- function() {
 
 initializePSE <- function() {
     c <- list(name="C", mass=12, isotope = list(mass=c(0.0,     0.003355), abundance=c(0.9889,  0.0111)))
+    d <- list(name="D", mass=2,  isotope = list(mass=c(0.014102),	   abundance=c(1))) #Heavy Water
     h <- list(name="H", mass=1,  isotope = list(mass=c(0.007825,0.014102), abundance=c(0.99985, 0.00015)))
     n <- list(name="N", mass=14, isotope = list(mass=c(0.003074,0.000109), abundance=c(0.99634, 0.00366)))
 
@@ -112,7 +113,7 @@ initializePSE <- function() {
     mo <- list(name="Mo", mass=91, isotope = list(	mass=c(0.906809, 0.0, 0.9050853, 0.9058411, 0.9046785, 0.9060205, 0.905054073, 0.0, 0.907477),
 				abundance=c(0.1484, 0.0, 0.0925, 0.1668, 0.0955, 0.2413, 0.0, 0.0963)))
 
-    list(c,h,n,o,p,s, na, k, cl, br, f, i, fe, mg, ca, cd, hg, zn, cu, ni, mn, mo)
+    list(c,h,d,n,o,p,s, na, k, cl, br, f, i, fe, mg, ca, cd, hg, zn, cu, ni, mn, mo)
 }
 
 initializeCharges <- function() {
