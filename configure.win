@@ -18,8 +18,9 @@ echo "Building imslib.dll in src/imslib..."
 
 mkdir ${DPKG}/libs
 cp src/winlibs/libims*.dll ${DPKG}/libs/
+ls -l src/winlibs/libims*.dll
 
-ls -l src/win/libims*.dll
+echo "libs in instal directory..."
 ls -l ${DPKG}/libs/
 
 #cd ../..
