@@ -16,12 +16,13 @@ echo "Building imslib.dll in src/imslib..."
 #configure
 #make src/libims.la
 
-mkdir ${DPKG}/libs
-cp src/winlibs/libims*.dll ${DPKG}/libs/
+mkdir ${R_PACKAGE_DIR}/libs
+echo "cp src/winlibs/libims*.dll R_PACKAGE_DIR:${R_PACKAGE_DIR}/libs/"
+cp src/winlibs/libims*.dll ${R_PACKAGE_DIR}/libs/
 ls -l src/winlibs/libims*.dll
 
 echo "libs in instal directory..."
-ls -l ${DPKG}/libs/
+ls -l ${R_PACKAGE_DIR}/libs/
 
 #cd ../..
 
