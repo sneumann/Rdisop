@@ -12,7 +12,7 @@
   the isotope distribution.
 }
 \usage{
-getMolecule(formula, elements = NULL, z = 0)
+getMolecule(formula, elements = NULL, z = 0, maxisotopes = 10)
 getMass(molecule)
 getFormula(molecule)
 getIsotope(molecule, index)
@@ -24,6 +24,8 @@ getValid(molecule)
   \item{elements}{list of allowed chemical elements, defaults to full
     periodic system of elements}   
   \item{z}{charge z of molecule for exact mass calculation}
+  \item{maxisotopes}{maximum number of isotopes shown in the resulting
+    molecules}
   \item{molecule}{an initialized molecule as returned by
     getMolecule() or the decomposeMass() and decomposeIsotope() functions}
   \item{index}{return the n-th isotope mass/abundance pair of the molecule}

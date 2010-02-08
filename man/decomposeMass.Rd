@@ -8,8 +8,9 @@
   obtained e.g.\ by FTICR or TOF mass spectrometers 
 }
 \usage{
-decomposeMass(mass, ppm=2.0, mzabs=0.0001, elements=NULL, filter=NULL, z=0)
-decomposeIsotopes(masses, intensities, ppm=2.0, mzabs=0.0001, elements=NULL, filter=NULL,  z=0)
+decomposeMass(mass, ppm=2.0, mzabs=0.0001, elements=NULL, filter=NULL, z=0, maxisotopes = 10)
+decomposeIsotopes(masses, intensities, ppm=2.0, mzabs=0.0001,
+elements=NULL, filter=NULL,  z=0, maxisotopes = 10)
 isotopeScore(molecule, masses, intensities, elements = NULL, filter = NULL, z = 0)
 }
 \arguments{
@@ -18,7 +19,10 @@ isotopeScore(molecule, masses, intensities, elements = NULL, filter = NULL, z = 
   \item{intensities}{Abolute or relative intensities of the \code{masses} peaks}
   \item{ppm}{allowed deviation of hypotheses from given mass}
   \item{mzabs}{absolute deviation in dalton (mzabs and ppm will be added)}
-  \item{z}{charge z of m/z peaks for calculation of real mass. 0 is for auto-detection}
+  \item{z}{charge z of m/z peaks for calculation of real mass. 0 is for
+    auto-detection}
+  \item{maxisotopes}{maximum number of isotopes shown in the resulting
+    molecules}
   \item{elements}{list of allowed chemical elements, defaults to CHNOPS}
   \item{filter}{NYI, will be a selection of DU, DBE and Nitrogen rules}
   \item{molecule}{a molecule as obtained from getMolecule() or
