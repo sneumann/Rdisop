@@ -61,9 +61,11 @@ typedef Alphabet alphabet_t;
 typedef IsotopeDistribution distribution_t;
 typedef IntegerMassDecomposer<>::decompositions_type decompositions_t;
 
-void initializeCHNOPS(alphabet_t&);
+void initializeCHNOPS(alphabet_t&, 
+		      const int maxisotopes);
 void initializeAlphabet(const SEXP l_alphabet, 
-			alphabet_t &alphabet);
+			alphabet_t &alphabet, 
+			const int maxisotopes);
 
 template <typename score_type>
 SEXP  rlistScores(multimap<score_type, ComposedElement, greater<score_type> > scores, int z);
@@ -138,7 +140,8 @@ bool isValidMyNitrogenRule(const ComposedElement& molecule, int z) {
 //
 
 RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error, 
-				  SEXP l_alphabet, SEXP v_element_order, SEXP z) {
+				  SEXP l_alphabet, SEXP v_element_order, 
+				  SEXP z, SEXP i_maxisotopes) {
 // {{{ 
 
     typedef DistributionProbabilityScorer scorer_type;
@@ -171,11 +174,12 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
 	int number_molecules_shown = 100;
 	
 	// initializes alphabet
+	int maxisotopes = INTEGER_VALUE(i_maxisotopes);
 	alphabet_t alphabet;
 	vector<string> elements_order;
 
 	if (l_alphabet == NULL || length(l_alphabet) < 1  ) {
-	  initializeCHNOPS(alphabet); 
+	  initializeCHNOPS(alphabet, maxisotopes); 
 	  // initializes order of atoms in which one would
 	  // like them to appear in the molecules sequence
 	  elements_order.push_back("C");
@@ -185,7 +189,7 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
 	  elements_order.push_back("P");
 	  elements_order.push_back("S");
 	} else {
-	  initializeAlphabet(l_alphabet, alphabet);
+	  initializeAlphabet(l_alphabet, alphabet, maxisotopes);
 	  
 	  int element_length = length(v_element_order);
 	  for (int i=0; i<element_length; i++) {
@@ -391,7 +395,8 @@ RcppExport SEXP calculateScore(SEXP v_predictMasses, SEXP v_predictAbundances, S
 // }}}
 
 
-RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet, SEXP v_element_order, SEXP z) {
+RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet, 
+			    SEXP v_element_order, SEXP z, SEXP i_maxisotopes) {
   // {{{ 
 
   SEXP  rl=R_NilValue; // Use this when there is nothing to be returned.
@@ -407,11 +412,12 @@ RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet, SEXP v_element_orde
   exceptionMesg = NULL;
 
   // initializes alphabet
+  int maxisotopes = INTEGER_VALUE(i_maxisotopes);
   alphabet_t alphabet;
   vector<string> elements_order;
 
   if (l_alphabet == NULL || length(l_alphabet) < 1  ) {
-    initializeCHNOPS(alphabet); 
+    initializeCHNOPS(alphabet, maxisotopes); 
     // initializes order of atoms in which one would
     // like them to appear in the molecules sequence
     elements_order.push_back("C");
@@ -421,7 +427,7 @@ RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet, SEXP v_element_orde
     elements_order.push_back("P");
     elements_order.push_back("S");
   } else {
-    initializeAlphabet(l_alphabet, alphabet);
+    initializeAlphabet(l_alphabet, alphabet, maxisotopes);
 
     int element_length = length(v_element_order);
     for (int i=0; i<element_length; i++) {
@@ -459,7 +465,8 @@ RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet, SEXP v_element_orde
 
 // }}}
 
-RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, SEXP v_element_order) {
+RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
+			     SEXP v_element_order, SEXP maxisotopes) {
   // {{{ 
 
   SEXP  rl=R_NilValue; // Use this when there is nothing to be returned.
@@ -479,7 +486,7 @@ RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
   vector<string> elements_order;
 
   if (l_alphabet == NULL || length(l_alphabet) < 1  ) {
-    initializeCHNOPS(alphabet); 
+    initializeCHNOPS(alphabet, 0); 
     // initializes order of atoms in which one would
     // like them to appear in the molecules sequence
     elements_order.push_back("C");
@@ -489,7 +496,7 @@ RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
     elements_order.push_back("P");
     elements_order.push_back("S");
   } else {
-    initializeAlphabet(l_alphabet, alphabet);
+    initializeAlphabet(l_alphabet, alphabet, 0);
 
     int element_length = length(v_element_order);
     for (int i=0; i<element_length; i++) {
@@ -541,7 +548,7 @@ RcppExport SEXP subMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
   vector<string> elements_order;
 
   if (l_alphabet == NULL || length(l_alphabet) < 1  ) {
-    initializeCHNOPS(alphabet); 
+    initializeCHNOPS(alphabet, 0); 
     // initializes order of atoms in which one would
     // like them to appear in the molecules sequence
     elements_order.push_back("C");
@@ -551,7 +558,7 @@ RcppExport SEXP subMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
     elements_order.push_back("P");
     elements_order.push_back("S");
   } else {
-    initializeAlphabet(l_alphabet, alphabet);
+    initializeAlphabet(l_alphabet, alphabet, 0);
 
     int element_length = length(v_element_order);
     for (int i=0; i<element_length; i++) {
@@ -668,7 +675,7 @@ SEXP  rlistScores(multimap<score_type, ComposedElement, greater<score_type> > sc
 //
 // Initialisation of Standard Element Alphabet 
 //
-void initializeCHNOPS(alphabet_t& chnops) {
+void initializeCHNOPS(alphabet_t& chnops, const int maxisotopes) {
   // {{{ 
 
 	typedef distribution_t::peaks_container peaks_container;
@@ -676,7 +683,7 @@ void initializeCHNOPS(alphabet_t& chnops) {
 	typedef alphabet_t::element_type element_type;
 	typedef alphabet_t::container elements_type;
 
-	distribution_t::SIZE = 10;
+	distribution_t::SIZE = maxisotopes;
 	distribution_t::ABUNDANCES_SUM_ERROR = 0.00001;
 
 // Hydrogen
@@ -772,7 +779,8 @@ SEXP getListElement(SEXP list, char *str)
 // }}}
 
 void initializeAlphabet(const SEXP l_alphabet, 
-			alphabet_t &alphabet) {
+			alphabet_t &alphabet,
+			const int maxisotopes) {
   // {{{ 
 
   typedef distribution_t::peaks_container peaks_container;
@@ -780,7 +788,7 @@ void initializeAlphabet(const SEXP l_alphabet,
   typedef alphabet_t::element_type element_type;
   typedef alphabet_t::container elements_type;
 
-  distribution_t::SIZE = 10;
+  distribution_t::SIZE = maxisotopes;
   distribution_t::ABUNDANCES_SUM_ERROR = 0.0001;
        
   for (int i=0; i < length(l_alphabet); i++) {
@@ -818,10 +826,10 @@ extern "C" {
      * We call most functions with .Call 
      */
     R_CallMethodDef callMethods[]  = {
-      {"getMolecule", (void* (*)())&getMolecule, 3},
+      {"getMolecule", (void* (*)())&getMolecule, 4},
       {"addMolecules", (void* (*)())&addMolecules, 4},
       {"subMolecules", (void* (*)())&subMolecules, 4},
-      {"decomposeIsotopes", (void* (*)())&decomposeIsotopes, 6},
+      {"decomposeIsotopes", (void* (*)())&decomposeIsotopes, 7},
       {"calculateScore", (void* (*)())&calculateScore, 7},
       {NULL, NULL, 0}
     };
