@@ -1,5 +1,6 @@
 2010-04-02  Steffen Neumann	<sneumann@ipb-halle.de>
 	* added Selenium to list of elements
+	* added Cobalt to list of elements
 
 2010-02-08  Steffen Neumann	<sneumann@ipb-halle.de>
 	* added parameter maxisotopes to getMolecule() and decompose*()
