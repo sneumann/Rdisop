@@ -110,14 +110,16 @@ initializePSE <- function() {
     mn <- list(name="Mn", mass=55, isotope = list(	mass=c(0.0619529),
 				  abundance=c(1.0)))
 
+    co <- list(name="Co", mass=59, isotope = list(	mass=c(-0.0668024),
+                                     abundance=c(1.0)))
+
     mo <- list(name="Mo", mass=91, isotope = list(	mass=c(0.906809, 0.0, 0.9050853, 0.9058411, 0.9046785, 0.9060205, 0.905054073, 0.0, 0.907477),
 				abundance=c(0.1484, 0.0, 0.0925, 0.1668, 0.0955, 0.2413, 0.0, 0.0963)))
 
-#    se <- list(name="Se", mass=79, isotope = list(	mass=c(73.9224746, 74, 75.9192120, 76.9199125, 77.9173076, 78, 79.9165196, 81.9166978)-74,
-#                                   abundance=   c( 0.89     ,  0,  9.37,       7.63,      23.77,       0, 49.61,       8.73)))
+    se <- list(name="Se", mass=79, isotope = list(	mass=c(73.9224746, 74, 75.9192120, 76.9199125, 77.9173076, 78, 79.9165196, 81.9166978)-74,
+                                   abundance=   c( 0.89     ,  0.0,  9.37,       7.63,      23.77,       0.0, 49.61,       8.73)))
 
-    list(c,h,d,n,o,p,s, na, k, cl, br, f, i, fe, mg, ca, cd, hg, zn, cu, ni, mn, mo)
-#    list(c,h,d,n,o,p,s, na, k, cl, br, f, i, fe, mg, ca, cd, hg, zn, cu, ni, mn, mo, se)
+    list(c,h,d,n,o,p,s, na, k, cl, br, f, i, fe, mg, ca, cd, hg, zn, cu, ni, mn, mo, se, co)
 }
 
 
