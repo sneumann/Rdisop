@@ -24,6 +24,7 @@
 
 #include <string>
 #include <vector>
+#include <cstdio>
 #include <sstream>
 
 #include <ims/tclap/Arg.h>
