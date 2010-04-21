@@ -1,6 +1,7 @@
 #ifndef IMS_SORTMODIFIER_H
 #define IMS_SORTMODIFIER_H
 
+#include <algorithm>
 #include <ims/peakcompare.h>
 #include <ims/modifier/modifier.h>
 

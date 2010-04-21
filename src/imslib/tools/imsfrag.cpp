@@ -6,6 +6,7 @@
 #include <fstream>
 #include <cassert>
 #include <sstream>
+#include <cstdlib>
 
 #include <cstring>
 #include <config.h>

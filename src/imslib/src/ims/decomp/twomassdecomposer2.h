@@ -2,6 +2,7 @@
 #define IMS_TWOMASSDECOMPOSER2_H
 
 #include <vector>
+#include <limits>
 #include <cassert>
 #include <ims/weights.h>
 #include <ims/alphabet.h>
