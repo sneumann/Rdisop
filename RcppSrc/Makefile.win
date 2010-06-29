@@ -16,7 +16,7 @@ RM = rm -f
 all: all-before libRcpp.a all-after
 
 clean: clean-custom
-	${RM} $(LINKOBJ) $(LIB)
+	$(RM) $(LINKOBJ) $(LIB)
 
 $(OBJ): $(SRC)
 	$(CXX) -c $(SRC) -o $(OBJ) $(CXXFLAGS)
