@@ -1,3 +1,6 @@
+2010-05-18  Steffen Neumann  <sneumann@ipb-halle.de>
+	* added Runit test infrastructure
+
 2010-04-02  Steffen Neumann	<sneumann@ipb-halle.de>
 	* added Selenium to list of elements
 	* added Cobalt to list of elements
