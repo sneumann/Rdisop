@@ -1,46 +1,3 @@
-
-#
-# Create a set of elements
-# as a subset of PSE
-#
-# Example:
-#
-# elements <- initializeCHNOPS()
-#
-initializeElements <- function(names) {
-    elements <- initializePSE()
-    lapply(names, function (name) {.getElement(name, elements)})
-}
-
-#
-# Create a set of elements
-# with standard CHNOPS
-#
-# Example:
-#
-# elements <- initializeCHNOPS()
-#
-initializeCHNOPS <- function() {
-    initializeElements(c("C", "H", "N", "O", "P", "S"))
-}
-
-#
-# Create a set of elements
-# with standard CHNOPS+Ions
-#
-# Example:
-#
-# elements <- initializeCHNOPSMgKCaFe()
-#
-initializeCHNOPSMgKCaFe <- function() {
-    initializeElements(c("C", "H", "N", "O", "P", "S", "Mg", "K", "Ca", "Fe"))
-}
-
-initializeCHNOPSNaK <- function() {
-    initializeElements(c("C", "H", "N", "O", "P", "S", "Na", "K"))
-}
-
-
 #
 # Create a set of Elements containing the full PSE
 #
@@ -121,6 +78,49 @@ initializePSE <- function() {
 
     list(c,h,d,n,o,p,s, na, k, cl, br, f, i, fe, mg, ca, cd, hg, zn, cu, ni, mn, mo, se, co)
 }
+
+
+#
+# Create a set of elements
+# as a subset of PSE
+#
+# Example:
+#
+# elements <- initializeCHNOPS()
+#
+initializeElements <- function(names) {
+    elements <- initializePSE()
+    lapply(names, function (name) {.getElement(name, elements)})
+}
+
+#
+# Create a set of elements
+# with standard CHNOPS
+#
+# Example:
+#
+# elements <- initializeCHNOPS()
+#
+initializeCHNOPS <- function() {
+    initializeElements(c("C", "H", "N", "O", "P", "S"))
+}
+
+#
+# Create a set of elements
+# with standard CHNOPS+Ions
+#
+# Example:
+#
+# elements <- initializeCHNOPSMgKCaFe()
+#
+initializeCHNOPSMgKCaFe <- function() {
+    initializeElements(c("C", "H", "N", "O", "P", "S", "Mg", "K", "Ca", "Fe"))
+}
+
+initializeCHNOPSNaK <- function() {
+    initializeElements(c("C", "H", "N", "O", "P", "S", "Na", "K"))
+}
+
 
 
 initializeCharges <- function() {
