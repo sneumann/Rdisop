@@ -1,2 +1,2 @@
 PKG_CXXFLAGS+=-I./imslib/src -I../RcppSrc/
-PKG_LIBS+=-L./winlibs/$(R_ARCH) -lims -L../RcppSrc/ -lRcpp
+PKG_LIBS+=-L./win/$(R_ARCH) -lims -L../RcppSrc/ -lRcpp
