@@ -17,9 +17,9 @@ echo "Building imslib.dll in src/imslib... with <${CC}> and <${CXX}>"
 #make src/libims.la
 
 mkdir -p ${R_PACKAGE_DIR}/libs${R_ARCH}
-echo "cp src/winlibs/libims*.dll R_PACKAGE_DIR:${R_PACKAGE_DIR}/libs${R_ARCH}"
-cp src/winlibs/libims*.dll ${R_PACKAGE_DIR}/libs${R_ARCH}
-ls -l src/winlibs/${R_ARCH}/libims*.dll
+echo "cp src/win/${R_ARCH}/libims*.dll R_PACKAGE_DIR:${R_PACKAGE_DIR}/libs${R_ARCH}"
+cp src/win/${R_ARCH}/libims*.dll ${R_PACKAGE_DIR}/libs${R_ARCH}
+ls -l src/win/${R_ARCH}/${R_ARCH}/libims*.dll
 
 echo "libs in instal directory..."
 ls -l ${R_PACKAGE_DIR}/libs${R_ARCH}
