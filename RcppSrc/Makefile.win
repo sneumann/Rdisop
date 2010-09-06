@@ -23,5 +23,7 @@ $(OBJ): $(SRC)
 	
 $(LIB): $(LINKOBJ)
 	ar r $(LIB) $(OBJ)
+	md5sum $(LIB)
 	ranlib $(LIB)
+	md5sum $(LIB)
 	rm $(OBJ)
