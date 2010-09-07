@@ -1,7 +1,4 @@
-# Project: RcppTemplate
-
-#This include causes many warnings and other issues, and doesn't seem to be needed!
-#include $(RHOME)/src/gnuwin32/MkRules
+include $(R_HOME)/etc$(R_ARCH)/Makeconf
 
 SRC = Rcpp.cpp
 OBJ = Rcpp.o
