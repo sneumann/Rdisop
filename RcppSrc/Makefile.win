@@ -22,5 +22,5 @@ $(OBJ): $(SRC)
 	$(CXX) -c $(SRC) -o $(OBJ) $(CXXFLAGS)
 	
 $(LIB): $(LINKOBJ)
-	ar rs $(LIB) $(OBJ)
-	rm $(OBJ)
+	$(AR) rs $(LIB) $(OBJ)
+	$(RM) $(OBJ)
