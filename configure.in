@@ -1,5 +1,8 @@
-AC_INIT([Rdisop], 0.4) dnl package name, version
-AC_PREREQ(2.50) dnl require version 2.5+ of autoconf
+dnl package name, version
+AC_INIT([Rdisop], 0.4) 
+
+dnl require version 2.5+ of autoconf
+AC_PREREQ(2.50) 
 
 dnl the CC and CFLAGS variables control configure tests, and they need to
 dnl be the same as what will be used when the package is built. There is
@@ -18,32 +21,23 @@ AC_LANG(C++) dnl using C++
 AC_REQUIRE_CPP
 
 dnl configure IMS include/load flags and copy sample source to inst/doc
-PKG_CHECK_MODULES(IMS, [libims >= 0.5.0], [echo OK], [
 dnl if IMS not found via PKG, use included static Version
 
-#echo "Building libims.a in imslib..."
-( cd src/imslib ; ./configure )
-#./autogen.sh
-#make ./src/libims.la
-#cd ..
-
+echo "Configuring libims.a in imslib..."
+cd src/imslib 
+./configure --enable-shared --disable-static
+make src/libims.la
+cd ../../
 IMS_CFLAGS=-I./imslib/src/
-IMS_LIBS="-L./imslib/src/.libs/ -lims"
-])
 
 AC_SUBST([CPPFLAGS], ["${CPPFLAGS} -I../RcppSrc $IMS_CFLAGS"])
-AC_SUBST([LDFLAGS], ["${LDFLAGS} -L../RcppSrc -lRcpp $IMS_LIBS"])
-AC_SUBST([LIBS], ["${LIBS} -lRcpp $IMS_LIBS"])
-AC_SUBST([WANT_IMS_TRUE], ["libims"])
-
+AC_SUBST([LDFLAGS], ["${LDFLAGS} -L../RcppSrc -lRcpp"])
+AC_SUBST([LIBS], ["${LIBS} -lRcpp"])
 
 echo "Building libRcpp.a in RcppSrc..."
 cd RcppSrc
 make RHOME=${R_HOME}
 cd ..
-
-echo "Debugging Library stuff"
-find ${DPKG}/libs/
 
 if test \! -d inst
 then
