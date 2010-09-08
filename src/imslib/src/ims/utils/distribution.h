@@ -1,6 +1,8 @@
 #ifndef IMS_DISTRIBUTION_H
 #define IMS_DISTRIBUTION_H
 
+#include <unistd.h>
+
 #include <vector>
 
 namespace ims {
