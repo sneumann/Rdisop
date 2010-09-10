@@ -2,7 +2,7 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* "configure arguments" */
-#define CONFIGURE_ARGS ""
+#define CONFIGURE_ARGS "'--enable-shared' '--disable-static'"
 
 /* Debug */
 /* #undef DEBUG */
