@@ -44,7 +44,7 @@ available_tags=" CXX F77"
 
 # ### BEGIN LIBTOOL CONFIG
 
-# Libtool was configured on host geweniger:
+# Libtool was configured on host paddy:
 
 # Shell to use when invoking shell scripts.
 SHELL="/bin/bash"
@@ -328,7 +328,7 @@ link_all_deplibs=no
 sys_lib_search_path_spec=" /usr/lib/gcc/x86_64-linux-gnu/4.4.3/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/4.4.3/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../x86_64-linux-gnu/lib/../lib/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../x86_64-linux-gnu/4.4.3/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/ /lib/x86_64-linux-gnu/4.4.3/ /lib/../lib/ /usr/lib/x86_64-linux-gnu/4.4.3/ /usr/lib/../lib/ /usr/lib/x86_64-linux-gnu/x86_64-linux-gnu/4.4.3/ /usr/lib/x86_64-linux-gnu/../lib/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../x86_64-linux-gnu/lib/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../ /lib/ /usr/lib/ /usr/lib/x86_64-linux-gnu/"
 
 # Run-time system search path for libraries
-sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib/nvidia-current /usr/lib32/nvidia-current /usr/lib/atlas /usr/lib32/alsa-lib /usr/lib/alsa-lib /usr/local/lib /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu "
+sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib/mesa /usr/lib32/mesa /usr/lib32/alsa-lib /usr/lib/R/lib /usr/lib/alsa-lib /usr/local/lib /usr/lib/oracle/default/client64/lib/ /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu "
 
 # Fix the shell variable $srcfile for the compiler.
 fix_srcfile_path=""
@@ -7223,7 +7223,7 @@ disable_libs=static
 # End:
 # ### BEGIN LIBTOOL TAG CONFIG: CXX
 
-# Libtool was configured on host geweniger:
+# Libtool was configured on host paddy:
 
 # Shell to use when invoking shell scripts.
 SHELL="/bin/bash"
@@ -7504,7 +7504,7 @@ link_all_deplibs=no
 sys_lib_search_path_spec=" /usr/lib/gcc/x86_64-linux-gnu/4.4.3/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/4.4.3/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../x86_64-linux-gnu/lib/../lib/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../x86_64-linux-gnu/4.4.3/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/ /lib/x86_64-linux-gnu/4.4.3/ /lib/../lib/ /usr/lib/x86_64-linux-gnu/4.4.3/ /usr/lib/../lib/ /usr/lib/x86_64-linux-gnu/x86_64-linux-gnu/4.4.3/ /usr/lib/x86_64-linux-gnu/../lib/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../x86_64-linux-gnu/lib/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../ /lib/ /usr/lib/ /usr/lib/x86_64-linux-gnu/"
 
 # Run-time system search path for libraries
-sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib/nvidia-current /usr/lib32/nvidia-current /usr/lib/atlas /usr/lib32/alsa-lib /usr/lib/alsa-lib /usr/local/lib /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu "
+sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib/mesa /usr/lib32/mesa /usr/lib32/alsa-lib /usr/lib/R/lib /usr/lib/alsa-lib /usr/local/lib /usr/lib/oracle/default/client64/lib/ /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu "
 
 # Fix the shell variable $srcfile for the compiler.
 fix_srcfile_path=""
@@ -7528,7 +7528,7 @@ include_expsyms=""
 
 # ### BEGIN LIBTOOL TAG CONFIG: F77
 
-# Libtool was configured on host geweniger:
+# Libtool was configured on host paddy:
 
 # Shell to use when invoking shell scripts.
 SHELL="/bin/bash"
@@ -7812,7 +7812,7 @@ link_all_deplibs=no
 sys_lib_search_path_spec=" /usr/lib/gcc/x86_64-linux-gnu/4.4.3/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/4.4.3/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../x86_64-linux-gnu/lib/../lib/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../x86_64-linux-gnu/4.4.3/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/ /lib/x86_64-linux-gnu/4.4.3/ /lib/../lib/ /usr/lib/x86_64-linux-gnu/4.4.3/ /usr/lib/../lib/ /usr/lib/x86_64-linux-gnu/x86_64-linux-gnu/4.4.3/ /usr/lib/x86_64-linux-gnu/../lib/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../x86_64-linux-gnu/lib/ /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../ /lib/ /usr/lib/ /usr/lib/x86_64-linux-gnu/"
 
 # Run-time system search path for libraries
-sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib/nvidia-current /usr/lib32/nvidia-current /usr/lib/atlas /usr/lib32/alsa-lib /usr/lib/alsa-lib /usr/local/lib /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu "
+sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib/mesa /usr/lib32/mesa /usr/lib32/alsa-lib /usr/lib/R/lib /usr/lib/alsa-lib /usr/local/lib /usr/lib/oracle/default/client64/lib/ /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu "
 
 # Fix the shell variable $srcfile for the compiler.
 fix_srcfile_path=""
