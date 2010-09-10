@@ -12,19 +12,12 @@ fi
 cp RcppSrc/Rcpp-license.txt inst
 
 echo "Building imslib.dll in src/imslib... with <${CC}> and <${CXX}>"
-#cd src/imslib/
-#configure
-#make src/libims.la
+cd src/imslib/
+configure --enable-shared --disable-static
+make src/libims.la
+IMS_CFLAGS=-I./imslib/src/
 
-mkdir -p ${R_PACKAGE_DIR}/libs${R_ARCH}
-echo "cp src/win/${R_ARCH}/libims*.dll R_PACKAGE_DIR:${R_PACKAGE_DIR}/libs${R_ARCH}"
-cp src/win/${R_ARCH}/libims*.dll ${R_PACKAGE_DIR}/libs${R_ARCH}
-ls -l src/win/${R_ARCH}/libims*.dll
-
-echo "libs in instal directory..."
-ls -l ${R_PACKAGE_DIR}/libs${R_ARCH}
-
-#cd ../..
+cd ../..
 
 
 
