@@ -2,13 +2,13 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* "configure arguments" */
-#define CONFIGURE_ARGS "'--enable-shared' '--disable-static'"
+#define CONFIGURE_ARGS "'--host=i586-mingw32msvc' '--build=x86_64-linux' '--enable-static' '--disable-shared' 'build_alias=x86_64-linux' 'host_alias=i586-mingw32msvc'"
 
 /* Debug */
 /* #undef DEBUG */
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
-#define HAVE_DLFCN_H 1
+/* #undef HAVE_DLFCN_H */
 
 /* C99 function */
 #define HAVE_FLOOR 1
