@@ -37,8 +37,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = x86_64-unknown-linux-gnu
-host_triplet = x86_64-unknown-linux-gnu
+build_triplet = x86_64-pc-linux-gnu
+host_triplet = i586-pc-mingw32msvc
 bin_PROGRAMS = tools/scoredecompositions$(EXEEXT) \
 	tools/peaklistvalidation$(EXEEXT) \
 	tools/numberdecompositions$(EXEEXT) \
@@ -47,7 +47,7 @@ bin_PROGRAMS = tools/scoredecompositions$(EXEEXT) \
 	tools/histogram$(EXEEXT) tools/decompvalidation$(EXEEXT) \
 	tools/imsdecompstatic$(EXEEXT) \
 	tools/elementalcompositions$(EXEEXT)
-#check_PROGRAMS = $(am__EXEEXT_1) $(am__EXEEXT_2)
+check_PROGRAMS = $(am__EXEEXT_1) $(am__EXEEXT_2)
 DIST_COMMON = README $(am__configure_deps) $(calib_HEADERS) \
 	$(decomp_HEADERS) $(exception_HEADERS) $(functors_HEADERS) \
 	$(ims_HEADERS) $(modifier_HEADERS) $(parser_HEADERS) \
@@ -104,37 +104,37 @@ am_src_libims_la_OBJECTS = src/ims/element.lo \
 	src/ims/characteralphabet.lo src/ims/nitrogenrulefilter.lo
 src_libims_la_OBJECTS = $(am_src_libims_la_OBJECTS)
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
-#am__EXEEXT_1 = tests/imslib-tests$(EXEEXT) \
-#	tests/decomp-tests$(EXEEXT) \
-#	tests/modifier-tests$(EXEEXT) \
-#	tests/calib-tests$(EXEEXT)
-#am__EXEEXT_2 = examples/peaklist$(EXEEXT)
+am__EXEEXT_1 = tests/imslib-tests$(EXEEXT) \
+	tests/decomp-tests$(EXEEXT) \
+	tests/modifier-tests$(EXEEXT) \
+	tests/calib-tests$(EXEEXT)
+am__EXEEXT_2 = examples/peaklist$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS)
 am__examples_peaklist_SOURCES_DIST = examples/peaklist.cpp
-#am_examples_peaklist_OBJECTS =  \
-#	examples/peaklist.$(OBJEXT)
+am_examples_peaklist_OBJECTS =  \
+	examples/peaklist.$(OBJEXT)
 examples_peaklist_OBJECTS = $(am_examples_peaklist_OBJECTS)
-#examples_peaklist_DEPENDENCIES = src/libims.la
+examples_peaklist_DEPENDENCIES = src/libims.la
 am__tests_calib_tests_SOURCES_DIST = tests/tests.cpp \
 	tests/calib/linearpointsetmatchertest.cpp \
 	tests/calib/linepairstabbertest.cpp \
 	tests/calib/matchmatrixtest.cpp
-#am_tests_calib_tests_OBJECTS = tests/tests.$(OBJEXT) \
-#	tests/calib/linearpointsetmatchertest.$(OBJEXT) \
-#	tests/calib/linepairstabbertest.$(OBJEXT) \
-#	tests/calib/matchmatrixtest.$(OBJEXT)
+am_tests_calib_tests_OBJECTS = tests/tests.$(OBJEXT) \
+	tests/calib/linearpointsetmatchertest.$(OBJEXT) \
+	tests/calib/linepairstabbertest.$(OBJEXT) \
+	tests/calib/matchmatrixtest.$(OBJEXT)
 tests_calib_tests_OBJECTS = $(am_tests_calib_tests_OBJECTS)
-#tests_calib_tests_DEPENDENCIES = src/libims.la
+tests_calib_tests_DEPENDENCIES = src/libims.la
 am__tests_decomp_tests_SOURCES_DIST = tests/tests.cpp \
 	tests/decomp/twomassdecomposer2test.cpp \
 	tests/decomp/integermassdecomposertest.cpp \
 	tests/decomp/realmassdecomposertest.cpp
-#am_tests_decomp_tests_OBJECTS = tests/tests.$(OBJEXT) \
-#	tests/decomp/twomassdecomposer2test.$(OBJEXT) \
-#	tests/decomp/integermassdecomposertest.$(OBJEXT) \
-#	tests/decomp/realmassdecomposertest.$(OBJEXT)
+am_tests_decomp_tests_OBJECTS = tests/tests.$(OBJEXT) \
+	tests/decomp/twomassdecomposer2test.$(OBJEXT) \
+	tests/decomp/integermassdecomposertest.$(OBJEXT) \
+	tests/decomp/realmassdecomposertest.$(OBJEXT)
 tests_decomp_tests_OBJECTS = $(am_tests_decomp_tests_OBJECTS)
-#tests_decomp_tests_DEPENDENCIES = src/libims.la
+tests_decomp_tests_DEPENDENCIES = src/libims.la
 am__tests_imslib_tests_SOURCES_DIST = tests/tests.cpp \
 	tests/exceptiontest.cpp tests/alphabettest.cpp \
 	tests/weightstest.cpp tests/distributedalphabettest.cpp \
@@ -157,39 +157,39 @@ am__tests_imslib_tests_SOURCES_DIST = tests/tests.cpp \
 	tests/peakpropertyiteratortest.cpp \
 	tests/distributionprobabilityscorertest.cpp \
 	tests/roundtest.cpp
-#am_tests_imslib_tests_OBJECTS = tests/tests.$(OBJEXT) \
-#	tests/exceptiontest.$(OBJEXT) \
-#	tests/alphabettest.$(OBJEXT) \
-#	tests/weightstest.$(OBJEXT) \
-#	tests/distributedalphabettest.$(OBJEXT) \
-#	tests/elementtest.$(OBJEXT) \
-#	tests/composedelementtest.$(OBJEXT) \
-#	tests/masspeaktest.$(OBJEXT) \
-#	tests/tofpeaktest.$(OBJEXT) \
-#	tests/massintensitypeaktest.$(OBJEXT) \
-#	tests/peaklisttest.$(OBJEXT) \
-#	tests/base/parser/massestextparsertest.$(OBJEXT) \
-#	tests/base/parser/moleculesequenceparsertest.$(OBJEXT) \
-#	tests/randomsequencegeneratortest.$(OBJEXT) \
-#	tests/markovsequencegeneratortest.$(OBJEXT) \
-#	tests/identitytransformationtest.$(OBJEXT) \
-#	tests/shifttransformationtest.$(OBJEXT) \
-#	tests/lineartransformationtest.$(OBJEXT) \
-#	tests/polynomialtransformationtest.$(OBJEXT) \
-#	tests/chebyshevfittertest.$(OBJEXT) \
-#	tests/isotopedistributiontest.$(OBJEXT) \
-#	tests/isotopespeciestest.$(OBJEXT) \
-#	tests/pmffragmentertest.$(OBJEXT) \
-#	tests/stopwatchtest.$(OBJEXT) \
-#	tests/massintensitytofpeaktest.$(OBJEXT) \
-#	tests/masstofpeaktest.$(OBJEXT) \
-#	tests/intensitypeaktest.$(OBJEXT) \
-#	tests/fragmentpeaktest.$(OBJEXT) \
-#	tests/peakpropertyiteratortest.$(OBJEXT) \
-#	tests/distributionprobabilityscorertest.$(OBJEXT) \
-#	tests/roundtest.$(OBJEXT)
+am_tests_imslib_tests_OBJECTS = tests/tests.$(OBJEXT) \
+	tests/exceptiontest.$(OBJEXT) \
+	tests/alphabettest.$(OBJEXT) \
+	tests/weightstest.$(OBJEXT) \
+	tests/distributedalphabettest.$(OBJEXT) \
+	tests/elementtest.$(OBJEXT) \
+	tests/composedelementtest.$(OBJEXT) \
+	tests/masspeaktest.$(OBJEXT) \
+	tests/tofpeaktest.$(OBJEXT) \
+	tests/massintensitypeaktest.$(OBJEXT) \
+	tests/peaklisttest.$(OBJEXT) \
+	tests/base/parser/massestextparsertest.$(OBJEXT) \
+	tests/base/parser/moleculesequenceparsertest.$(OBJEXT) \
+	tests/randomsequencegeneratortest.$(OBJEXT) \
+	tests/markovsequencegeneratortest.$(OBJEXT) \
+	tests/identitytransformationtest.$(OBJEXT) \
+	tests/shifttransformationtest.$(OBJEXT) \
+	tests/lineartransformationtest.$(OBJEXT) \
+	tests/polynomialtransformationtest.$(OBJEXT) \
+	tests/chebyshevfittertest.$(OBJEXT) \
+	tests/isotopedistributiontest.$(OBJEXT) \
+	tests/isotopespeciestest.$(OBJEXT) \
+	tests/pmffragmentertest.$(OBJEXT) \
+	tests/stopwatchtest.$(OBJEXT) \
+	tests/massintensitytofpeaktest.$(OBJEXT) \
+	tests/masstofpeaktest.$(OBJEXT) \
+	tests/intensitypeaktest.$(OBJEXT) \
+	tests/fragmentpeaktest.$(OBJEXT) \
+	tests/peakpropertyiteratortest.$(OBJEXT) \
+	tests/distributionprobabilityscorertest.$(OBJEXT) \
+	tests/roundtest.$(OBJEXT)
 tests_imslib_tests_OBJECTS = $(am_tests_imslib_tests_OBJECTS)
-#tests_imslib_tests_DEPENDENCIES = src/libims.la
+tests_imslib_tests_DEPENDENCIES = src/libims.la
 am__tests_modifier_tests_SOURCES_DIST = tests/tests.cpp \
 	tests/modifier/intensitynormalizermodifiertest.cpp \
 	tests/modifier/massrangemodifiertest.cpp \
@@ -198,16 +198,16 @@ am__tests_modifier_tests_SOURCES_DIST = tests/tests.cpp \
 	tests/modifier/sortmodifiertest.cpp \
 	tests/modifier/unificationmodifiertest.cpp \
 	tests/modifier/voidmodifiertest.cpp
-#am_tests_modifier_tests_OBJECTS = tests/tests.$(OBJEXT) \
-#	tests/modifier/intensitynormalizermodifiertest.$(OBJEXT) \
-#	tests/modifier/massrangemodifiertest.$(OBJEXT) \
-#	tests/modifier/multimodifiertest.$(OBJEXT) \
-#	tests/modifier/shiftmodifiertest.$(OBJEXT) \
-#	tests/modifier/sortmodifiertest.$(OBJEXT) \
-#	tests/modifier/unificationmodifiertest.$(OBJEXT) \
-#	tests/modifier/voidmodifiertest.$(OBJEXT)
+am_tests_modifier_tests_OBJECTS = tests/tests.$(OBJEXT) \
+	tests/modifier/intensitynormalizermodifiertest.$(OBJEXT) \
+	tests/modifier/massrangemodifiertest.$(OBJEXT) \
+	tests/modifier/multimodifiertest.$(OBJEXT) \
+	tests/modifier/shiftmodifiertest.$(OBJEXT) \
+	tests/modifier/sortmodifiertest.$(OBJEXT) \
+	tests/modifier/unificationmodifiertest.$(OBJEXT) \
+	tests/modifier/voidmodifiertest.$(OBJEXT)
 tests_modifier_tests_OBJECTS = $(am_tests_modifier_tests_OBJECTS)
-#tests_modifier_tests_DEPENDENCIES = src/libims.la
+tests_modifier_tests_DEPENDENCIES = src/libims.la
 am_tools_decompvalidation_OBJECTS = tools/decompvalidation.$(OBJEXT)
 tools_decompvalidation_OBJECTS = $(am_tools_decompvalidation_OBJECTS)
 tools_decompvalidation_DEPENDENCIES = src/libims.la
@@ -313,30 +313,30 @@ GZIP_ENV = --best
 DIST_ARCHIVES = $(distdir).tar.bz2
 distuninstallcheck_listfiles = find . -type f -print
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /vol/R/BioC/devel-27/Rdisop/src/imslib/config/missing --run aclocal-1.9
+ACLOCAL = ${SHELL} /vol/R/BioC/devel_2_7/Rdisop/src/imslib/config/missing --run aclocal-1.9
 AMDEP_FALSE = #
 AMDEP_TRUE = 
-AMTAR = ${SHELL} /vol/R/BioC/devel-27/Rdisop/src/imslib/config/missing --run tar
+AMTAR = ${SHELL} /vol/R/BioC/devel_2_7/Rdisop/src/imslib/config/missing --run tar
 AM_CPPFLAGS = -I. -I./src -I$(srcdir)/src
-AR = ar
-AUTOCONF = ${SHELL} /vol/R/BioC/devel-27/Rdisop/src/imslib/config/missing --run autoconf
-AUTOHEADER = ${SHELL} /vol/R/BioC/devel-27/Rdisop/src/imslib/config/missing --run autoheader
-AUTOMAKE = ${SHELL} /vol/R/BioC/devel-27/Rdisop/src/imslib/config/missing --run automake-1.9
-AWK = /usr/bin/awk
-CC = gcc
+AR = i586-mingw32msvc-ar
+AUTOCONF = ${SHELL} /vol/R/BioC/devel_2_7/Rdisop/src/imslib/config/missing --run autoconf
+AUTOHEADER = ${SHELL} /vol/R/BioC/devel_2_7/Rdisop/src/imslib/config/missing --run autoheader
+AUTOMAKE = ${SHELL} /vol/R/BioC/devel_2_7/Rdisop/src/imslib/config/missing --run automake-1.9
+AWK = gawk
+CC = i586-mingw32msvc-gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
-CPP = gcc -E
+CPP = i586-mingw32msvc-gcc -E
 CPPFLAGS = 
 CPPUNIT_CFLAGS = 
-CPPUNIT_CONFIG = no
-CPPUNIT_FALSE = 
-CPPUNIT_LIBS = 
-CPPUNIT_TRUE = #
-CXX = g++
-CXXCPP = g++ -E
+CPPUNIT_CONFIG = /usr/bin/cppunit-config
+CPPUNIT_FALSE = #
+CPPUNIT_LIBS = -lcppunit -ldl
+CPPUNIT_TRUE = 
+CXX = i586-mingw32msvc-g++
+CXXCPP = i586-mingw32msvc-g++ -E
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -Wall -W -Wwrite-strings -Wundef -g -O2
+CXXFLAGS =  -Wall -W -Wwrite-strings -Wundef -g -O2
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
@@ -345,8 +345,8 @@ ECHO_C =
 ECHO_N = -n
 ECHO_T = 
 EGREP = grep -E
-EXEEXT = 
-F77 = f95
+EXEEXT = .exe
+F77 = i586-mingw32msvc-gfortran
 FFLAGS = -g -O2
 IMS_CFLAGS = -I${prefix}/include
 IMS_LIBS = -L${exec_prefix}/lib -lims
@@ -361,7 +361,7 @@ LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIBTOOL_DEPS = config/ltmain.sh
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /vol/R/BioC/devel-27/Rdisop/src/imslib/config/missing --run makeinfo
+MAKEINFO = ${SHELL} /vol/R/BioC/devel_2_7/Rdisop/src/imslib/config/missing --run makeinfo
 OBJEXT = o
 PACKAGE = imslib
 PACKAGE_BUGREPORT = apervukh@minet.uni-jena.de
@@ -370,17 +370,17 @@ PACKAGE_STRING = ims library 0.5.0
 PACKAGE_TARNAME = imslib
 PACKAGE_VERSION = 0.5.0
 PATH_SEPARATOR = :
-RANLIB = ranlib
+RANLIB = i586-mingw32msvc-ranlib
 SET_MAKE = 
 SHELL = /bin/bash
-STRIP = strip
+STRIP = i586-mingw32msvc-strip
 VERSION = 0.5.0
-ac_ct_AR = ar
-ac_ct_CC = gcc
-ac_ct_CXX = g++
-ac_ct_F77 = f95
-ac_ct_RANLIB = ranlib
-ac_ct_STRIP = strip
+ac_ct_AR = 
+ac_ct_CC = 
+ac_ct_CXX = 
+ac_ct_F77 = 
+ac_ct_RANLIB = 
+ac_ct_STRIP = 
 am__fastdepCC_FALSE = #
 am__fastdepCC_TRUE = 
 am__fastdepCXX_FALSE = #
@@ -391,21 +391,21 @@ am__quote =
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
-build = x86_64-unknown-linux-gnu
-build_alias = 
+build = x86_64-pc-linux-gnu
+build_alias = x86_64-linux
 build_cpu = x86_64
 build_os = linux-gnu
-build_vendor = unknown
+build_vendor = pc
 datadir = ${prefix}/share
 exec_prefix = ${prefix}
-host = x86_64-unknown-linux-gnu
-host_alias = 
-host_cpu = x86_64
-host_os = linux-gnu
-host_vendor = unknown
+host = i586-pc-mingw32msvc
+host_alias = i586-mingw32msvc
+host_cpu = i586
+host_os = mingw32msvc
+host_vendor = pc
 includedir = ${prefix}/include
 infodir = ${prefix}/info
-install_sh = /vol/R/BioC/devel-27/Rdisop/src/imslib/config/install-sh
+install_sh = /vol/R/BioC/devel_2_7/Rdisop/src/imslib/config/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localstatedir = ${prefix}/var
@@ -599,75 +599,75 @@ tools_decompvalidation_SOURCES = tools/decompvalidation.cpp
 tools_decompvalidation_LDADD = src/libims.la
 tools_elementalcompositions_SOURCES = tools/elementalcompositions.cpp
 tools_elementalcompositions_LDADD = src/libims.la
-#TESTS = tests/imslib-tests tests/decomp-tests tests/modifier-tests tests/calib-tests
-#examples = examples/peaklist
-#tests_imslib_tests_SOURCES = \
-#	tests/tests.cpp \
-#	tests/exceptiontest.cpp \
-#	tests/alphabettest.cpp \
-#	tests/weightstest.cpp \
-#	tests/distributedalphabettest.cpp \
-#	tests/elementtest.cpp \
-#	tests/composedelementtest.cpp \
-#	tests/masspeaktest.cpp \
-#	tests/tofpeaktest.cpp \
-#	tests/massintensitypeaktest.cpp \
-#	tests/peaklisttest.cpp \
-#	tests/base/parser/massestextparsertest.cpp \
-#	tests/base/parser/moleculesequenceparsertest.cpp \
-#	tests/randomsequencegeneratortest.cpp \
-#	tests/markovsequencegeneratortest.cpp \
-#	tests/identitytransformationtest.cpp \
-#	tests/shifttransformationtest.cpp \
-#	tests/lineartransformationtest.cpp \
-#	tests/polynomialtransformationtest.cpp \
-#	tests/chebyshevfittertest.cpp \
-#	tests/isotopedistributiontest.cpp \
-#	tests/isotopespeciestest.cpp \
-#	tests/pmffragmentertest.cpp \
-#	tests/stopwatchtest.cpp \
-#	tests/massintensitytofpeaktest.cpp \
-#	tests/masstofpeaktest.cpp \
-#	tests/intensitypeaktest.cpp \
-#	tests/fragmentpeaktest.cpp \
-#	tests/peakpropertyiteratortest.cpp \
-#	tests/distributionprobabilityscorertest.cpp\
-#	tests/roundtest.cpp
+TESTS = tests/imslib-tests tests/decomp-tests tests/modifier-tests tests/calib-tests
+examples = examples/peaklist
+tests_imslib_tests_SOURCES = \
+	tests/tests.cpp \
+	tests/exceptiontest.cpp \
+	tests/alphabettest.cpp \
+	tests/weightstest.cpp \
+	tests/distributedalphabettest.cpp \
+	tests/elementtest.cpp \
+	tests/composedelementtest.cpp \
+	tests/masspeaktest.cpp \
+	tests/tofpeaktest.cpp \
+	tests/massintensitypeaktest.cpp \
+	tests/peaklisttest.cpp \
+	tests/base/parser/massestextparsertest.cpp \
+	tests/base/parser/moleculesequenceparsertest.cpp \
+	tests/randomsequencegeneratortest.cpp \
+	tests/markovsequencegeneratortest.cpp \
+	tests/identitytransformationtest.cpp \
+	tests/shifttransformationtest.cpp \
+	tests/lineartransformationtest.cpp \
+	tests/polynomialtransformationtest.cpp \
+	tests/chebyshevfittertest.cpp \
+	tests/isotopedistributiontest.cpp \
+	tests/isotopespeciestest.cpp \
+	tests/pmffragmentertest.cpp \
+	tests/stopwatchtest.cpp \
+	tests/massintensitytofpeaktest.cpp \
+	tests/masstofpeaktest.cpp \
+	tests/intensitypeaktest.cpp \
+	tests/fragmentpeaktest.cpp \
+	tests/peakpropertyiteratortest.cpp \
+	tests/distributionprobabilityscorertest.cpp\
+	tests/roundtest.cpp
 
-#tests_imslib_tests_LDADD = src/libims.la
-#tests_imslib_tests_LDFLAGS = $(CPPUNIT_LIBS)
-#tests_decomp_tests_SOURCES = \
-#	tests/tests.cpp \
-#	tests/decomp/twomassdecomposer2test.cpp \
-#	tests/decomp/integermassdecomposertest.cpp \
-#	tests/decomp/realmassdecomposertest.cpp
+tests_imslib_tests_LDADD = src/libims.la
+tests_imslib_tests_LDFLAGS = $(CPPUNIT_LIBS)
+tests_decomp_tests_SOURCES = \
+	tests/tests.cpp \
+	tests/decomp/twomassdecomposer2test.cpp \
+	tests/decomp/integermassdecomposertest.cpp \
+	tests/decomp/realmassdecomposertest.cpp
 
-#tests_decomp_tests_LDADD = src/libims.la
-#tests_decomp_tests_LDFLAGS = $(CPPUNIT_LIBS)
-#tests_modifier_tests_SOURCES = \
-#	tests/tests.cpp \
-#	tests/modifier/intensitynormalizermodifiertest.cpp \
-#	tests/modifier/massrangemodifiertest.cpp \
-#	tests/modifier/multimodifiertest.cpp \
-#	tests/modifier/shiftmodifiertest.cpp \
-#	tests/modifier/sortmodifiertest.cpp \
-#	tests/modifier/unificationmodifiertest.cpp \
-#	tests/modifier/voidmodifiertest.cpp
+tests_decomp_tests_LDADD = src/libims.la
+tests_decomp_tests_LDFLAGS = $(CPPUNIT_LIBS)
+tests_modifier_tests_SOURCES = \
+	tests/tests.cpp \
+	tests/modifier/intensitynormalizermodifiertest.cpp \
+	tests/modifier/massrangemodifiertest.cpp \
+	tests/modifier/multimodifiertest.cpp \
+	tests/modifier/shiftmodifiertest.cpp \
+	tests/modifier/sortmodifiertest.cpp \
+	tests/modifier/unificationmodifiertest.cpp \
+	tests/modifier/voidmodifiertest.cpp
 
-#tests_modifier_tests_LDADD = src/libims.la
-#tests_modifier_tests_LDFLAGS = $(CPPUNIT_LIBS)
-#tests_calib_tests_SOURCES = \
-#	tests/tests.cpp \
-#	tests/calib/linearpointsetmatchertest.cpp \
-#	tests/calib/linepairstabbertest.cpp \
-#	tests/calib/matchmatrixtest.cpp
+tests_modifier_tests_LDADD = src/libims.la
+tests_modifier_tests_LDFLAGS = $(CPPUNIT_LIBS)
+tests_calib_tests_SOURCES = \
+	tests/tests.cpp \
+	tests/calib/linearpointsetmatchertest.cpp \
+	tests/calib/linepairstabbertest.cpp \
+	tests/calib/matchmatrixtest.cpp
 
-#tests_calib_tests_LDADD = src/libims.la
-#tests_calib_tests_LDFLAGS = $(CPPUNIT_LIBS)
-#examples_peaklist_SOURCES = \
-#	examples/peaklist.cpp
+tests_calib_tests_LDADD = src/libims.la
+tests_calib_tests_LDFLAGS = $(CPPUNIT_LIBS)
+examples_peaklist_SOURCES = \
+	examples/peaklist.cpp
 
-#examples_peaklist_LDADD = src/libims.la
+examples_peaklist_LDADD = src/libims.la
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -1889,11 +1889,11 @@ uninstall-am: uninstall-binPROGRAMS uninstall-calibHEADERS \
 	uninstall-utilsHEADERS
 
 
-check:
-	@echo
-	@echo "Sorry, Cppunit was not found during ./configure, can not compile unit tests."
-	@echo
-	@exit 1
+#check:
+#	@echo
+#	@echo "Sorry, Cppunit was not found during ./configure, can not compile unit tests."
+#	@echo
+#	@exit 1
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
