@@ -5,6 +5,7 @@
 #include <ostream>
 #include <ims/isotopedistribution.h>
 #include <iostream>
+#include <float.h>  // FLT_MAX
 
 namespace ims {
 
@@ -49,6 +50,11 @@ class Element {
 		 * Type of isotopes size.
 		 */
 		typedef isotopes_type::size_type size_type;
+
+                /**
+                 * Special value to detect most abundant isotope automagically
+                 */
+                static const size_type MONOISOTOPIC=0;
 
 		/**
 		 * Mass of electron.
@@ -148,8 +154,34 @@ class Element {
 		 * @param index Index of element's isotope.
 		 * @return mass of element's isotope with a given index.
 		 */
-		mass_type getMass(size_type index = 0) const {
-			return isotopes.getMass(index);
+		mass_type getMass(size_type index = MONOISOTOPIC) const {
+		  if (index != MONOISOTOPIC) {
+		    return isotopes.getMass(index);
+		  } else {
+/* 		    std::cerr << std::endl; */
+		    
+		    IsotopeDistribution::abundance_type maxval=-FLT_MAX;
+		    int maxindex=0;
+		    
+		    for (int i=0; i < IsotopeDistribution::SIZE; i++) {
+/* 		      std::cerr << "Abundance is " << isotopes.getAbundance(i) << std::endl; */
+		      
+		      if (isotopes.getAbundance(i) > 0.5) { 
+			// 50% is the absolute majority here, 
+			// skip remaining isotopes
+/* 			std::cerr << "Early return mass "  */
+/* 				  << isotopes.getMass(i) */
+/* 				  << " of isotope " << i << std::endl ; */
+			return isotopes.getMass(i);
+		      }
+		      if (isotopes.getAbundance(i) > maxval) {
+			maxval = isotopes.getAbundance(i);
+			maxindex = i;
+		      }
+		    }
+		    
+		    return isotopes.getMass(maxindex);
+		  }
 		}
 
 		/**

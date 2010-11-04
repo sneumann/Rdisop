@@ -1,3 +1,12 @@
+2010-11-04  Steffen Neumann  <sneumann@ipb-halle.de>
+	* Corrected bug that leads to wrong monoisotopic masses for molecules 
+	  containing elements where the most abundant isotope is not the first one,
+	  discovered by Ralf Tautenhahn
+
+2010-10-22  Steffen Neumann  <sneumann@ipb-halle.de>
+	* R/elements.R: Added remaining elements to PSE,
+	  contributed by Canteri Roberto (http://m2b2.fbk.eu/en/people)
+
 2010-05-18  Steffen Neumann  <sneumann@ipb-halle.de>
 	* added Runit test infrastructure
 
