@@ -2403,7 +2403,7 @@ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
 echo "Configuring libims.a in imslib..."
 cd src/imslib
 ./configure --enable-shared --disable-static
-make -j 6 src/libims.la
+make $MAKEFLAGS src/libims.la
 cd ../../
 IMS_CFLAGS=-I./imslib/src/
 

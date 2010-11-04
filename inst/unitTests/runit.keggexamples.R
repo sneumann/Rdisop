@@ -11,9 +11,4 @@ test.cid24892761 <- function() {
 
 }
 
-## test.cid <- function() {
-##   checkEqualsNumeric(,
-##                      getMolecule("",elem,z=0)$exactmass) 
-## }
-
 
