@@ -7,3 +7,12 @@
 .dirstamp
 
 src/imslib/Makefile
+.deps
+src/imslib/config.log
+src/imslib/config.status
+src/imslib/configure.lineno
+.libs
+libims.la
+src/imslib/Makefile
+src/imslib/config.h
+src/imslib/libtool
