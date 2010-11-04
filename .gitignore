@@ -6,3 +6,4 @@
 *.o
 .dirstamp
 
+src/imslib/Makefile
