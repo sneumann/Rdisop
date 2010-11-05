@@ -30,14 +30,14 @@ initializeElements(names)
 }
 \value{
   A list with the elements
-   \item{formula}{
+   \item{name}{
     repeated sum formula
 }
    \item{mass}{
-    exact mass of molecule
+    nominal mass of molecule
   }
 
-       \item{isotopes}{
+       \item{isotope}{
 	 a list of isotopes 
   }
   The initializeCharges() is special, since it allows to parse charges

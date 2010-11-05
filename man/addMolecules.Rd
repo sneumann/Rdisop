@@ -30,7 +30,7 @@ subMolecules(formula1, formula2, elements = NULL)
 \value{
     A list with the elements
       \item{formula}{repeated sum formula}
-      \item{mass}{exact mass of molecule}      
+      \item{mass}{exact monoisotopic mass of molecule}      
       \item{score}{dummy value, always 1.0}      
       \item{isotopes}{a list of isotopes}
     

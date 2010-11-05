@@ -39,7 +39,7 @@ isotopeScore(molecule, masses, intensities, elements = NULL, filter = NULL, z = 
     potential formulae
 }
    \item{mass}{
-    exact mass of hypothesis
+    exact monoisotopic mass of hypothesis
   }
 
      \item{score}{
