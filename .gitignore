@@ -15,4 +15,3 @@ libims.la
 src/imslib/Makefile
 src/imslib/config.h
 src/imslib/libtool
-src/imslib/src/ims/utils/math.h
