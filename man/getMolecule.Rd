@@ -33,14 +33,14 @@ getValid(molecule)
 
 \details{
   getMolecule() Parse the sum formula and calculate the theoretical
-  exact mass and
+  exact monoisotopic mass and
   the isotope distribution. For a given element, return the different
   mass values. 
 }
 \value{
     getMolecule: A list with the elements
       \item{formula}{repeated sum formula}
-      \item{mass}{exact mass of molecule}
+      \item{mass}{exact monoisotopic mass of molecule}
       \item{score}{probability, for given molecules a dummy value which
       is always 1.0}
       \item{valid}{result of neutrogen rule check}
