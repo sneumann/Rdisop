@@ -71,7 +71,7 @@ molecule is the sum of protons and neutrons of the constituting atoms.
 The \emph{mass} of the molecule is the sum of masses of these atoms.
 The \emph{monoisotopic} (\emph{nominal}) \emph{mass} of a molecule is
 the sum of (nominal) masses of the constituting atoms where for every
-element its lightest natural isotope is chosen. Clearly, nominal mass
+element its most abundant natural isotope is chosen. Clearly, nominal mass
 and mass depend on the isotopes the molecule consists of, thus on the
 \emph{isotope species} of the molecule.
 
