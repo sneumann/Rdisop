@@ -1,6 +1,6 @@
 Package: Rdisop
 Title: Decomposition of Isotopic Patterns
-Version: 1.11.2
+Version: 1.11.3
 Date: 2010-11-04
 Author: Anton Pervukhin <apervukh@minet.uni-jena.de>, Steffen Neumann <sneumann@ipb-halle.de> 
 Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
@@ -11,6 +11,6 @@ Description: Identification of metabolites using high precision mass
              to search in MS peak lists.
 Depends: R (>= 2.0.0)
 SystemRequirements: None
-License: GPL
+License: GPL-2
 URL: http://msbi.ipb-halle.de/
 biocViews: MassSpectrometry
