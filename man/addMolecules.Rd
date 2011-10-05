@@ -7,14 +7,16 @@
   Simple arithmetic modifications of sum formulae.
 }
 \usage{
-addMolecules(formula1, formula2, elements = NULL)
-subMolecules(formula1, formula2, elements = NULL)
+addMolecules(formula1, formula2, elements = NULL, maxisotopes = 10)
+subMolecules(formula1, formula2, elements = NULL, maxisotopes = 10)
 }
 \arguments{
   \item{formula1}{Sum formula}
   \item{formula2}{Sum formula}
   \item{elements}{list of allowed chemical elements, defaults to full
     periodic system of elements}   
+  \item{maxisotopes}{maximum number of isotopes shown in the resulting
+    molecules}
 }
 
 \details{
