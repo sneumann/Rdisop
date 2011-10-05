@@ -65,7 +65,7 @@ getMolecule <- function(formula, elements = NULL, z = 0, maxisotopes=10) {
 
 
 addMolecules <- function(formula1, formula2,
-                         elements = NULL)
+                         elements = NULL, maxisotopes=10)
 {
 
     # First argument may be vector of formulas,
@@ -90,13 +90,14 @@ addMolecules <- function(formula1, formula2,
     molecule <- .Call("addMolecules",
                       formula1, formula2,
                       elements, element_order,
+                      maxisotopes,
                       PACKAGE="Rdisop")
 
     molecule
 }
 
 subMolecules <- function(formula1, formula2,
-                         elements = NULL)
+                         elements = NULL, maxisotopes=10)
 {
 
     # First argument may be vector of formulas,
@@ -121,6 +122,7 @@ subMolecules <- function(formula1, formula2,
     molecule <- .Call("subMolecules",
                       formula1, formula2,
                       elements, element_order,
+                      maxisotopes,
                       PACKAGE="Rdisop")
 
     molecule

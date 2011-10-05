@@ -466,7 +466,7 @@ RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet,
 // }}}
 
 RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
-			     SEXP v_element_order, SEXP maxisotopes) {
+			     SEXP v_element_order, SEXP i_maxisotopes) {
   // {{{ 
 
   SEXP  rl=R_NilValue; // Use this when there is nothing to be returned.
@@ -482,11 +482,12 @@ RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet,
   typedef multimap<score_type, ComposedElement, greater<score_type> > scores_container;
 
   // initializes alphabet
+  int maxisotopes = INTEGER_VALUE(i_maxisotopes);
   alphabet_t alphabet;
   vector<string> elements_order;
 
   if (l_alphabet == NULL || length(l_alphabet) < 1  ) {
-    initializeCHNOPS(alphabet, 0); 
+    initializeCHNOPS(alphabet, maxisotopes);
     // initializes order of atoms in which one would
     // like them to appear in the molecules sequence
     elements_order.push_back("C");
@@ -496,7 +497,7 @@ RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet,
     elements_order.push_back("P");
     elements_order.push_back("S");
   } else {
-    initializeAlphabet(l_alphabet, alphabet, 0);
+    initializeAlphabet(l_alphabet, alphabet, maxisotopes);    
 
     int element_length = length(v_element_order);
     for (int i=0; i<element_length; i++) {
@@ -528,7 +529,7 @@ RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet,
 
 // }}}
 
-RcppExport SEXP subMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, SEXP v_element_order) {
+RcppExport SEXP subMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, SEXP v_element_order, SEXP i_maxisotopes) {
   // {{{ 
 
   SEXP  rl=R_NilValue; // Use this when there is nothing to be returned.
@@ -544,11 +545,12 @@ RcppExport SEXP subMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
   typedef multimap<score_type, ComposedElement, greater<score_type> > scores_container;
 
   // initializes alphabet
+  int maxisotopes = INTEGER_VALUE(i_maxisotopes);
   alphabet_t alphabet;
   vector<string> elements_order;
 
-  if (l_alphabet == NULL || length(l_alphabet) < 1  ) {
-    initializeCHNOPS(alphabet, 0); 
+  if (l_alphabet == NULL || length(l_alphabet) < 1  ) { 
+   initializeCHNOPS(alphabet, maxisotopes);
     // initializes order of atoms in which one would
     // like them to appear in the molecules sequence
     elements_order.push_back("C");
@@ -558,7 +560,7 @@ RcppExport SEXP subMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
     elements_order.push_back("P");
     elements_order.push_back("S");
   } else {
-    initializeAlphabet(l_alphabet, alphabet, 0);
+    initializeAlphabet(l_alphabet, alphabet, maxisotopes);
 
     int element_length = length(v_element_order);
     for (int i=0; i<element_length; i++) {
