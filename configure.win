@@ -3,7 +3,7 @@ CXX=`${R_HOME}/bin/R CMD config CXX`
 CC=`${R_HOME}/bin/R CMD config CC`
 echo "... using <${CC}> and <${CXX}>"
 cd RcppSrc
-make CXX=${CXX} RHOME=${R_HOME} -f Makefile.win
+make CXX="${CXX}" RHOME=${R_HOME} -f Makefile.win
 cd ..
 if test \! -d inst
 then
@@ -13,7 +13,7 @@ cp RcppSrc/Rcpp-license.txt inst
 
 echo "Building imslib.dll in src/imslib... with <${CC}> and <${CXX}>"
 cd src/imslib/
-configure --enable-shared --disable-static
+./configure --enable-shared --disable-static
 make src/libims.la
 IMS_CFLAGS=-I./imslib/src/
 
