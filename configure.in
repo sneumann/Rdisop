@@ -23,30 +23,21 @@ AC_REQUIRE_CPP
 dnl configure IMS include/load flags and copy sample source to inst/doc
 dnl if IMS not found via PKG, use included static Version
 
-echo "Configuring libims.a in imslib..."
-cd src/imslib 
-./configure --enable-shared --disable-static
-make src/libims.la
-cd ../../
+#echo "Configuring libims.a in imslib..."
+#cd src/imslib 
+#./configure --enable-shared --disable-static
+#./configure --enable-static --disable-shared
+#make src/libims.la
+#cd ../../
 IMS_CFLAGS=-I./imslib/src/
 
-AC_SUBST([CPPFLAGS], ["${CPPFLAGS} -I../RcppSrc $IMS_CFLAGS"])
-AC_SUBST([LDFLAGS], ["${LDFLAGS} -L../RcppSrc -lRcpp"])
-AC_SUBST([LIBS], ["${LIBS} -lRcpp"])
+RCPPCLASSIC_LDFLAGS=`${R_HOME}/bin/Rscript -e "Rcpp:::LdFlags()"` 
+RCPPCLASSIC_LDFLAGS+=" "
+RCPPCLASSIC_LDFLAGS=`${R_HOME}/bin/Rscript -e "RcppClassic:::LdFlags()"`
 
-echo "Building libRcpp.a in RcppSrc..."
-cd RcppSrc
-make RHOME=${R_HOME}
-cd ..
-
-if test \! -d inst
-then
-    mkdir inst
-fi
-cp RcppSrc/Rcpp-license.txt inst
+AC_SUBST([CPPFLAGS], ["${CPPFLAGS} $IMS_CFLAGS"])
+AC_SUBST([LDFLAGS], ["${LDFLAGS} ${RCPPCLASSIC_LDFLAGS}"])
 
 AC_SUBST(WANT_MSI_TRUE)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
-AC_SUBST(LIBS)
-AC_OUTPUT(src/Makevars)

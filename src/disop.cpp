@@ -1,20 +1,3 @@
-// RcppExample.cpp: Part of the R/C++ interface class library, Version 4.2
-//
-// Copyright (C) 2005-2006 Dominick Samperi
-//
-// This library is free software; you can redistribute it and/or modify it 
-// under the terms of the GNU Lesser General Public License as published by 
-// the Free Software Foundation; either version 2.1 of the License, or (at 
-// your option) any later version.
-//
-// This library is distributed in the hope that it will be useful, but 
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public 
-// License for more details.
-//
-// You should have received a copy of the GNU Lesser General Public License 
-// along with this library; if not, write to the Free Software Foundation, 
-// Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA 
 
 // {{{ Includes, Typedefs, prototypes
 
@@ -47,7 +30,7 @@
 //
 // R Stuff
 //
-#include "../RcppSrc/Rcpp.hpp"
+#include <RcppClassic.h>
 extern "C" {
 #include <Rdefines.h>
 #include <Rinternals.h>
@@ -92,7 +75,7 @@ float getDBE(const ComposedElement& molecule, int z) {
 		   +static_cast<int>(molecule.getElementAbundance("I")))
 	  + 0.5 * (static_cast<int>(molecule.getElementAbundance("N"))
 		   + static_cast<int>(molecule.getElementAbundance("P"))));
-};
+}
 
 // }}}
 
@@ -107,7 +90,7 @@ char getParity(const ComposedElement& molecule, int charge=0) {
   bool chargeeven = abs(charge) % 2 == 0 ? true : false;
   
   return (masseven ^ nitrogeneven ^ chargeeven) == true ? 'e' : 'o' ;
-};
+}
 
 // }}}
 
@@ -174,11 +157,11 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
 	int number_molecules_shown = 100;
 	
 	// initializes alphabet
-	int maxisotopes = INTEGER_VALUE(i_maxisotopes);
+	int maxisotopes = Rf_asInteger(i_maxisotopes);
 	alphabet_t alphabet;
 	vector<string> elements_order;
 
-	if (l_alphabet == NULL || length(l_alphabet) < 1  ) {
+	if (l_alphabet == NULL || Rf_length(l_alphabet) < 1  ) {
 	  initializeCHNOPS(alphabet, maxisotopes); 
 	  // initializes order of atoms in which one would
 	  // like them to appear in the molecules sequence
@@ -191,7 +174,7 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
 	} else {
 	  initializeAlphabet(l_alphabet, alphabet, maxisotopes);
 	  
-	  int element_length = length(v_element_order);
+	  int element_length = Rf_length(v_element_order);
 	  for (int i=0; i<element_length; i++) {
 	    elements_order.push_back(string(CHAR(STRING_ELT(v_element_order,i))));
 	  }
@@ -318,7 +301,7 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
 
 	// Now output to R ...
 	if (scores.size() >0 ) {
-	  rl = rlistScores(scores, INTEGER_VALUE(z));
+	  rl = rlistScores(scores, Rf_asInteger(z));
 	}
     } catch(std::exception& ex) {
       exceptionMesg = copyMessageToR(ex.what());
@@ -385,12 +368,15 @@ RcppExport SEXP calculateScore(SEXP v_predictMasses, SEXP v_predictAbundances, S
 	}
 
 	score_type score=scorer.score(mess_masses, mess_abundances);
-	SEXP output;
-	PROTECT(output = NEW_NUMERIC(1));
+	//SEXP output;
+	//PROTECT(output = NEW_NUMERIC(1));
 	//cout<< score;
-	REAL(output)[0]=score;
-	UNPROTECT(1);
- 	return (output);
+	//REAL(output)[0]=score;
+	//UNPROTECT(1);
+ 	//return (output);
+	RcppResultSet rs;
+	rs.add("", score);
+	return(rs.getSEXP());
 }
 // }}}
 
@@ -401,8 +387,8 @@ RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet,
 
   SEXP  rl=R_NilValue; // Use this when there is nothing to be returned.
 
-   if( (s_formula==NULL) || !isString(s_formula) || length(s_formula) != 1)
-         error("formula is not a single string");
+   if( (s_formula==NULL) || !Rf_isString(s_formula) || Rf_length(s_formula) != 1)
+         Rf_error("formula is not a single string");
 
   typedef DistributionProbabilityScorer scorer_type;
   typedef scorer_type::score_type score_type;
@@ -412,11 +398,11 @@ RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet,
   exceptionMesg = NULL;
 
   // initializes alphabet
-  int maxisotopes = INTEGER_VALUE(i_maxisotopes);
+  int maxisotopes = Rf_asInteger(i_maxisotopes);
   alphabet_t alphabet;
   vector<string> elements_order;
 
-  if (l_alphabet == NULL || length(l_alphabet) < 1  ) {
+  if (l_alphabet == NULL || Rf_length(l_alphabet) < 1  ) {
     initializeCHNOPS(alphabet, maxisotopes); 
     // initializes order of atoms in which one would
     // like them to appear in the molecules sequence
@@ -429,7 +415,7 @@ RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet,
   } else {
     initializeAlphabet(l_alphabet, alphabet, maxisotopes);
 
-    int element_length = length(v_element_order);
+    int element_length = Rf_length(v_element_order);
     for (int i=0; i<element_length; i++) {
       elements_order.push_back(string(CHAR(STRING_ELT(v_element_order,i))));
     }
@@ -445,16 +431,16 @@ RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet,
     // initializes storage for scores
     scores_container scores;
     
-    ComposedElement molecule( CHARACTER_VALUE(s_formula), alphabet);
+    ComposedElement molecule( CHAR(Rf_asChar(s_formula)), alphabet);
     
     molecule.updateSequence(&elements_order);
     molecule.updateIsotopeDistribution();
     
     scores.insert(make_pair(1.0, molecule));
-    rl = rlistScores(scores, INTEGER_VALUE(z));
+    rl = rlistScores(scores, Rf_asInteger(z));
   } catch(std::exception& ex) {
     exceptionMesg = copyMessageToR(ex.what());
-    error(exceptionMesg); 
+    Rf_error(exceptionMesg); 
   } catch(...) {
     exceptionMesg = copyMessageToR("unknown reason");
     error_return(exceptionMesg); 
@@ -472,9 +458,9 @@ RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet,
   SEXP  rl=R_NilValue; // Use this when there is nothing to be returned.
 
    if( (s_formula1==NULL) || s_formula2==NULL 
-       || !isString(s_formula1) || !isString(s_formula2) 
-       || length(s_formula2) != 1) {
-         error("formula is not a single string");
+       || !Rf_isString(s_formula1) || !Rf_isString(s_formula2) 
+       || Rf_length(s_formula2) != 1) {
+         Rf_error("formula is not a single string");
    }
 
   typedef DistributionProbabilityScorer scorer_type;
@@ -482,11 +468,11 @@ RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet,
   typedef multimap<score_type, ComposedElement, greater<score_type> > scores_container;
 
   // initializes alphabet
-  int maxisotopes = INTEGER_VALUE(i_maxisotopes);
+  int maxisotopes = Rf_asInteger(i_maxisotopes);
   alphabet_t alphabet;
   vector<string> elements_order;
 
-  if (l_alphabet == NULL || length(l_alphabet) < 1  ) {
+  if (l_alphabet == NULL || Rf_length(l_alphabet) < 1  ) {
     initializeCHNOPS(alphabet, maxisotopes);
     // initializes order of atoms in which one would
     // like them to appear in the molecules sequence
@@ -499,7 +485,7 @@ RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet,
   } else {
     initializeAlphabet(l_alphabet, alphabet, maxisotopes);    
 
-    int element_length = length(v_element_order);
+    int element_length = Rf_length(v_element_order);
     for (int i=0; i<element_length; i++) {
       elements_order.push_back(string(CHAR(STRING_ELT(v_element_order,i))));
     }
@@ -514,8 +500,8 @@ RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet,
   // initializes storage for scores
   scores_container scores;
 
-  ComposedElement molecule( CHARACTER_VALUE(s_formula1), alphabet);
-  ComposedElement molecule2( CHARACTER_VALUE(s_formula2), alphabet);
+  ComposedElement molecule( CHAR(Rf_asChar(s_formula1)), alphabet);
+  ComposedElement molecule2( CHAR(Rf_asChar(s_formula2)), alphabet);
 
   molecule += molecule2;
 
@@ -535,9 +521,9 @@ RcppExport SEXP subMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
   SEXP  rl=R_NilValue; // Use this when there is nothing to be returned.
 
    if( (s_formula1==NULL) || s_formula2==NULL 
-       || !isString(s_formula1) || !isString(s_formula2) 
-       || length(s_formula2) != 1) {
-         error("formula is not a single string");
+       || !Rf_isString(s_formula1) || !Rf_isString(s_formula2) 
+       || Rf_length(s_formula2) != 1) {
+         Rf_error("formula is not a single string");
    }
 
   typedef DistributionProbabilityScorer scorer_type;
@@ -545,11 +531,11 @@ RcppExport SEXP subMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
   typedef multimap<score_type, ComposedElement, greater<score_type> > scores_container;
 
   // initializes alphabet
-  int maxisotopes = INTEGER_VALUE(i_maxisotopes);
+  int maxisotopes = Rf_asInteger(i_maxisotopes);
   alphabet_t alphabet;
   vector<string> elements_order;
 
-  if (l_alphabet == NULL || length(l_alphabet) < 1  ) { 
+  if (l_alphabet == NULL || Rf_length(l_alphabet) < 1  ) { 
    initializeCHNOPS(alphabet, maxisotopes);
     // initializes order of atoms in which one would
     // like them to appear in the molecules sequence
@@ -562,7 +548,7 @@ RcppExport SEXP subMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
   } else {
     initializeAlphabet(l_alphabet, alphabet, maxisotopes);
 
-    int element_length = length(v_element_order);
+    int element_length = Rf_length(v_element_order);
     for (int i=0; i<element_length; i++) {
       elements_order.push_back(string(CHAR(STRING_ELT(v_element_order,i))));
     }
@@ -577,8 +563,8 @@ RcppExport SEXP subMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
   // initializes storage for scores
   scores_container scores;
 
-  ComposedElement molecule( CHARACTER_VALUE(s_formula1), alphabet);
-  ComposedElement molecule2( CHARACTER_VALUE(s_formula2), alphabet);
+  ComposedElement molecule( CHAR(Rf_asChar(s_formula1)), alphabet);
+  ComposedElement molecule2( CHAR(Rf_asChar(s_formula2)), alphabet);
 
   molecule -= molecule2;
 
@@ -610,7 +596,7 @@ SEXP  rlistScores(multimap<score_type, ComposedElement, greater<score_type> > sc
 	vector<string> valid(scores.size());
 	RcppVector<double> DBE(scores.size());
 
-	SEXP isotopes = PROTECT(allocVector(VECSXP, scores.size()));
+	SEXP isotopes = PROTECT(Rf_allocVector(VECSXP, scores.size()));
 
  	RcppResultSet rs;
 	unsigned int i = 0;
@@ -639,7 +625,7 @@ SEXP  rlistScores(multimap<score_type, ComposedElement, greater<score_type> > sc
 		IsotopeDistribution::abundances_container intensities = isodist.getAbundances();
 
 		int ny = masses.size();
-		SEXP tmp_isotopes = PROTECT(allocMatrix(REALSXP, 2, ny));
+		SEXP tmp_isotopes = PROTECT(Rf_allocMatrix(REALSXP, 2, ny));
 
 		for(int j = 0; j < ny; j++) {
 		    REAL(tmp_isotopes)[0 + 2*j] = masses[j];
@@ -667,7 +653,7 @@ SEXP  rlistScores(multimap<score_type, ComposedElement, greater<score_type> > sc
 	SEXP rl = rs.getReturnList();
 
 	if(exceptionMesg != NULL) {
-	  error(exceptionMesg);
+	  Rf_error(exceptionMesg);
 	}
 	return rl;
 
@@ -767,10 +753,10 @@ SEXP getListElement(SEXP list, char *str)
   // {{{ 
 
 {
-  SEXP elmt = R_NilValue, names = getAttrib(list, R_NamesSymbol);
+  SEXP elmt = R_NilValue, names = Rf_getAttrib(list, R_NamesSymbol);
   int i;
   
-  for (i = 0; i < length(list); i++)
+  for (i = 0; i < Rf_length(list); i++)
     if(strcmp(CHAR(STRING_ELT(names, i)), str) == 0) {
       elmt = VECTOR_ELT(list, i);
       break;
@@ -793,16 +779,16 @@ void initializeAlphabet(const SEXP l_alphabet,
   distribution_t::SIZE = maxisotopes;
   distribution_t::ABUNDANCES_SUM_ERROR = 0.0001;
        
-  for (int i=0; i < length(l_alphabet); i++) {
+  for (int i=0; i < Rf_length(l_alphabet); i++) {
     SEXP l = VECTOR_ELT(l_alphabet,i);
 	  
-    const char *symbol = STRING_VALUE(getListElement(l, "name"));
+    const char *symbol = CHAR(Rf_asChar(getListElement(l, "name")));
 
     nominal_mass_type nominalmass = (nominal_mass_type) REAL(getListElement(l, "mass"))[0];
 	  	  
     SEXP isotope = getListElement(l, "isotope");	
 
-    int numisotopes = length(getListElement(isotope, "mass"));
+    int numisotopes = Rf_length(getListElement(isotope, "mass"));
     double *mass = REAL(getListElement(isotope, "mass"));	
     double *abundance = REAL(getListElement(isotope, "abundance"));	
 
