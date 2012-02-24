@@ -4,7 +4,6 @@
 *~
 *.o
 .dirstamp
-src/Makevars
 src/imslib/Makefile
 .deps
 src/imslib/config.log
