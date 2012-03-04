@@ -1,7 +1,7 @@
 rm -f confdefs.h config.log config.status config.sub config.guess
 rm -f src/*.o src/*.so
 rm -f src/libims.so*
-make -C ./src/imslib/ clean
+make -k -C ./src/imslib/ clean
 rm -f inst/doc/*.cpp inst/doc/*.hpp inst/doc/*.R 
 rm -f inst/doc/*.Rd inst/doc/*.aux inst/doc/*.log inst/doc/*.tex inst/doc/*.out
 rm -rf inst/doc/auto
