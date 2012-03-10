@@ -3,7 +3,7 @@
 
 PKG_CXXFLAGS+= -I./imslib/src/
 
-PKG_LIBS=`${R_HOME}/bin/Rscript -e "Rcpp:::LdFlags()"` `${R_HOME}/bin/Rscript -e "Rcpp:::LdFlags()" | sed -s "s/Rcpp/RcppClassic/" `
+PKG_LIBS=`${R_HOME}/bin/Rscript -e "Rcpp:::LdFlags()"` `${R_HOME}/bin/Rscript -e "Rcpp:::LdFlags()" | sed -e "s/Rcpp/RcppClassic/g" `
 
 #PKG_LIBS += $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()")
 #PKG_LIBS += $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()")
