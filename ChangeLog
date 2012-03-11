@@ -1,3 +1,6 @@
+2012-03-11  Steffen Neumann  <sneumann@ipb-halle.de>
+	* Reverted Windows build hack
+
 2012-03-10  Steffen Neumann  <sneumann@ipb-halle.de>
 	* Windows build hack
 
