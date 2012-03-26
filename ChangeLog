@@ -1,3 +1,8 @@
+2012-03-26  Steffen Neumann  <sneumann@ipb-halle.de>
+
+	* src/disop.cpp: fixed missing UNPROTECT(), avoids warning 
+	and possibly memory corruprtion and crashes
+
 2012-03-11  Steffen Neumann  <sneumann@ipb-halle.de>
 	* Reverted Windows build hack
 

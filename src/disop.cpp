@@ -652,6 +652,8 @@ SEXP  rlistScores(multimap<score_type, ComposedElement, greater<score_type> > sc
 	// Get the list to be returned to R.
 	SEXP rl = rs.getReturnList();
 
+	UNPROTECT(1); // SEXP isotopes
+
 	if(exceptionMesg != NULL) {
 	  Rf_error(exceptionMesg);
 	}
