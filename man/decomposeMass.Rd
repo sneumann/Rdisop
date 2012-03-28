@@ -59,7 +59,7 @@ decomposeIsotopes(c(147.0529,148.0563), c(100.0,5.561173))
 
 \references{
   For a description of the underlying IMS see:
-  WABI Paper
+  see citation("Rdisop")
 }
 
 \author{Steffen Neumann <sneumann@IPB-Halle.DE>}

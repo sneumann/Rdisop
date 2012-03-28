@@ -1,0 +1,77 @@
+citEntry(entry="article",  
+   author="Sebastian B\"ocker and Matthias Letzel and Zsuzsanna Lipt{\'a}k and Anton Pervukhin",
+   title="{SIRIUS}: Decomposing isotope patterns for metabolite identification",
+   journal="Bioinformatics",
+   year="2009",
+   volume="25",
+   number="2",
+   pages="218--224",
+   doi="10.1093/bioinformatics/btn603",
+   pmid="19015140",
+   textVersion=paste("Sebastian Boecker, Matthias Letzel, Zsuzsanna Liptak and Anton Pervukhin",
+		       "SIRIUS: Decomposing isotope patterns for metabolite identification.",
+		       "Bioinformatics, 25(2):218-224, 2009. "))
+
+citEntry(entry="article",  
+   author="Sebastian B\"ocker and Zsuzsanna Lipt\'ak and Marcel Martin and Anton Pervukhin and Henner Sudek",
+   title="{DECOMP}---from interpreting Mass Spectrometry peaks to solving the {Money} {Changing} {Problem}",
+   journal="Bioinformatics",
+   year="2008",
+   volume="24",
+   number="4",
+   pages="591--593",
+   doi="10.1093/bioinformatics/btm631",
+   pmid="18174179",
+   textVersion=paste("Sebastian Boecker, Zsuzsanna Liptak, Marcel Martin, Anton Pervukhin and Henner Sudek",
+		       "DECOMP---from interpreting Mass Spectrometry peaks to solving the Money Changing Problem.",
+		       "Bioinformatics, 24(4):591-593, 2008."))
+
+citEntry(entry="InProceedings",  
+   author="Sebastian B\"ocker and Matthias Letzel and Zsuzsanna Lipt{\'a}k and Anton Pervukhin",
+   title="Decomposing metabolomic isotope patterns",
+   booktitle="Proc. of Workshop on Algorithms in Bioinformatics (WABI 2006)",
+   publisher="Springer, Berlin",
+   year="2006",
+   volume="4175",
+   pages="12--23",
+   series="Lect. Notes Comput. Sci.",
+   textVersion=paste("Sebastian Boecker, Matthias Letzel, Zsuzsanna Liptak and Anton Pervukhin",
+                       "Decomposing metabolomic isotope patterns.",
+		       "In Proc. of Workshop on Algorithms in Bioinformatics (WABI 2006),",
+		       "volume 4175 of Lect. Notes Comput. Sci., pages 12-23. Springer, 2006."))
+
+citEntry(entry="article",  
+   author="Sebastian B\"ocker and Zsuzsanna Lipt{\'a}k",
+   title="A fast and simple algorithm for the Money Changing Problem.",
+   journal="Algorithmica",
+   year="2007",
+   volume="48",
+   number="4",
+   pages="413-432",
+   doi="10.1007/s00453-007-0162-8",
+   textVersion=paste("Sebastian Boecker and Zsuzsanna Liptak",
+		       "A fast and simple algorithm for the Money Changing Problem.",
+                       "Algorithmica, 48(4):413-432, 2007. "))
+
+
+
+
+
+
+
+
+		       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
