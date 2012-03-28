@@ -1,5 +1,7 @@
-2012-03-26  Steffen Neumann  <sneumann@ipb-halle.de>
-
+2012-03-28  Steffen Neumann  <sneumann@ipb-halle.de>
+	* Added citations in package and documentation
+	
+2012-03-26  Steffen Neumann  <sneumann@ipb-halle.de>	
 	* src/disop.cpp: fixed missing UNPROTECT(), avoids warning 
 	and possibly memory corruprtion and crashes
 
