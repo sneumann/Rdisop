@@ -39,7 +39,7 @@ $^\P$Bioinformatics, Friedrich-Schiller-University Jena,
 The BioConductor \Rpackage{Rdisop} package is designed to determine
 the sum formula of metabolites solely from their exact mass and
 isotope pattern as obtained from high resolution mass spectrometry
-measurements.
+measurements. Algorithms are described in \cite{boecker08decomp,boecker09sirius,boecker06decomposing,boecker07fast}.
 
 It is designed with compatibility to the Bioconductor packages
 \Rpackage{XCMS}, \Rpackage{MassSpecWavelet} and \Rpackage{rpubchem} in
@@ -88,7 +88,7 @@ spectrometer, we apply this information to identify the elemental
 composition of the sample molecule. Our input is a list of masses with
 normalized abundances that corresponds to the isotope pattern of the
 sample molecule. We want to find that molecule's elemental composition
-whose isotope pattern best matches the input.
+whose isotope pattern best matches the input. 
 
 Solving this task is divided into the following parts: First, all
 elemental compositions are calculated that share some property, for
@@ -241,5 +241,8 @@ For other cheminformatics functionality in BioConductor see e.g.
 AP supported by Deutsche Forschungsgemeinschaft (BO 1910/1),
 additional programming by Marcel Martin, whom we thank for his
 unfailing support, and by Marco Kortkamp.
+
+\bibliographystyle{plainnat}
+\bibliography{Rdisop}
 
 \end{document}

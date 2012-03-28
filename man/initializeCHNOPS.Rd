@@ -51,7 +51,7 @@ elements <- initializeCHNOPS()
 
 \references{
   For a description of the underlying IMS see:
-  WABI Paper
+  see citation("Rdisop")
 
   Isotope patterns obtained through wikipedia.org
 }
