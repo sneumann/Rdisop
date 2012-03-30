@@ -1,0 +1,149 @@
+@Article{boecker08decomp,
+author = {Sebastian B\"ocker and Zsuzsanna Lipt\'ak and Marcel Martin and Anton Pervukhin and Henner Sudek},
+title = {{DECOMP}---from interpreting Mass Spectrometry peaks to solving the {Money} {Changing} {Problem}},
+journal = {Bioinformatics},
+year = {2008},
+volume = {24},
+number = {4},
+pages = {591-593},
+url = {http://bioinformatics.oxfordjournals.org/cgi/reprint/24/4/591?ijkey=1lM50Bkzz4SCLsa&keytype=ref},
+doi = {10.1093/bioinformatics/btm631},
+abstract = {We introduce DECOMP, a tool that computes the sum formula
+                  of all molecules whose mass equals the input
+                  mass. This problem arises frequently in biochemistry
+                  and mass spectrometry (MS), when we know the
+                  molecular mass of a protein, DNA, or metabolite
+                  fragment but have no other information. A closely
+                  related problem is known as the Money Changing
+                  Problem (MCP), where all masses are positive
+                  integers. Recently, efficient algorithms have been
+                  developed for the MCP, which DECOMP applies to real
+                  valued MS data. The excellent performance of this
+                  method on proteomic and metabolomic MS data has
+                  recently been demonstrated. DECOMP has an
+                  easy-to-use graphical interface, which caters for
+                  both types of users: those interested in solving MCP
+                  instances and those submitting MS data.},
+} 
+
+@Article{boecker09sirius,
+author = {Sebastian B\"ocker and Matthias Letzel and Zsuzsanna Lipt{\'a}k and Anton Pervukhin},
+title = {{SIRIUS}: Decomposing isotope patterns for metabolite identification},
+journal = {Bioinformatics},
+year = {2009},
+volume = {25},
+number = {2},
+pages = {218--224},
+url = {http://bioinformatics.oxfordjournals.org/cgi/content/full/25/2/218},
+doi = {10.1093/bioinformatics/btn603},
+abstract = {Motivation: High-resolution mass spectrometry (MS) is
+                  among the most widely used technologies in
+                  metabolomics. Metabolites participate in almost all
+                  cellular processes, but most metabolites still
+                  remain uncharacterized. Determination of the sum
+                  formula is a crucial step in the identification of
+                  an unknown metabolite, as it reduces its possible
+                  structures to a hopefully manageable set. Results:
+                  We present a method for determining the sum formula
+                  of a metabolite solely from its mass and the natural
+                  distribution of its isotopes. Our input is a
+                  measured isotope pattern from a high resolution mass
+                  spectrometer, and we want to find those molecules
+                  that best match this pattern. Our method is
+                  computationally efficient, and results on
+                  experimental data are very promising: For orthogonal
+                  time-of-flight mass spectrometry, we correctly
+                  identify sum formulas for more than 90\% of the
+                  molecules, ranging in mass up to 1000
+                  Da. Availability: SIRIUS is available under the LGPL
+                  license at
+                  http://bio.informatik.uni-jena.de/sirius/. Contact:
+                  anton.pervukhin@minet.uni-jena.de},
+} 
+
+@Inproceedings{boecker06decomposing,
+author = {Sebastian B\"ocker and Matthias Letzel and Zsuzsanna Lipt{\'a}k and Anton Pervukhin},
+title = {Decomposing metabolomic isotope patterns},
+booktitle = {Proc. of Workshop on Algorithms in Bioinformatics (WABI 2006)},
+publisher = {Springer, Berlin},
+year = {2006},
+volume = {4175},
+pages = {12--23},
+series = {Lect. Notes Comput. Sci.},
+url = {http://bio.informatik.uni-jena.de/bib2html/downloads/2006/BoeckerEtAl_DecomposingMetabolomicIsotopePatterns_WABI_2006.pdf},
+abstract = {We present a method for determining the sum formula of
+                  metabolites solely from their mass and isotope
+                  pattern. Metabolites, such as sugars or lipids,
+                  participate in almost all cellular processes, but
+                  the majority still remains uncharacterized. Our
+                  input is a measured isotope pattern from a high
+                  resolution mass spectrometer, and we want to find
+                  those molecules that best match this
+                  pattern. Determination of the sum formula is a
+                  crucial step in the identification of an unknown
+                  metabolite, as it reduces its possible structures to
+                  a hopefully manageable set. Our method is
+                  computationally efficient, and first results on
+                  experimental data indicate good identification rates
+                  for chemical compounds up to 700 Dalton. Above 1000
+                  Dalton, the number of molecules with a certain mass
+                  increases rapidly. To efficiently analyze mass
+                  spectra of such molecules, we define several
+                  additive invariants extracted from the input and
+                  then propose to solve a joint decomposition
+                  problem.},
+} 
+
+@Article{boecker07fast,
+author = {Sebastian B\"ocker and Zsuzsanna Lipt{\'a}k},
+title = {A fast and simple algorithm for the {M}oney {C}hanging {P}roblem},
+journal = {Algorithmica},
+year = {2007},
+volume = {48},
+number = {4},
+pages = {413-432},
+doi = {10.1007/s00453-007-0162-8},
+abstract = {The Money Changing Problem (MCP) can be stated as follows:
+                  Given $k$ positive integers $a_1< \ldots < a_k$ and
+                  a query integer $M$, is there a linear combination
+                  $\sum_i c_ia_i = M$ with non-negative integers
+                  $c_i$, a \emph{decomposition} of $M$? If so, produce
+                  one or all such decompositions. The largest integer
+                  without such a decomposition is called the
+                  \emph{Frobenius number} $g(a_1,\ldots,a_k)$. A data
+                  structure called {\em residue table} of $a_1$ words
+                  can be used to compute the Frobenius number in time
+                  $O(a_1)$. We present an intriguingly simple
+                  algorithm for computing the residue table which runs
+                  in time $O(ka_1)$, with no additional memory
+                  requirements, outperforming the best previously
+                  known algorithm. Simulations show that it performs
+                  well even on 'hard' instances from the
+                  literature. In addition, we can employ the residue
+                  table to answer MCP decision instances in constant
+                  time, and a slight modification of size $O(a_1)$ to
+                  compute one decomposition for a query $M$. Note that
+                  since both, computing the Frobenius number and MCP
+                  (decision) are NP-hard, one cannot expect to find an
+                  algorithm that is polynomial in the size of the
+                  input, i.e., in $k,\log a_k$, and $\log M$. We then
+                  give an algorithm which, using a modification of the
+                  residue table, also constructible in $O(ka_1)$ time,
+                  computes all decompositions of a query integer
+                  $M$. Its worst-case running time is $O(ka_1)$ for
+                  each decomposition, thus the total runtime depends
+                  only on the output size and is independent of the
+                  size of query $M$ itself. We apply our latter
+                  algorithm to interpreting mass spectrometry (MS)
+                  peaks: Due to its high speed and accuracy, MS is now
+                  the method of choice in protein
+                  identification. Interpreting individual peaks is one
+                  of the recurring subproblems in analyzing MS data;
+                  the task is to identify sample molecules whose mass
+                  the peak possibly represents. This can be stated as
+                  an MCP instance, with the masses of the individual
+                  amino acids as the $k$ integers $a_1,\ldots,
+                  a_k$. Our simulations show that our algorithm is
+                  fast on real data and is well suited for generating
+                  candidates for peak interpretation.},
+} 
