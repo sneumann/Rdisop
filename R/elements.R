@@ -158,8 +158,8 @@ initializePSE <- function() {
 }
 
 initializeCharges <- function() {
-    positive <- list(name="+", mass=0, isotope = list(mass=c(-0.005485), abundance=c(1)))
-    negative <- list(name="-", mass=0, isotope = list(mass=c(+0.005485), abundance=c(1)))
+    positive <- list(name="+", mass=0, isotope = list(mass=c(-0.00054858), abundance=c(1)))
+    negative <- list(name="-", mass=0, isotope = list(mass=c(+0.00054858), abundance=c(1)))
     list(positive, negative)
 }
 

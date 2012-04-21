@@ -1,3 +1,7 @@
+2012-04-21  Steffen Neumann  <sneumann@ipb-halle.de>
+
+	* R/elements.R (initializeCharges): Fixed electron mass
+
 2012-03-28  Steffen Neumann  <sneumann@ipb-halle.de>
 	* Added citations in package and documentation
 	
