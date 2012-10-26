@@ -79,7 +79,6 @@ float getDBE(const ComposedElement& molecule, int z) {
 
 // }}}
 
-
 char getParity(const ComposedElement& molecule, int charge=0) {
   // {{{ 
 
@@ -95,7 +94,7 @@ char getParity(const ComposedElement& molecule, int charge=0) {
 // }}}
 
 bool isValidMyNitrogenRule(const ComposedElement& molecule, int z) {
-  // {{{ 
+  // {{{
 
   bool massodd =  static_cast<int>(molecule.getNominalMass()) % 2 == 1 ? true : false;
   bool masseven = !massodd;
@@ -117,6 +116,30 @@ bool isValidMyNitrogenRule(const ComposedElement& molecule, int z) {
 }
 // }}}
 
+bool isWithinElementRange(const ComposedElement& molecule, const ComposedElement& minElements, const ComposedElement& maxElements) {
+// {{{
+
+  for (ComposedElement::container::const_iterator it = molecule.getElements().begin(); 
+       it != molecule.getElements().end(); ++it) {
+    
+    int mincount = static_cast<int>(minElements.getElementAbundance((it->first).getName()));
+    int maxcount = static_cast<int>(maxElements.getElementAbundance((it->first).getName()));
+
+    int count = static_cast<int>(molecule.getElementAbundance((it->first).getName()));
+      
+      if (count < mincount) {
+	return false;
+      }
+
+      // TODO: Fails e.g. for "C2N0" 
+      if (maxcount>0 && count > maxcount) {
+	return false;
+      }
+  }
+
+  return true;
+}
+// }}}
 
 //
 // Decomposition of Mass / Isotope Pattern
@@ -124,7 +147,8 @@ bool isValidMyNitrogenRule(const ComposedElement& molecule, int z) {
 
 RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error, 
 				  SEXP l_alphabet, SEXP v_element_order, 
-				  SEXP z, SEXP i_maxisotopes) {
+				  SEXP z, SEXP i_maxisotopes,
+				  SEXP s_minElements, SEXP s_maxElements) {
 // {{{ 
 
     typedef DistributionProbabilityScorer scorer_type;
@@ -229,15 +253,29 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
 	// - chemical filter is applied
 	// - isotopic pattern is calculated
 	// - isotopic pattern is matched against input spectrum
+
+	// Initialize minimum/maximum element count "molecules"
+	ComposedElement minElements(CHAR(Rf_asChar(s_minElements)), alphabet);
+	ComposedElement maxElements(CHAR(Rf_asChar(s_maxElements)), alphabet);
+
 	for (decompositions_t::iterator decomps_it = decompositions.begin(); 
 		decomps_it != decompositions.end(); ++decomps_it) {
 
 		// creates a candidate molecule out of elemental composition and a set of elements
 		ComposedElement candidate_molecule(*decomps_it, alphabet);
+
+		// Check minimum/maximum element counts
+		if (!isWithinElementRange(candidate_molecule, minElements, maxElements)) {
+			continue;
+		} 
+
+
 		// checks on chemical filter
 // 		if (!isValidMyNitrogenRule(candidate_molecule, z)) {
 // 			continue;
 // 		} 
+
+
 		// updates molecules isotope distribution (since its not calculated upon creation: 
 		// it would be time consuming before applying chemical filter)
 		candidate_molecule.updateIsotopeDistribution();
@@ -383,7 +421,7 @@ RcppExport SEXP calculateScore(SEXP v_predictMasses, SEXP v_predictAbundances, S
 
 RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet, 
 			    SEXP v_element_order, SEXP z, SEXP i_maxisotopes) {
-  // {{{ 
+// {{{ 
 
   SEXP  rl=R_NilValue; // Use this when there is nothing to be returned.
 
@@ -819,7 +857,7 @@ extern "C" {
       {"getMolecule", (void* (*)())&getMolecule, 4},
       {"addMolecules", (void* (*)())&addMolecules, 4},
       {"subMolecules", (void* (*)())&subMolecules, 4},
-      {"decomposeIsotopes", (void* (*)())&decomposeIsotopes, 7},
+      {"decomposeIsotopes", (void* (*)())&decomposeIsotopes, 9},
       {"calculateScore", (void* (*)())&calculateScore, 7},
       {NULL, NULL, 0}
     };

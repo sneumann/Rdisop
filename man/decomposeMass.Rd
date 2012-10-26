@@ -8,9 +8,10 @@
   obtained e.g.\ by FTICR or TOF mass spectrometers 
 }
 \usage{
-decomposeMass(mass, ppm=2.0, mzabs=0.0001, elements=NULL, filter=NULL, z=0, maxisotopes = 10)
+decomposeMass(mass, ppm=2.0, mzabs=0.0001, elements=NULL, filter=NULL,
+z=0, maxisotopes = 10, minElements="C0", maxElements="C999999")
 decomposeIsotopes(masses, intensities, ppm=2.0, mzabs=0.0001,
-elements=NULL, filter=NULL,  z=0, maxisotopes = 10)
+elements=NULL, filter=NULL,  z=0, maxisotopes = 10, minElements="C0", maxElements="C999999")
 isotopeScore(molecule, masses, intensities, elements = NULL, filter = NULL, z = 0)
 }
 \arguments{
@@ -24,6 +25,8 @@ isotopeScore(molecule, masses, intensities, elements = NULL, filter = NULL, z = 
   \item{maxisotopes}{maximum number of isotopes shown in the resulting
     molecules}
   \item{elements}{list of allowed chemical elements, defaults to CHNOPS}
+  \item{minElements, maxElements}{Molecular formulas, which contain
+    lower and upper boundaries of allowed formula respectively}
   \item{filter}{NYI, will be a selection of DU, DBE and Nitrogen rules}
   \item{molecule}{a molecule as obtained from getMolecule() or
     decomposeMass / decomposeIsotopes}
