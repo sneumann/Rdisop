@@ -130,13 +130,16 @@ subMolecules <- function(formula1, formula2,
 
 
 decomposeMass <- function(mass, ppm=2.0, mzabs=0.0001,
-                          elements=NULL, filter=NULL, z=0, maxisotopes=10) {
+                          elements=NULL, filter=NULL, z=0, maxisotopes=10,
+                          minElements="C0", maxElements="C999999") {
     decomposeIsotopes(c(mass), c(1), ppm=ppm, mzabs=mzabs,
-                      elements=elements, filter=filter, z=z, maxisotopes=maxisotopes)
+                      elements=elements, filter=filter, z=z, maxisotopes=maxisotopes,
+                      minElements=minElements, maxElements=maxElements)
 }
 
 decomposeIsotopes <- function(masses, intensities, ppm=2.0, mzabs=0.0001,
-                              elements=NULL, filter=NULL, z=0, maxisotopes=10)
+                              elements=NULL, filter=NULL, z=0, maxisotopes=10,
+                              minElements="C0", maxElements="C999999")
 {
     # Use limited limited CHNOPS unless stated otherwise
     if (!is.list(elements) || length(elements)==0 ) {
@@ -174,6 +177,7 @@ decomposeIsotopes <- function(masses, intensities, ppm=2.0, mzabs=0.0001,
     molecules <- .Call("decomposeIsotopes",
                        masses, intensities, ppm, elements, element_order, z,
                        maxisotopes,
+                       minElements, maxElements,
                        PACKAGE="Rdisop")
 
     molecules
