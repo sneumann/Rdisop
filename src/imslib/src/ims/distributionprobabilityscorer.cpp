@@ -233,9 +233,9 @@ scores(const masses_container& measured_masses,
 	double prob = erfc(abs(x - mass_dists[0].mean) / (sqrt(mass_dists[0].variance) * sqrt2));
 
 	scores.push_back(prob);
-	if (isDebugMode) {
- 		std::cout << "erfc[mass_0] = " << prob << '\n';
-	}
+	// if (isDebugMode) {
+ 	// 	std::cout << "erfc[mass_0] = " << prob << '\n';
+	// }
 	
 	// remaining peaks (only mass)
 	for (size_type i = 1; i < i_max; ++i) {
@@ -257,15 +257,15 @@ scores(const masses_container& measured_masses,
 		double mean = (i < mass_dists.size()) ? mass_dists[i].mean : mass_dists.back().mean;
 		double variance = (i < mass_dists.size()) ? mass_dists[i].variance : mass_dists.back().variance;
 		prob *= erfc(abs(x - mean) / (sqrt(variance) * sqrt2));
-		if (isDebugMode) {
- 			std::cout << "erfc[mass_" << i << "] = " << erfc(abs(x - mean) / (sqrt(variance) * sqrt2)) << '\n';
-		}
+		// if (isDebugMode) {
+ 		// 	std::cout << "erfc[mass_" << i << "] = " << erfc(abs(x - mean) / (sqrt(variance) * sqrt2)) << '\n';
+		// }
 		scores.push_back(erfc(abs(x - mean) / (sqrt(variance) * sqrt2)));
 	}
 
-	if (isDebugMode) {
- 		std::cout << "prob (after masses) = " << prob << '\n';
-	}
+	// if (isDebugMode) {
+ 	// 	std::cout << "prob (after masses) = " << prob << '\n';
+	// }
 
 	// intensities
 	i_max = std::min(predicted_masses.size(), std::min(measured_masses.size(), intensity_dists.size()));
@@ -283,15 +283,15 @@ scores(const masses_container& measured_masses,
 		prob *= erfc(abs(x - mean) / (sqrt(variance) * sqrt2));
 		// or perhaps:
 //		 prob *= erfc((x - mean) / (sqrt(variance) * sqrt2));
-		if (isDebugMode) {
- 			std::cout << "erfc[abund_" << i << "] = " << erfc(abs(x - mean) / (sqrt(variance) * sqrt2)) << '\n';
-		}
+		// if (isDebugMode) {
+ 		// 	std::cout << "erfc[abund_" << i << "] = " << erfc(abs(x - mean) / (sqrt(variance) * sqrt2)) << '\n';
+		// }
 		scores.push_back(erfc(abs(x - mean) / (sqrt(variance) * sqrt2)));
 	}
 	
-	if (isDebugMode) {
- 		std::cout << "prob (after abundances) = " << prob << '\n';
-	}
+	// if (isDebugMode) {
+ 	// 	std::cout << "prob (after abundances) = " << prob << '\n';
+	// }
 
 //////	i_max = std::min(predicted_masses.size(), measured_masses.size());
 //////

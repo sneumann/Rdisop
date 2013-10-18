@@ -1,7 +1,7 @@
 2012-10-26  Steffen Neumann  <sneumann@ipb-halle.de>
 
 	* /inst/doc -> /vignettes: to please lates R devel
-	* 
+	* src/ims/distributionprobabilityscorer.cpp: remove stdout messages
 
 2012-10-26  Steffen Neumann  <sneumann@ipb-halle.de>
 
