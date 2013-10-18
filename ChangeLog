@@ -1,5 +1,10 @@
 2012-10-26  Steffen Neumann  <sneumann@ipb-halle.de>
 
+	* /inst/doc -> /vignettes: to please lates R devel
+	* 
+
+2012-10-26  Steffen Neumann  <sneumann@ipb-halle.de>
+
 	* src/disop.cpp (decomposeIsotopes): Add support for element count filtering
 
 2012-04-21  Steffen Neumann  <sneumann@ipb-halle.de>
