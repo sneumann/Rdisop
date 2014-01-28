@@ -1,7 +1,7 @@
 Package: Rdisop
 Title: Decomposition of Isotopic Patterns
-Version: 1.23.1
-Date: 2013-10-18
+Version: 1.23.2
+Date: 2014-01-28
 Author: Anton Pervukhin <apervukh@minet.uni-jena.de>, Steffen Neumann <sneumann@ipb-halle.de> 
 Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
 Description: Identification of metabolites using high precision mass
@@ -9,7 +9,7 @@ Description: Identification of metabolites using high precision mass
              of sum formulae, alternatively for a given sum formula
              the theoretical isotope distribution can be calculated 
              to search in MS peak lists.
-Depends: R (>= 2.0.0), RcppClassic, Rcpp
+Depends: R (>= 2.0.0), RcppClassic
 LinkingTo: RcppClassic, Rcpp
 Suggests: RUnit
 SystemRequirements: None
