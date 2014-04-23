@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <ims/utils/distribution.h>
 #include <algorithm>
 
