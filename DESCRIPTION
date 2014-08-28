@@ -14,6 +14,7 @@ LinkingTo: RcppClassic, Rcpp
 Suggests: RUnit
 SystemRequirements: None
 License: GPL-2
-URL: http://msbi.ipb-halle.de/
+URL: https://github.com/sneumann/Rdisop
+BugReports: https://github.com/sneumann/Rdisop/issues/new
 biocViews: MassSpectrometry
 Packaged: 2012-02-16 14:03:45.877398 UTC; edd
