@@ -1,3 +1,7 @@
+2015-12-08  Steffen Neumann  <sneumann@ipb-halle.de>
+
+	* Added unit test for charge=0 and charge=1
+
 2012-10-26  Steffen Neumann  <sneumann@ipb-halle.de>
 
 	* /inst/doc -> /vignettes: to please lates R devel
