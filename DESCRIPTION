@@ -1,6 +1,6 @@
 Package: Rdisop
 Title: Decomposition of Isotopic Patterns
-Version: 1.33.0
+Version: 1.34.0
 Date: 2015-12-08
 Author: Anton Pervukhin <apervukh@minet.uni-jena.de>, Steffen Neumann <sneumann@ipb-halle.de> 
 Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
