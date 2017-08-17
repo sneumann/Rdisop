@@ -1,3 +1,7 @@
+2017-08-17  Steffen Neumann  <sneumann@ipb-halle.de>
+
+	* DESCRIPTION: Bump version, Add Travis builds, sync with BioC git 
+
 2015-12-08  Steffen Neumann  <sneumann@ipb-halle.de>
 
 	* Added unit test for charge=0 and charge=1
