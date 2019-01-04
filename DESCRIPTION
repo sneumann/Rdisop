@@ -1,6 +1,6 @@
 Package: Rdisop
 Title: Decomposition of Isotopic Patterns
-Version: 1.43.0
+Version: 1.43.1
 Date: 2017-11-01
 Author: Anton Pervukhin <apervukh@minet.uni-jena.de>, Steffen Neumann <sneumann@ipb-halle.de> 
 Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
@@ -16,5 +16,5 @@ SystemRequirements: None
 License: GPL-2
 URL: https://github.com/sneumann/Rdisop
 BugReports: https://github.com/sneumann/Rdisop/issues/new
-biocViews: MassSpectrometry, Metabolomics
+biocViews: ImmunoOncology, MassSpectrometry, Metabolomics
 Packaged: 2012-02-16 14:03:45.877398 UTC; edd
