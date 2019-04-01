@@ -30,13 +30,13 @@
 //
 // R Stuff
 //
-#include <RcppClassic.h>
+#include <Rcpp.h>
 extern "C" {
 #include <Rdefines.h>
 #include <Rinternals.h>
 #include <R_ext/Rdynload.h>
 }
-
+using namespace Rcpp;
 using namespace ims;
 using namespace std;
 
@@ -169,8 +169,8 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
     SEXP  rl=R_NilValue; // Use this when there is nothing to be returned.
     try {
 
-	RcppVector<double> masses = RcppVector<double>(v_masses);
-	RcppVector<double> abundances = RcppVector<double>(v_abundances);
+	NumericVector masses = NumericVector(v_masses);
+	NumericVector abundances = NumericVector(v_abundances);
 	double error = *REAL(s_error);
 
 	// converts relative (ppm) in absolute error 
@@ -342,11 +342,13 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
 	  rl = rlistScores(scores, Rf_asInteger(z));
 	}
     } catch(std::exception& ex) {
-      exceptionMesg = copyMessageToR(ex.what());
-      error_return(exceptionMesg); 
+      //exceptionMesg = copyMessageToR(ex.what());
+      //error_return(exceptionMesg); 
+      forward_exception_to_r(ex);
     } catch(...) {
-      exceptionMesg = copyMessageToR("unknown reason");
-      error_return(exceptionMesg); 
+      //exceptionMesg = copyMessageToR("unknown reason");
+      //error_return(exceptionMesg); 
+      ::Rf_error("c++ exception (unknown reason)");
     }
         
     return rl;
@@ -367,8 +369,8 @@ RcppExport SEXP calculateScore(SEXP v_predictMasses, SEXP v_predictAbundances, S
 
 
 
-	RcppVector<double> masses = RcppVector<double>(v_predictMasses);
-	RcppVector<double> abundances = RcppVector<double>(v_predictAbundances);
+	NumericVector masses = NumericVector(v_predictMasses);
+	NumericVector abundances = NumericVector(v_predictAbundances);
 
 	// fills peaklist masses and abundances, 
 	// since we cannot use masses and abundances - instances of RcppVector object - directly
@@ -384,8 +386,8 @@ RcppExport SEXP calculateScore(SEXP v_predictMasses, SEXP v_predictAbundances, S
 	// initializes distribution probability scorer
 	scorer_type scorer(peaklist_masses, peaklist_abundances);
 
-	masses = RcppVector<double>(v_measuredMasses);
-	abundances = RcppVector<double>(v_meausuredAbundances);
+	masses = NumericVector(v_measuredMasses);
+	abundances = NumericVector(v_meausuredAbundances);
 	//cout << "Mess:" << masses<<"\n";
 	masses_container mess_masses;
 	abundances_container mess_abundances;
@@ -406,15 +408,8 @@ RcppExport SEXP calculateScore(SEXP v_predictMasses, SEXP v_predictAbundances, S
 	}
 
 	score_type score=scorer.score(mess_masses, mess_abundances);
-	//SEXP output;
-	//PROTECT(output = NEW_NUMERIC(1));
-	//cout<< score;
-	//REAL(output)[0]=score;
-	//UNPROTECT(1);
- 	//return (output);
-	RcppResultSet rs;
-	rs.add("", score);
-	return(rs.getSEXP());
+	//List output;
+	return(List::create(  _[""]  = score));
 }
 // }}}
 
@@ -477,11 +472,9 @@ RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet,
     scores.insert(make_pair(1.0, molecule));
     rl = rlistScores(scores, Rf_asInteger(z));
   } catch(std::exception& ex) {
-    exceptionMesg = copyMessageToR(ex.what());
-    Rf_error(exceptionMesg); 
+    forward_exception_to_r(ex);
   } catch(...) {
-    exceptionMesg = copyMessageToR("unknown reason");
-    error_return(exceptionMesg); 
+    ::Rf_error("c++ exception (unknown reason)");
   }
 
   return rl;
@@ -625,18 +618,17 @@ SEXP  rlistScores(multimap<score_type, ComposedElement, greater<score_type> > sc
 
 	// Build result set to be returned as a list to R.
 	vector<string> formula(scores.size());
-	RcppVector<double> score(scores.size());
-	RcppVector<double> exactmass(scores.size());
-	RcppVector<int> charge(scores.size());
+	NumericVector score(scores.size());
+	NumericVector exactmass(scores.size());
+	IntegerVector charge(scores.size());
 
 	// Chemical rules
 	vector<string> parity(scores.size());
 	vector<string> valid(scores.size());
-	RcppVector<double> DBE(scores.size());
+	NumericVector DBE(scores.size());
 
 	SEXP isotopes = PROTECT(Rf_allocVector(VECSXP, scores.size()));
 
- 	RcppResultSet rs;
 	unsigned int i = 0;
 
 	vector<string> colNames(2);
@@ -676,26 +668,21 @@ SEXP  rlistScores(multimap<score_type, ComposedElement, greater<score_type> > sc
 		i++;
 	}
 
-	rs.add("formula", formula);
-	rs.add("score", score);
-	rs.add("exactmass", exactmass);
-	rs.add("charge", z);
-
-	rs.add("parity", parity);
-	rs.add("valid", valid);
-	rs.add("DBE", DBE);
-
-	rs.add("isotopes", isotopes, true);
-
-	// Get the list to be returned to R.
-	SEXP rl = rs.getReturnList();
 
 	UNPROTECT(1); // SEXP isotopes
 
 	if(exceptionMesg != NULL) {
 	  Rf_error(exceptionMesg);
 	}
-	return rl;
+	
+	return(List::create(  _["formula"]  = formula,
+                       _["score"]  = score,
+                       _["exactmass"]  = exactmass,
+                       _["charge"]  = charge,
+                       _["parity"]  = parity,
+                       _["valid"]  = valid,
+                       _["DBE"]  = DBE,
+                       _["isotopes"]  = isotopes));
 
 	// }}}
 }
