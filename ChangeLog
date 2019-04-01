@@ -1,3 +1,9 @@
+2019-04-01  Steffen Neumann  <sneumann@msbi-corei>
+
+	* Rdisop-1.43.2: David Rasp helped to remove dependency
+	to RcppClassic, which might not be supported at some time
+	in the future
+
 2015-12-08  Steffen Neumann  <sneumann@ipb-halle.de>
 
 	* Added unit test for charge=0 and charge=1
