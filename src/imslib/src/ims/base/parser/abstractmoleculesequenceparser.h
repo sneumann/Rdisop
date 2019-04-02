@@ -20,7 +20,7 @@ class AbstractMoleculeSequenceParser {
 		AbstractMoleculeSequenceParser(): multiplicator(1) {}
 								
 		virtual void parse(const sequence_type& sequence) 
-						throw (UnknownCharacterException) = 0;
+						/*throw (UnknownCharacterException)*/ = 0;
 
 		const container& getElements() const { return elements; }
 		

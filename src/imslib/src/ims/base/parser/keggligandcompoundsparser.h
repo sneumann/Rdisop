@@ -14,10 +14,10 @@ class KeggLigandCompoundsParser : public AbstractMoleculeSequenceParser {
 		KeggLigandCompoundsParser() : AbstractMoleculeSequenceParser() {}
 		
 		KeggLigandCompoundsParser(const sequence_type& sequence) 
-									throw (UnknownCharacterException);
+									/*throw (UnknownCharacterException)*/;
 			
 		virtual void parse(const sequence_type& sequence) 
-									throw (UnknownCharacterException);
+									/*throw (UnknownCharacterException)*/;
 		
 		virtual ~KeggLigandCompoundsParser() {}
 };

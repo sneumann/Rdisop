@@ -36,7 +36,8 @@ class MoleculeIonChargeModificationParser {
 			mass_factor(1),		
 			charge(1) {}
 		
-		MoleculeIonChargeModificationParser(const ion_name_type& sequence) throw (UnknownCharacterException);
+		MoleculeIonChargeModificationParser(const ion_name_type& sequence) 
+		    /*throw (UnknownCharacterException)*/;
 		
 		MoleculeIonChargeModificationParser(const MoleculeIonChargeModificationParser& parser) :
 			mass_factor(parser.mass_factor),
@@ -45,7 +46,7 @@ class MoleculeIonChargeModificationParser {
 		
 		MoleculeIonChargeModificationParser& operator =(const MoleculeIonChargeModificationParser& parser);
 		
-		void parse(const ion_name_type& sequence) throw (UnknownCharacterException);
+		void parse(const ion_name_type& sequence) /*throw (UnknownCharacterException)*/;
 
 		mass_factor_type getMassFactor() const { return mass_factor; }		
 		charge_type getCharge() const { return charge; }

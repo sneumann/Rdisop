@@ -92,7 +92,7 @@ class ComposedElement : public Element {
 		 */
 		ComposedElement(const name_type& sequence, const Alphabet& alphabet,
 				unsigned sequence_type = DEFAULT_MOLECULE_SEQUENCE_TYPE)
-			throw (UnknownCharacterException);
+			/*throw (UnknownCharacterException)*/;
 		
 		/**
 		 * Constructor with a given elemental composition @c decomposition that contains abundances of 
@@ -202,7 +202,7 @@ class ComposedElement : public Element {
 		 * @throws UnknownCharacterException if any error happens while parsing	molecule's sequence.
 		 */
 		void initializeElements(const Alphabet& alphabet, std::auto_ptr<sequence_parser_type> parser)
-			throw (UnknownCharacterException);
+			/*throw (UnknownCharacterException)*/;
 		
 		void initializeElements(const std::vector<unsigned int>& decomposition, 
 			const Alphabet& alphabet);

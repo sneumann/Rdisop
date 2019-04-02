@@ -21,7 +21,7 @@ class MassesParser {
 		 * 
 		 * @param fname The name of the input source.
 		 */
-		void load(const std::string& fname) throw (IOException);
+		void load(const std::string& fname) /*throw (IOException)*/;
 		
 		/**
 		 * Gets loaded data.
@@ -42,7 +42,7 @@ class MassesParser {
 };
 
 template <typename MassesType, typename InputSource>
-void MassesParser<MassesType, InputSource>::load(const std::string& fname) throw (IOException) {
+void MassesParser<MassesType, InputSource>::load(const std::string& fname) /*throw (IOException)*/ {
 	std::ifstream ifs(fname.c_str());
 	if (!ifs) {
 		throw IOException("unable to open resource file with masses: " + fname + "!");

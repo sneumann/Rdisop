@@ -18,7 +18,8 @@ CharacterAlphabet::CharacterAlphabet(const Alphabet& alphabet) : masses(256, -1.
 	}
 }
 
-Alphabet::mass_type CharacterAlphabet::getMass(const char& name) const throw (UnknownCharacterException) {
+Alphabet::mass_type CharacterAlphabet::getMass(const char& name) const 
+    /*throw (UnknownCharacterException)*/ {
 	if (name<0) throw UnknownCharacterException();
 	Alphabet::mass_type result = masses[(size_t)name];
 	if (result<0.0) throw UnknownCharacterException();
