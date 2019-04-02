@@ -37,7 +37,7 @@ imslib/src/ims/decomp/realmassdecomposer.o: imslib/src/ims/decomp/realmassdecomp
 imslib/src/ims/utils/distribution.o: imslib/src/ims/utils/distribution.cpp
 imslib/src/ims/distributionprobabilityscorer.o: imslib/src/ims/distributionprobabilityscorer.cpp
 imslib/src/ims/characteralphabet.o: imslib/src/ims/characteralphabet.cpp
-imslib/src/ims/nitrogenrulefiltero: imslib/src/ims/nitrogenrulefilter.cp
+imslib/src/ims/nitrogenrulefilter.o: imslib/src/ims/nitrogenrulefilter.cpp
 
 clean:
 	$(MAKE) -C imslib clean
