@@ -1,5 +1,3 @@
-
-
 PKG_CXXFLAGS=-I./imslib/src/
 
 PKG_LIBS=`${R_HOME}/bin/Rscript -e "RcppClassic:::LdFlags()"` `${R_HOME}/bin/Rscript -e "Rcpp:::LdFlags()"` 
@@ -12,33 +10,6 @@ IMSOBJECTS=imslib/src/ims/element.o imslib/src/ims/composedelement.o imslib/src/
 DISOPOBJECTS=disop.o
 
 OBJECTS=$(DISOPOBJECTS) $(IMSOBJECTS) 
-
-#imslib/src/libims.la:
-#	(cd imslib; ./configure --enable-shared --disable-static; make src/libims.la)
-
-imslib/src/ims/element.o: imslib/src/ims/element.cpp 
-imslib/src/ims/composedelement.o: imslib/src/ims/composedelement.cpp
-imslib/src/ims/isotopedistribution.o: imslib/src/ims/isotopedistribution.cpp
-imslib/src/ims/alphabet.o: imslib/src/ims/alphabet.cpp
-imslib/src/ims/weights.o: imslib/src/ims/weights.cpp
-imslib/src/ims/distributedalphabet.o: imslib/src/ims/distributedalphabet.cpp
-imslib/src/ims/transformation.o: imslib/src/ims/transformation.cpp
-imslib/src/ims/isotopespecies.o: imslib/src/ims/isotopespecies.cpp
-imslib/src/ims/base/parser/alphabettextparser.o: imslib/src/ims/base/parser/alphabettextparser.cpp
-imslib/src/ims/base/parser/distributedalphabettextparser.o: imslib/src/ims/base/parser/distributedalphabettextparser.cpp
-imslib/src/ims/base/parser/massestextparser.o: imslib/src/ims/base/parser/massestextparser.cpp
-imslib/src/ims/base/parser/moleculesequenceparser.o: imslib/src/ims/base/parser/moleculesequenceparser.cpp
-imslib/src/ims/base/parser/standardmoleculesequenceparser.o: imslib/src/ims/base/parser/standardmoleculesequenceparser.cpp
-imslib/src/ims/base/parser/keggligandcompoundsparser.o: imslib/src/ims/base/parser/keggligandcompoundsparser.cpp
-imslib/src/ims/base/parser/moleculeionchargemodificationparser.o: imslib/src/ims/base/parser/moleculeionchargemodificationparser.cpp
-imslib/src/ims/calib/linepairstabber.o: imslib/src/ims/calib/linepairstabber.cpp
-imslib/src/ims/calib/matchmatrix.o: imslib/src/ims/calib/matchmatrix.cpp
-imslib/src/ims/calib/linearpointsetmatcher.o: imslib/src/ims/calib/linearpointsetmatcher.cpp
-imslib/src/ims/decomp/realmassdecomposer.o: imslib/src/ims/decomp/realmassdecomposer.cpp
-imslib/src/ims/utils/distribution.o: imslib/src/ims/utils/distribution.cpp
-imslib/src/ims/distributionprobabilityscorer.o: imslib/src/ims/distributionprobabilityscorer.cpp
-imslib/src/ims/characteralphabet.o: imslib/src/ims/characteralphabet.cpp
-imslib/src/ims/nitrogenrulefilter.o: imslib/src/ims/nitrogenrulefilter.cpp
 
 clean:
 	$(MAKE) -C imslib clean
