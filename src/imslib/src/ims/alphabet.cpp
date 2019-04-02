@@ -23,7 +23,7 @@ Alphabet::mass_type Alphabet::getMass(size_type index) const {
 
 
 Alphabet::mass_type Alphabet::getMass(const name_type& name) const
-										throw (UnknownCharacterException) {
+										/*throw (UnknownCharacterException)*/ {
 	return getElement(name).getMass();
 }
 
@@ -36,7 +36,7 @@ bool Alphabet::hasName(const name_type& name) const {
 
 
 const Alphabet::element_type& Alphabet::getElement(const name_type& name) const
-											throw (UnknownCharacterException) {
+											/*throw (UnknownCharacterException)*/ {
 	const_iterator cit = elements.begin();
 	for (; cit != elements.end(); ++cit) {
 		if (cit->getName() == name) {
@@ -81,13 +81,13 @@ void Alphabet::sortByValues() {
 }
 
 
-void Alphabet::load(const std::string& fname) throw (IOException) {
+void Alphabet::load(const std::string& fname) /*throw (IOException)*/ {
 	this->load(fname, new AlphabetTextParser);
 }
 
 
 void Alphabet::load(const std::string& fname, AlphabetParser<>* parser)
-														throw (IOException) {
+														/*throw (IOException)*/ {
 	parser->load(fname);
 	this->clear();
 	for (AlphabetParser<>::ContainerType::const_iterator pos =

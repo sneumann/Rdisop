@@ -100,14 +100,14 @@ class DistributedAlphabet : public Alphabet,
 		/**
 		 * @see Alphabet<RealType, ScaledType>::load(const std::string& name)
 		 */
-		virtual void load(const std::string& name) throw (IOException);
+		virtual void load(const std::string& name) /*throw (IOException)*/;
 
 		/**
 		 * @see Alphabet<RealType, ScaledType>::load(const std::string& name, 
 		 * 											AlphabetParser<>* parser)
 		 */
 		virtual void load(const std::string& name, AlphabetParser<>* parser) 
-														throw (IOException);
+														/*throw (IOException)*/;
 
 		virtual ~DistributedAlphabet() {}
 	private:

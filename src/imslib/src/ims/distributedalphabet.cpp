@@ -54,7 +54,7 @@ void DistributedAlphabet::push_back(const name_type& name, mass_type value,
 }
 
 
-void DistributedAlphabet::load(const std::string& name) throw (IOException) {
+void DistributedAlphabet::load(const std::string& name) /*throw (IOException)*/ {
 	// here instead of explicit calling of corresponding parser 
 	// implemntation constructor
 	// one should use factory later on, something like this:
@@ -65,7 +65,7 @@ void DistributedAlphabet::load(const std::string& name) throw (IOException) {
 
 
 void DistributedAlphabet::load(const std::string& name, 
-					AlphabetParser<>* parser) throw (IOException) {
+					AlphabetParser<>* parser) /*throw (IOException)*/ {
 	Alphabet::load(name, parser);
 	DistributedAlphabetParser<> *castedParser = 
 					dynamic_cast< DistributedAlphabetParser<>* >(parser);

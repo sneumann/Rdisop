@@ -11,7 +11,7 @@
 namespace ims {
 
 MoleculeIonChargeModificationParser::MoleculeIonChargeModificationParser(
-					const ion_name_type& sequence) throw (UnknownCharacterException) {
+					const ion_name_type& sequence) /*throw (UnknownCharacterException)*/ {
 	parse(sequence);
 }
 
@@ -26,7 +26,8 @@ operator =(const MoleculeIonChargeModificationParser& parser) {
 }
 
 
-void MoleculeIonChargeModificationParser::parse(const ion_name_type& sequence) throw (UnknownCharacterException) {
+void MoleculeIonChargeModificationParser::parse(const ion_name_type& sequence) 
+/*throw (UnknownCharacterException)*/ {
 	
 	this->clear();
 	

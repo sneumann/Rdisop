@@ -15,7 +15,8 @@
 class CharacterAlphabet {
 	public:
 		CharacterAlphabet(const ims::Alphabet& alphabet);
-		ims::Alphabet::mass_type getMass(const char& name) const throw (ims::UnknownCharacterException);
+		ims::Alphabet::mass_type getMass(const char& name) const 
+		    /*throw (ims::UnknownCharacterException)*/;
 	private:
 		std::vector<ims::Alphabet::mass_type> masses;
 };
