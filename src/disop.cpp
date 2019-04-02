@@ -776,7 +776,7 @@ void initializeCHNOPS(alphabet_t& chnops, const int maxisotopes) {
 /* get the list element named str, or return NULL */
 /* http://cran.r-project.org/doc/manuals/R-exts.html#Handling-lists */
 
-SEXP getListElement(SEXP list, char *str)
+SEXP getListElement(SEXP list, char const *str)
   // {{{ 
 
 {
@@ -809,7 +809,7 @@ void initializeAlphabet(const SEXP l_alphabet,
   for (int i=0; i < Rf_length(l_alphabet); i++) {
     SEXP l = VECTOR_ELT(l_alphabet,i);
 	  
-    const char *symbol = CHAR(Rf_asChar(getListElement(l, "name")));
+    char const *symbol = CHAR(Rf_asChar(getListElement(l, "name")));
 
     nominal_mass_type nominalmass = (nominal_mass_type) REAL(getListElement(l, "mass"))[0];
 	  	  
