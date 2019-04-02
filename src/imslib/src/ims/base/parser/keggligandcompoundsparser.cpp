@@ -12,12 +12,12 @@
 namespace ims {
 
 KeggLigandCompoundsParser::KeggLigandCompoundsParser(const sequence_type& 
-								sequence) throw (UnknownCharacterException) {
+								sequence) /*throw (UnknownCharacterException)*/ {
 	this->parse(sequence);
 }
 
 void KeggLigandCompoundsParser::parse(const sequence_type& sequence) 
-											throw (UnknownCharacterException) {
+											/*throw (UnknownCharacterException)*/ {
 	
 	const sequence_type delimiters(" \t"), rest_header(".R*+(");
 	

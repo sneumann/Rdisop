@@ -18,7 +18,7 @@ MatchMatrix::~MatchMatrix() {
 	delete [] matrix;
 }
 
-void MatchMatrix::set(size_t row, size_t column) throw (IndexOutOfBounds, InvalidMatchMatrix) {
+void MatchMatrix::set(size_t row, size_t column) /*throw (IndexOutOfBounds, InvalidMatchMatrix)*/ {
 	// TODO: This function does not enforce staircase property in all cases
 	// for example:
 	// mm.set(6,2);
@@ -44,7 +44,7 @@ void MatchMatrix::set(size_t row, size_t column) throw (IndexOutOfBounds, Invali
 	matrix[row].end=std::max(matrix[row].end, (int)column);
 }
 
-void MatchMatrix::unset(size_t row, size_t column) throw (IndexOutOfBounds, InvalidMatchMatrix) {
+void MatchMatrix::unset(size_t row, size_t column) /*throw (IndexOutOfBounds, InvalidMatchMatrix)*/ {
 	// is given row valid?
 	if (row>=rows) {
 		throw IndexOutOfBounds();

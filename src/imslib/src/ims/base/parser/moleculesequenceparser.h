@@ -14,17 +14,17 @@ class MoleculeSequenceParser : public AbstractMoleculeSequenceParser {
 		MoleculeSequenceParser() : AbstractMoleculeSequenceParser() {}
 		
 		MoleculeSequenceParser(const sequence_type& sequence) 
-									throw (UnknownCharacterException);
+									/*throw (UnknownCharacterException)*/;
 			
 		virtual void parse(const sequence_type& sequence) 
-									throw (UnknownCharacterException);
+									/*throw (UnknownCharacterException)*/;
 									
 		virtual ~MoleculeSequenceParser() {}
 	
 	private:
 		
 		container parseElements(const sequence_type& sequence)
-									throw (UnknownCharacterException);
+									/*throw (UnknownCharacterException)*/;
 		
 		void addElement(const sequence_type& name, number_type amount, 
 											container& elements);

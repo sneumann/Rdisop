@@ -12,12 +12,12 @@
 namespace ims {
 
 MoleculeSequenceParser::MoleculeSequenceParser(const sequence_type& 
-								sequence) throw (UnknownCharacterException) {
+								sequence) /*throw (UnknownCharacterException)*/ {
 	this->parse(sequence);
 }
 
 void MoleculeSequenceParser::parse(const sequence_type& sequence) 
-											throw (UnknownCharacterException) {
+											/*throw (UnknownCharacterException)*/ {
 	
 	const sequence_type delimiters(" \t");
 	
@@ -55,7 +55,7 @@ void MoleculeSequenceParser::parse(const sequence_type& sequence)
 
 MoleculeSequenceParser::container 
 MoleculeSequenceParser::parseElements(const sequence_type& sequence)
-		 throw (UnknownCharacterException) {
+		 /*throw (UnknownCharacterException)*/ {
 	
 	container elements;
 	

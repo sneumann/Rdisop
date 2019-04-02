@@ -34,7 +34,7 @@ class AlphabetParser {
 		 * 
 		 * @param fname The name of the input source.
 		 */
-		void load(const std::string& fname) throw (IOException);
+		void load(const std::string& fname) /*throw (IOException)*/;
 		
 		/**
 		 * Gets the data that was loaded. 
@@ -55,7 +55,7 @@ class AlphabetParser {
 };
 
 template <typename AlphabetElementType, typename Container, typename InputSource>
-void AlphabetParser<AlphabetElementType, Container, InputSource>::load(const std::string& fname) throw (IOException) {
+void AlphabetParser<AlphabetElementType, Container, InputSource>::load(const std::string& fname) /*throw (IOException)*/ {
 	std::ifstream ifs(fname.c_str());
 	if (!ifs) {
 		throw IOException("unable to open alphabet resource file: " + fname + "!");

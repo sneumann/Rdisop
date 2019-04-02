@@ -50,9 +50,9 @@ public:
 	~MatchMatrix();
 
 	/** Set specified entry to 1. */
-	void set(std::size_t row, std::size_t column) throw (IndexOutOfBounds, InvalidMatchMatrix);
+	void set(std::size_t row, std::size_t column) /*throw (IndexOutOfBounds, InvalidMatchMatrix)*/;
 	/** Set specified entry to 0. */
-	void unset(std::size_t row, std::size_t column) throw (IndexOutOfBounds, InvalidMatchMatrix);
+	void unset(std::size_t row, std::size_t column) /*throw (IndexOutOfBounds, InvalidMatchMatrix)*/;
 
 	/** Returns number of rows. */
 	std::size_t getRows();

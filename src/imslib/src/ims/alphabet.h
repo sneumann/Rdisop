@@ -110,7 +110,7 @@ class Alphabet {
 		 * 			throws @c UnknownCharacterException.
 		 */
 		const element_type& getElement(const name_type& name) const
-									throw (UnknownCharacterException);
+									/*throw (UnknownCharacterException)*/;
 
 		/**
 		 * Gets the symbol of the element with an index @c index in alphabet.
@@ -130,7 +130,7 @@ class Alphabet {
 		 * @see getMass(size_type index)
 		 */
 		mass_type getMass(const name_type& name) const
-									throw (UnknownCharacterException);
+									/*throw (UnknownCharacterException)*/;
 
 		/**
 		 * Gets mass of the element with an index @index in alphabet.
@@ -217,7 +217,7 @@ class Alphabet {
 		 * @param fname The file name to be loaded.
 		 * @see load(const std::string& fname, AlphabetParser<>* parser)
 		 */
-		virtual void load(const std::string& fname) throw (IOException);
+		virtual void load(const std::string& fname) /*throw (IOException)*/;
 
 
 		/**
@@ -231,7 +231,7 @@ class Alphabet {
 		 * @see AlphabetParser
 		 */
 		virtual void load(const std::string& fname, AlphabetParser<>* parser)
-			throw (IOException);
+			/*throw (IOException)*/;
 
 
 		/**
