@@ -1,7 +1,5 @@
 PKG_CXXFLAGS=-I./imslib/src/
 
-PKG_LIBS=`${R_HOME}/bin/Rscript -e "RcppClassic:::LdFlags()"` `${R_HOME}/bin/Rscript -e "Rcpp:::LdFlags()"` 
-
 .PHONY: all
 all: $(SHLIB)
 
