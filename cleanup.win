@@ -1,0 +1,2 @@
+find ./src/ -type f -name '*.o' -exec rm {} \;
+rm -f src/*.dll src/Makedeps src/*_res.*
