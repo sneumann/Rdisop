@@ -9,7 +9,6 @@ DISOPOBJECTS=disop.o
 
 OBJECTS=$(DISOPOBJECTS) $(IMSOBJECTS) 
 
-#clean:
-#	$(MAKE) -C imslib clean
-#	rm -f $(OBJECTS) 
+clean:
+	rm -f $(OBJECTS) 
 
