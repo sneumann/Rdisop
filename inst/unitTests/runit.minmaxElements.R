@@ -90,7 +90,7 @@ test.minmaxElements6 <- function() {
 }
 
 #more complex exammple:
-test.minmaxElements6 <- function() {
+test.minmaxElements7 <- function() {
   
   elem <- initializeCHNOPS()       
   testmass <- 347.0630844422
