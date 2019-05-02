@@ -119,22 +119,32 @@ bool isValidMyNitrogenRule(const ComposedElement& molecule, int z) {
 bool isWithinElementRange(const ComposedElement& molecule, const ComposedElement& minElements, const ComposedElement& maxElements) {
 // {{{
 
-  for (ComposedElement::container::const_iterator it = molecule.getElements().begin(); 
-       it != molecule.getElements().end(); ++it) {
-    
+//iterating over Elements present in minElements
+  for (ComposedElement::container::const_iterator it = minElements.getElements().begin();
+       it != minElements.getElements().end(); ++it) {
+
     int mincount = static_cast<int>(minElements.getElementAbundance((it->first).getName()));
-    int maxcount = static_cast<int>(maxElements.getElementAbundance((it->first).getName()));
 
     int count = static_cast<int>(molecule.getElementAbundance((it->first).getName()));
-      
+
       if (count < mincount) {
 	return false;
       }
 
-      // TODO: Fails e.g. for "C2N0" 
-      if (maxcount>0 && count > maxcount) {
-	return false;
-      }
+  }
+  
+  //must iterate over Elements present in molecule and ignore cases of Elements not defined in maxElements
+  for (ComposedElement::container::const_iterator it = maxElements.getElements().begin(); 
+       it != maxElements.getElements().end(); ++it) {
+    
+    int maxcount = static_cast<int>(maxElements.getElementAbundance((it->first).getName()));
+    
+    int count = static_cast<int>(molecule.getElementAbundance((it->first).getName()));
+    
+    // TODO: Fails e.g. for "C2N0" 
+    if (maxcount>0 && count > maxcount) {
+      return false;
+    }
   }
 
   return true;
