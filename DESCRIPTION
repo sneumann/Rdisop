@@ -1,7 +1,12 @@
 Package: Rdisop
 Title: Decomposition of Isotopic Patterns
+<<<<<<< Updated upstream
 Version: 1.45.0
 Date: 2019-04-23
+=======
+Version: 1.44.1
+Date: 2019-05-02
+>>>>>>> Stashed changes
 Author: Anton Pervukhin <apervukh@minet.uni-jena.de>, Steffen Neumann <sneumann@ipb-halle.de> 
 Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
 Description: Identification of metabolites using high precision mass

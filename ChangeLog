@@ -1,3 +1,8 @@
+2019-05-02  Steffen Neumann  <sneumann@msbi-corei>
+
+	* Rdisop-1.44.1: Merge fix by Max Helf for improved
+	decomposeMass: element filter handling.
+
 2019-04-01  Steffen Neumann  <sneumann@msbi-corei>
 
 	* Rdisop-1.43.2: David Rasp helped to remove dependency
