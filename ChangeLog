@@ -1,3 +1,8 @@
+2023-02-12  Steffen Neumann  <sneumann@msbi-corei>
+
+	* search&replace deprecated auto_ptr with unique_ptr
+	* use labda functions instead of e.g. bind2nd()
+
 2019-05-02  Steffen Neumann  <sneumann@msbi-corei>
 
 	* Rdisop-1.45.1: Merge fix by Max Helf for improved
