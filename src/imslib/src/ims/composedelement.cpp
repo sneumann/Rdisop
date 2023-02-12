@@ -29,7 +29,7 @@ ComposedElement::ComposedElement(const name_type& sequence, const Alphabet& alph
 	} else {
 		parser = std::unique_ptr<sequence_parser_type>(new MoleculeSequenceParser);
 	}
-	this->initializeElements(alphabet, parser);
+	this->initializeElements(alphabet, std::move(parser) );
 }
 			
 ComposedElement::ComposedElement(const std::vector<unsigned int>& decomposition, 

@@ -71,14 +71,14 @@ template <typename T>
 std::vector<T> getPositiveNeighborhoodSet(T middle,
 					std::pair<T, T> minMaxElements, T range, T granularity) {
 	std::vector<T> valuesRange = getNeighborhoodSet(middle, minMaxElements, range, granularity);
-	valuesRange.erase(std::remove_if(valuesRange.begin(), valuesRange.end(), std::bind2nd(std::less<T>(), 0)), valuesRange.end());
+	valuesRange.erase(std::remove_if(valuesRange.begin(), valuesRange.end(), [](const T& x) { return x < 0; }, 0), valuesRange.end());
 	return valuesRange;
 }
 
 template <typename T>
 std::vector<T> getPositiveNeighborhoodSet(T middle, T range, T granularity) {
 	std::vector<T> valuesRange = getNeighborhoodSet(middle, range, granularity);
-	valuesRange.erase(std::remove_if(valuesRange.begin(), valuesRange.end(), std::bind2nd(std::less<T>(), 0)), valuesRange.end());
+	valuesRange.erase(std::remove_if(valuesRange.begin(), valuesRange.end(), [](const T& x) { return x < 0; }), valuesRange.end());
 	return valuesRange;
 }
 

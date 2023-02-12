@@ -322,7 +322,7 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
 				transform(candidate_abundances.begin(),			// begin of source range
 					candidate_abundances.begin() + size,		// end of source range
 					candidate_abundances.begin(), 			// destination
-					bind2nd(multiplies<abundance_type>(), scale));	// operation (*scale)
+					[scale](abundance_type a) { return a * scale; }); // operation (*scale)
 			}
 				
 		}

@@ -278,7 +278,7 @@ void LinearPointSetMatcher::countMatchesOneToOne(
 			#endif
 		}
 
-		std::unique_ptr<std::map<int,int> > mapping(0);
+		std::unique_ptr<std::map<int,int> > mapping(new std::map<int,int>());
 		// evaluate match matrix: count out score using...
 		if (!restrict_oneToOne) {
 			// ... greedy counting scheme
@@ -300,7 +300,7 @@ void LinearPointSetMatcher::countMatchesOneToOne(
 			results.centerB = j;
 			results.bestscale = (*p).scale;
 			results.besttranslation=-results.bestscale*a_first[i] + b_first[j] + diff;
-			results.mapping=mapping;
+			results.mapping=std::move(mapping);
 		}
 	}
 }
@@ -323,7 +323,7 @@ int LinearPointSetMatcher::match(RandomAccessIterator a_first, RandomAccessItera
 	if (oneToOne) {
 		results.mapping = std::unique_ptr<std::map<int,int> >(new std::map<int,int>);
 	} else {
-		results.mapping = std::unique_ptr<std::map<int,int> >(0);
+		results.mapping = std::unique_ptr<std::map<int,int> >(new std::map<int,int>());
 	}
 
 	#ifndef NDEBUG
