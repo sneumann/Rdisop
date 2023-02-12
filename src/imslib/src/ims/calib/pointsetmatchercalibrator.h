@@ -22,7 +22,7 @@ class PointSetMatcherCalibrator : public Calibrator<ListA,ListB> {
 		virtual void setMinPointPairCount(size_t count);
 		virtual bool inputValid(const ListA& a, const ListB& b) const;
 		virtual int match(const ListA& a, const ListB& b);
-		virtual std::auto_ptr<std::map<int,int> > getMapping() const;
+		virtual std::unique_ptr<std::map<int,int> > getMapping() const;
 		virtual LinearTransformation getTransformation() const;
 	private:
 		Logger& logger;
@@ -133,7 +133,7 @@ int PointSetMatcherCalibrator<ListA,ListB>::match(const ListA& a, const ListB& b
 
 
 template <typename ListA, typename ListB>
-std::auto_ptr<std::map<int,int> > PointSetMatcherCalibrator<ListA,ListB>::getMapping() const {
+std::unique_ptr<std::map<int,int> > PointSetMatcherCalibrator<ListA,ListB>::getMapping() const {
 	return lpsm.getMapping();
 }
 

@@ -21,7 +21,7 @@ class MarkovSequenceGenerator : public SequenceGenerator {
 
 private:
 	std::vector<Distribution> dists;
-	std::auto_ptr<Distribution> start_dist;
+	std::unique_ptr<Distribution> start_dist;
 	DistributedAlphabetType alphabet;
 
 public:
@@ -42,7 +42,7 @@ MarkovSequenceGenerator<DistributedAlphabetType>::
 	for(size_t i=0; i<alphabet.size(); i++){
 		start_p[i] = alphabet.getProbability(alphabet.getName(i));
 	}
-	start_dist = std::auto_ptr<Distribution>(new Distribution(start_p));
+	start_dist = std::unique_ptr<Distribution>(new Distribution(start_p));
 
 
 	/** matrix **/

@@ -201,7 +201,7 @@ class ComposedElement : public Element {
 		 * 
 		 * @throws UnknownCharacterException if any error happens while parsing	molecule's sequence.
 		 */
-		void initializeElements(const Alphabet& alphabet, std::auto_ptr<sequence_parser_type> parser)
+		void initializeElements(const Alphabet& alphabet, std::unique_ptr<sequence_parser_type> parser)
 			/*throw (UnknownCharacterException)*/;
 		
 		void initializeElements(const std::vector<unsigned int>& decomposition, 

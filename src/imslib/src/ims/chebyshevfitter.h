@@ -18,7 +18,7 @@ class ChebyshevFitter {
 		double getMaximumError() const;
 
 		template <typename RandomAccessIteratorA, typename RandomAccessIteratorB>
-		std::auto_ptr<PolynomialTransformation> fit(
+		std::unique_ptr<PolynomialTransformation> fit(
 			RandomAccessIteratorA x,
 			RandomAccessIteratorA x_end,
 			RandomAccessIteratorB y,
@@ -56,7 +56,7 @@ inline double ChebyshevFitter::getMaximumError() const {
  * Size of x and y must be > order+1.
  */
 template <typename RandomAccessIteratorA, typename RandomAccessIteratorB>
-std::auto_ptr<PolynomialTransformation> ChebyshevFitter::fit(
+std::unique_ptr<PolynomialTransformation> ChebyshevFitter::fit(
 	const RandomAccessIteratorA x,
 	const RandomAccessIteratorA x_end,
 	const RandomAccessIteratorB y,
@@ -206,7 +206,7 @@ std::auto_ptr<PolynomialTransformation> ChebyshevFitter::fit(
 	}
 
 	// Copy estimated coefficients (array a) into a PolynomialTransformation.
-	std::auto_ptr<PolynomialTransformation> transformation(new PolynomialTransformation(m));
+	std::unique_ptr<PolynomialTransformation> transformation(new PolynomialTransformation(m));
 	for (size_t ic = 0; ic <= m; ++ic) {
 		transformation->setCoefficient(ic, a[ic]);
 	}

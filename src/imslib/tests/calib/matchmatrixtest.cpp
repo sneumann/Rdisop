@@ -69,7 +69,7 @@ void MatchMatrixTest::testMatchMatrix() {
 	mm.unset(1,3);
 
 	
-	auto_ptr<std::map<int,int> > m1 = mm.countMatches();
+	unique_ptr<std::map<int,int> > m1 = mm.countMatches();
 	CPPUNIT_ASSERT_EQUAL((size_t)5, m1->size());
 	CPPUNIT_ASSERT_EQUAL(1, (*m1)[1]);
 	CPPUNIT_ASSERT_EQUAL(3, (*m1)[3]);
@@ -77,7 +77,7 @@ void MatchMatrixTest::testMatchMatrix() {
 	CPPUNIT_ASSERT_EQUAL(5, (*m1)[5]);
 	CPPUNIT_ASSERT_EQUAL(6, (*m1)[6]);
 
-	auto_ptr<std::map<int,int> > m2 = mm.countMatchesRestrictive();
+	unique_ptr<std::map<int,int> > m2 = mm.countMatchesRestrictive();
 	CPPUNIT_ASSERT_EQUAL((size_t)1, m2->size());
 	CPPUNIT_ASSERT_EQUAL(5, (*m2)[5]);
 }

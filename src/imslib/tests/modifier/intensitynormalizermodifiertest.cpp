@@ -62,7 +62,7 @@ void IntensityNormalizerModifierTest::testModify() {
 
 void IntensityNormalizerModifierTest::testClone() {
 	ims::IntensityNormalizerModifier<peaklist_t> modifier(1.0);
-	std::auto_ptr<ims::Modifier<peaklist_t> > cloned(modifier.clone());
+	std::unique_ptr<ims::Modifier<peaklist_t> > cloned(modifier.clone());
 	cloned->modify(peaklist);
 	assertHelp();
 }

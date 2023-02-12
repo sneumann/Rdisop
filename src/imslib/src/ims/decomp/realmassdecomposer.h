@@ -100,7 +100,7 @@ class RealMassDecomposer {
 		 * Decomposer to be used for exact decomposing using 
 		 * integer arithmetics.
 		 */
-		std::auto_ptr<integer_decomposer_type> decomposer;
+		std::unique_ptr<integer_decomposer_type> decomposer;
 };
 
 } // namespace ims

@@ -65,7 +65,7 @@ void MassRangeModifierTest::testModify() {
 
 void MassRangeModifierTest::testClone() {
 	ims::MassRangeModifier<peaklist_t> modifier(5.0, 20.0);
-	std::auto_ptr<ims::Modifier<peaklist_t> > cloned(modifier.clone());
+	std::unique_ptr<ims::Modifier<peaklist_t> > cloned(modifier.clone());
 	cloned->modify(peaklist);
 	assertHelp();
 }

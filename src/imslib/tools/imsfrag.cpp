@@ -318,13 +318,13 @@ int main(int argc, char** argv)
 
 	//now build some kind of fragmentizer
 	cout << "Start building Fragmenter..." << endl;
-	auto_ptr<Modifier<peaklist_type> > sort_modifier(new SortModifier<peaklist_type>);
-	auto_ptr<Modifier<peaklist_type> > unification_modifier(new UnificationModifier<peaklist_type>);
-	auto_ptr<MultiModifier<peaklist_type> > multi_modifier(new MultiModifier<peaklist_type>);
+	unique_ptr<Modifier<peaklist_type> > sort_modifier(new SortModifier<peaklist_type>);
+	unique_ptr<Modifier<peaklist_type> > unification_modifier(new UnificationModifier<peaklist_type>);
+	unique_ptr<MultiModifier<peaklist_type> > multi_modifier(new MultiModifier<peaklist_type>);
 	multi_modifier->addModifier(sort_modifier);
 	multi_modifier->addModifier(unification_modifier);
 	fragmenter_type fragmenter(alphabet, cleavage_chars, prohibition_chars, with_cleavage_char);
-	fragmenter.setModifier(auto_ptr<Modifier<peaklist_type> >(multi_modifier));
+	fragmenter.setModifier(unique_ptr<Modifier<peaklist_type> >(multi_modifier));
 	cout << "...done\n" << endl;
 
 

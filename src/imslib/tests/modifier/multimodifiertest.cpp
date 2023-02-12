@@ -66,9 +66,9 @@ void MultiModifierTest::preparePeaklist() {
 
 void MultiModifierTest::testModify() {
 	ims::MultiModifier<peaklist_t> modifier;
-	modifier.addModifier(std::auto_ptr<ims::Modifier<peaklist_t> >(
+	modifier.addModifier(std::unique_ptr<ims::Modifier<peaklist_t> >(
 		new ims::SortModifier<peaklist_t>));
-	modifier.addModifier(std::auto_ptr<ims::Modifier<peaklist_t> >(
+	modifier.addModifier(std::unique_ptr<ims::Modifier<peaklist_t> >(
 		new ims::UnificationModifier<peaklist_t>));
 	modifier.modify(peaklist);
 	assertHelp();
@@ -77,12 +77,12 @@ void MultiModifierTest::testModify() {
 
 void MultiModifierTest::testClone() {
         ims::MultiModifier<peaklist_t> modifier;
-        modifier.addModifier(std::auto_ptr<ims::Modifier<peaklist_t> >(
+        modifier.addModifier(std::unique_ptr<ims::Modifier<peaklist_t> >(
                 new ims::SortModifier<peaklist_t>));
-        modifier.addModifier(std::auto_ptr<ims::Modifier<peaklist_t> >(
+        modifier.addModifier(std::unique_ptr<ims::Modifier<peaklist_t> >(
                 new ims::UnificationModifier<peaklist_t>));
 
-        std::auto_ptr<ims::Modifier<peaklist_t> > cloned(modifier.clone());
+        std::unique_ptr<ims::Modifier<peaklist_t> > cloned(modifier.clone());
         cloned->modify(peaklist);
         assertHelp();
 }
@@ -90,9 +90,9 @@ void MultiModifierTest::testClone() {
 
 void MultiModifierTest::testAssignment() {
 	ims::MultiModifier<peaklist_t> modifier, modifier2;
-	modifier.addModifier(std::auto_ptr<ims::Modifier<peaklist_t> >(
+	modifier.addModifier(std::unique_ptr<ims::Modifier<peaklist_t> >(
 		new ims::SortModifier<peaklist_t>));
-	modifier.addModifier(std::auto_ptr<ims::Modifier<peaklist_t> >(
+	modifier.addModifier(std::unique_ptr<ims::Modifier<peaklist_t> >(
 		new ims::UnificationModifier<peaklist_t>));
 	
 	modifier2=modifier;

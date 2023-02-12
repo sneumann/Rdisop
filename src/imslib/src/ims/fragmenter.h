@@ -50,14 +50,14 @@ public:
 	 * Sets a new Modifier. Assumes ownership.
 	 * @param modifier new Modifier
 	 */
-	virtual void setModifier(std::auto_ptr<Modifier<peaklist_type> > modifier) {
+	virtual void setModifier(std::unique_ptr<Modifier<peaklist_type> > modifier) {
 		this->modifier = modifier;
 	}
 
 	virtual ~Fragmenter() { }
 
 protected:
-	std::auto_ptr<Modifier<peaklist_type> > modifier;
+	std::unique_ptr<Modifier<peaklist_type> > modifier;
 };
 
 }

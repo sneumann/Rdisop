@@ -26,13 +26,13 @@ private:
 	typedef MassPeak<int> peak_type;
 	typedef PeakList<peak_type> peaklist_type;
 	/** Factory for simple peaklists with masses from 1 to 10. */
-	std::auto_ptr<peaklist_type> createPeaklist();
+	std::unique_ptr<peaklist_type> createPeaklist();
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION( PeakPropertyIteratorTest );
 
-std::auto_ptr<PeakPropertyIteratorTest::peaklist_type> PeakPropertyIteratorTest::createPeaklist() {
-	std::auto_ptr<peaklist_type> p(new peaklist_type);
+std::unique_ptr<PeakPropertyIteratorTest::peaklist_type> PeakPropertyIteratorTest::createPeaklist() {
+	std::unique_ptr<peaklist_type> p(new peaklist_type);
 	for (int i=1; i<=10; ++i) {
 		p->push_back(i);
 	}
@@ -40,7 +40,7 @@ std::auto_ptr<PeakPropertyIteratorTest::peaklist_type> PeakPropertyIteratorTest:
 }
 
 void PeakPropertyIteratorTest::testInputOutput() {
-	std::auto_ptr<peaklist_type> pl=createPeaklist();
+	std::unique_ptr<peaklist_type> pl=createPeaklist();
 	peaklist_type::property_iterator<peak_type::MassGetter>::type it;
 	
 	int i=1;
@@ -80,7 +80,7 @@ void PeakPropertyIteratorTest::testInputOutput() {
 }
 
 void PeakPropertyIteratorTest::testBidirectionality() {
-	std::auto_ptr<peaklist_type> pl=createPeaklist();
+	std::unique_ptr<peaklist_type> pl=createPeaklist();
 	peaklist_type::property_iterator<peak_type::MassGetter>::type it,it2;
 	
 	int i=10;
@@ -114,7 +114,7 @@ void PeakPropertyIteratorTest::testBidirectionality() {
 }
 
 void PeakPropertyIteratorTest::testRandomAccess() {
-	std::auto_ptr<peaklist_type> pl=createPeaklist();
+	std::unique_ptr<peaklist_type> pl=createPeaklist();
 	peaklist_type::property_iterator<peak_type::MassGetter>::type it,it2;
 	
 	it=pl->begin<peak_type::MassGetter>();

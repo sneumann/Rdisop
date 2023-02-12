@@ -63,7 +63,7 @@ void ShiftModifierTest::testModify() {
 
 void ShiftModifierTest::testClone() {
 	ims::ShiftModifier<peaklist_t> modifier(15.0);
-	std::auto_ptr<ims::Modifier<peaklist_t> > cloned(modifier.clone());
+	std::unique_ptr<ims::Modifier<peaklist_t> > cloned(modifier.clone());
 	cloned->modify(peaklist);
 	assertHelp();
 }

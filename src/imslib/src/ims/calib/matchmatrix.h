@@ -58,11 +58,11 @@ public:
 	std::size_t getRows();
 
 	/** Greedily compute one-to-one matches. */
-	std::auto_ptr<std::map<int,int> > countMatches();
+	std::unique_ptr<std::map<int,int> > countMatches();
 	/** Similar to countMatches() with the restriction, to allow only real one2one matches
 	 * (i.e. matches that are non-ambiguous).
 	 */
-	std::auto_ptr<std::map<int,int> > countMatchesRestrictive();
+	std::unique_ptr<std::map<int,int> > countMatchesRestrictive();
 };
 
 }

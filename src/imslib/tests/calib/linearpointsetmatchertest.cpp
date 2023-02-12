@@ -328,7 +328,7 @@ void LinearPointSetMatcherTest::matchAndVerify(ims::LinearPointSetMatcher& lpsm,
 				CPPUNIT_ASSERT(t.getTranslation() <= translation_limit.second + accuracy);
 				// in one-to-one case the verification procedure is different...
 				if (lpsm.one2One()) {
-					auto_ptr<map<int,int> > m = lpsm.getMapping();
+					unique_ptr<map<int,int> > m = lpsm.getMapping();
 					CPPUNIT_ASSERT( m.get() != 0 );
 					verifyOneToOne(pointsets[i], pointsets[j], lpsm.getEpsilon(), t, *m, lpsm.getAbsLimit());
 				} else {

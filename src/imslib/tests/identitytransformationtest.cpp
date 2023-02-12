@@ -41,7 +41,7 @@ void IdentityTransformationTest::testTransform() {
 void IdentityTransformationTest::testOutput() {
 	std::ostringstream oss;
 	ims::IdentityTransformation id;
-	std::auto_ptr<ims::Transformation> idp(new ims::IdentityTransformation);
+	std::unique_ptr<ims::Transformation> idp(new ims::IdentityTransformation);
 	oss << id;
 	oss << *((ims::IdentityTransformation*)(idp.get())); // TODO hmm ...
 	cout << oss;

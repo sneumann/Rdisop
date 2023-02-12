@@ -23,11 +23,11 @@ ComposedElement::ComposedElement(const container& elements,
 ComposedElement::ComposedElement(const name_type& sequence, const Alphabet& alphabet, unsigned sequence_type) 
 		/*throw (UnknownCharacterException)*/ {
 	this->setSequence(sequence);
-	std::auto_ptr<sequence_parser_type> parser;
+	std::unique_ptr<sequence_parser_type> parser;
 	if (sequence_type == TEX_NOTATION_MOLECULE_SEQUENCE_TYPE) {
-		parser = std::auto_ptr<sequence_parser_type>(new StandardMoleculeSequenceParser);
+		parser = std::unique_ptr<sequence_parser_type>(new StandardMoleculeSequenceParser);
 	} else {
-		parser = std::auto_ptr<sequence_parser_type>(new MoleculeSequenceParser);
+		parser = std::unique_ptr<sequence_parser_type>(new MoleculeSequenceParser);
 	}
 	this->initializeElements(alphabet, parser);
 }
@@ -113,7 +113,7 @@ ComposedElement::getElementAbundance(const name_type& name) const {
 }
 
 
-void ComposedElement::initializeElements(const Alphabet& alphabet, std::auto_ptr<sequence_parser_type> parser)
+void ComposedElement::initializeElements(const Alphabet& alphabet, std::unique_ptr<sequence_parser_type> parser)
 			/*throw (UnknownCharacterException)*/ {
 
 	typedef sequence_parser_type::container parser_container;

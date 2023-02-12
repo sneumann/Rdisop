@@ -47,7 +47,7 @@ class GeometricCalibrator : public Calibrator<ListA,ListB> {
 			min_pointpaircount = std::max((size_t)2, count);
 		}
 
-		virtual std::auto_ptr<std::map<int,int> > getMapping() const;
+		virtual std::unique_ptr<std::map<int,int> > getMapping() const;
 
 		virtual LinearTransformation getTransformation() const;
 
@@ -63,7 +63,7 @@ class GeometricCalibrator : public Calibrator<ListA,ListB> {
 
 	private:
 		void convertToPoints(const ListA& a, const ListB& b);
-		std::auto_ptr<std::map<int,int> > realMatch(const ListA& a, const ListB& b, const LinearTransformation& t, double epsilon, bool restricted); // TODO parameters
+		std::unique_ptr<std::map<int,int> > realMatch(const ListA& a, const ListB& b, const LinearTransformation& t, double epsilon, bool restricted); // TODO parameters
 
 		double epsilon;
 		double abslimit;
@@ -74,7 +74,7 @@ class GeometricCalibrator : public Calibrator<ListA,ListB> {
 		size_t min_pointpaircount;
 		bool have_mapping;
 		bool have_transformation;
-		std::auto_ptr<std::map<int,int> > mapping;
+		std::unique_ptr<std::map<int,int> > mapping;
 		LinearTransformation transformation;
 };
 
@@ -96,7 +96,7 @@ GeometricCalibrator<ListA,ListB>::GeometricCalibrator(double epsilon) :
 
 
 template <typename ListA, typename ListB>
-std::auto_ptr<std::map<int,int> > GeometricCalibrator<ListA,ListB>::realMatch(const ListA& a, const ListB& b, const LinearTransformation& t, double epsilon, bool restricted)
+std::unique_ptr<std::map<int,int> > GeometricCalibrator<ListA,ListB>::realMatch(const ListA& a, const ListB& b, const LinearTransformation& t, double epsilon, bool restricted)
 {
 	// TODO: one could optimize (similar to calc_pointlist above)
 	const double accuracy = 0.0001;
@@ -176,9 +176,9 @@ int GeometricCalibrator<ListA,ListB>::match(const ListA& a, const ListB& b)
 
 // TODO a bit ugly
 template <typename ListA, typename ListB>
-std::auto_ptr<std::map<int,int> > GeometricCalibrator<ListA,ListB>::getMapping() const {
+std::unique_ptr<std::map<int,int> > GeometricCalibrator<ListA,ListB>::getMapping() const {
 	assert(have_mapping);
-	return std::auto_ptr<std::map<int,int> >(new std::map<int,int>(*mapping));
+	return std::unique_ptr<std::map<int,int> >(new std::map<int,int>(*mapping));
 }
 
 template <typename ListA, typename ListB>
