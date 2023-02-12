@@ -55,7 +55,7 @@ void ChebyshevFitterTest::testFit() {
 	a.push_back(2000.0); b.push_back(2000.0);
 	a.push_back(3000.0); b.push_back(3000.0);
 	
-	std::auto_ptr<ims::PolynomialTransformation> pt1 = fitter2.fit(a.begin(), a.end(), b.begin(), b.end());
+	std::unique_ptr<ims::PolynomialTransformation> pt1 = fitter2.fit(a.begin(), a.end(), b.begin(), b.end());
 	
 	std::vector<double>::const_iterator cit;
 	for (cit = a.begin(); cit != a.end(); ++cit) {
@@ -82,7 +82,7 @@ void ChebyshevFitterTest::testFit() {
 	
 	// estimate 5th degree polynomial
 	ims::ChebyshevFitter fitter5(5);
-	std::auto_ptr<ims::PolynomialTransformation> pt2 = fitter5.fit(a.begin(), a.end(), b.begin(), b.end());
+	std::unique_ptr<ims::PolynomialTransformation> pt2 = fitter5.fit(a.begin(), a.end(), b.begin(), b.end());
 	
 	// ... and compare to original
 	for (size_t i = 0; i <= 5; ++i) {

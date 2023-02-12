@@ -73,7 +73,7 @@ void SortModifierTest::testModify() {
 
 void SortModifierTest::testClone() {
 	ims::SortModifier<peaklist_t> modifier;
-	std::auto_ptr<ims::Modifier<peaklist_t> > cloned(modifier.clone());
+	std::unique_ptr<ims::Modifier<peaklist_t> > cloned(modifier.clone());
 	cloned->modify(peaklist);
 	assertHelp();
 }

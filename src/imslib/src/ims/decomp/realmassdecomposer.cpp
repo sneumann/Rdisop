@@ -18,7 +18,7 @@ RealMassDecomposer::RealMassDecomposer(const Weights& weights) :
 	rounding_errors =
 		DecompUtils::getMinMaxWeightsRoundingErrors(weights);
 	precision = weights.getPrecision();
-	decomposer = std::auto_ptr<integer_decomposer_type>(
+	decomposer = std::unique_ptr<integer_decomposer_type>(
 							new integer_decomposer_type(weights));
 }
 

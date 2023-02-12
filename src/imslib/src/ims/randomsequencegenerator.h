@@ -17,7 +17,7 @@ template <typename DistributedAlphabetType >
 class RandomSequenceGenerator : public SequenceGenerator{
 
 private:
-	std::auto_ptr<Distribution> dist;
+	std::unique_ptr<Distribution> dist;
 	DistributedAlphabetType alphabet;
 
 public:
@@ -33,7 +33,7 @@ RandomSequenceGenerator<DistributedAlphabetType>::RandomSequenceGenerator(Distri
 	for(size_t i=0; i<alphabet.size(); i++){
 		vec[i] = alphabet.getProbability(alphabet.getName(i));
 	}
-	dist = std::auto_ptr<Distribution>(new Distribution(vec));
+	dist = std::unique_ptr<Distribution>(new Distribution(vec));
 }
 
 

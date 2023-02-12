@@ -81,12 +81,12 @@ void LinearPointSetMatcher::swap(double& d1, double& d2) {
 	d2=h;
 }
 
-std::auto_ptr<std::map<int,int> > LinearPointSetMatcher::getMapping() const {
+std::unique_ptr<std::map<int,int> > LinearPointSetMatcher::getMapping() const {
 	if (results.mapping.get() == 0) {
-		return std::auto_ptr<std::map<int,int> >(0); // TODO throw sth. instead
+		return std::unique_ptr<std::map<int,int> >(new std::map<int,int>()); // TODO throw sth. instead
 	} else {
 		// aaargh, this syntax is awful, i hate it, hate it, hate it...
-		return std::auto_ptr<std::map<int,int> >(new std::map<int,int>(*(results.mapping)));
+		return std::unique_ptr<std::map<int,int> >(new std::map<int,int>(*(results.mapping)));
 	}
 }
 

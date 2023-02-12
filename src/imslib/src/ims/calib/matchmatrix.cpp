@@ -78,8 +78,8 @@ size_t MatchMatrix::getRows() {
 	return rows;
 }
 
-std::auto_ptr<std::map<int,int> > MatchMatrix::countMatches() {
-	std::auto_ptr<std::map<int,int> > m(new std::map<int,int>);
+std::unique_ptr<std::map<int,int> > MatchMatrix::countMatches() {
+	std::unique_ptr<std::map<int,int> > m(new std::map<int,int>);
 	int last_match=-1;
 	int score = 0;
 	// iterate over rows
@@ -99,8 +99,8 @@ std::auto_ptr<std::map<int,int> > MatchMatrix::countMatches() {
 	return m;
 }
 
-std::auto_ptr<std::map<int,int> > MatchMatrix::countMatchesRestrictive() {
-	std::auto_ptr<std::map<int,int> > m(new std::map<int,int>);
+std::unique_ptr<std::map<int,int> > MatchMatrix::countMatchesRestrictive() {
+	std::unique_ptr<std::map<int,int> > m(new std::map<int,int>);
 	
 	int last_match=-1;
 	int score = 0;

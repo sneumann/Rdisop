@@ -29,9 +29,9 @@ Alphabet::mass_type Alphabet::getMass(const name_type& name) const
 
 
 bool Alphabet::hasName(const name_type& name) const {
-	return std::find_if(elements.begin(), elements.end(),
-		compose_f_gx(std::bind2nd(std::equal_to<name_type>(), name),
-		std::mem_fun_ref(&element_type::getName))) < elements.end();
+        return std::find_if(elements.begin(), elements.end(), [name](const auto& elem) {
+	  return std::equal_to<name_type>()(elem.getName(), name);
+	}) != elements.end();
 }
 
 
@@ -68,11 +68,9 @@ Alphabet::masses_type Alphabet::getAverageMasses() const {
 
 
 void Alphabet::sortByNames() {
-	std::sort(elements.begin(), elements.end(),
-				compose_f_gx_hy(
-					std::less<name_type>(),
-					std::mem_fun_ref(&element_type::getName),
-					std::mem_fun_ref(&element_type::getName)));
+        std::sort(elements.begin(), elements.end(), [](const auto& lhs, const auto& rhs) {
+	  return std::less<name_type>()(lhs.getName(), rhs.getName());
+	});
 }
 
 

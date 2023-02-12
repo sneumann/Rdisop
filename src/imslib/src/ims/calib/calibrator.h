@@ -54,7 +54,7 @@ class Calibrator {
 		/** Returns the actual mapping computed by the last call to match().
 		 * @b Only usable for one-to-one mappings.
 		 */
-		virtual std::auto_ptr<std::map<int,int> > getMapping() const = 0;
+		virtual std::unique_ptr<std::map<int,int> > getMapping() const = 0;
 	
 		virtual LinearTransformation getTransformation() const = 0;
 		
@@ -102,7 +102,7 @@ void Calibrator<ListA,ListB>::reducedLists(
 	ListB& b_reduced) const
 {
 	// TODO: use exceptions here
-	std::auto_ptr<std::map<int,int> > mapping_ptr = getMapping();
+	std::unique_ptr<std::map<int,int> > mapping_ptr = getMapping();
 	assert(mapping_ptr.get() != NULL);
 	std::map<int,int> &mapping = *mapping_ptr; // TODO
 	a_reduced.clear();
@@ -135,7 +135,7 @@ ListB Calibrator<ListA,ListB>::recalibrated(const ListA& predicted, const ListB&
 		ListB measured_reduced;
 		reducedLists(predicted, measured, predicted_reduced, measured_reduced);
 		ChebyshevFitter fitter(degree);
-		std::auto_ptr<PolynomialTransformation> transformation = fitter.fit(
+		std::unique_ptr<PolynomialTransformation> transformation = fitter.fit(
 			predicted_reduced.template begin<typename ListA::peak_type::MassGetter>(),
 			predicted_reduced.template end<typename ListA::peak_type::MassGetter>(),
 			measured_reduced.template begin<typename ListB::peak_type::MassGetter>(),

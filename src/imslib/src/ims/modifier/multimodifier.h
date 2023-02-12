@@ -37,7 +37,7 @@ class MultiModifier : public Modifier<PeakListType> {
 		/**
 		 * Adds a modifier
 		 */
-		void addModifier(std::auto_ptr<Modifier<PeakListType> >);
+		void addModifier(std::unique_ptr<Modifier<PeakListType> >);
 
 	private:
 		void deleteModifiers();
@@ -55,7 +55,7 @@ MultiModifier<PeakListType>& MultiModifier<PeakListType>::operator=(const MultiM
 }
 
 template <typename PeakListType>
-void MultiModifier<PeakListType>::addModifier(std::auto_ptr<Modifier<PeakListType> > modifier) {
+void MultiModifier<PeakListType>::addModifier(std::unique_ptr<Modifier<PeakListType> > modifier) {
 	modifiers.push_back(modifier.release());
 }
 
