@@ -682,7 +682,7 @@ SEXP  rlistScores(multimap<score_type, ComposedElement, greater<score_type> > sc
 	UNPROTECT(1); // SEXP isotopes
 
 	if(exceptionMesg != NULL) {
-	  Rf_error("%s", exceptionMesg);
+	  Rf_error("%s",exceptionMesg);
 	}
 	
 	return(List::create(  _["formula"]  = formula,
