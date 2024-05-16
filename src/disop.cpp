@@ -358,7 +358,7 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
     } catch(...) {
       //exceptionMesg = copyMessageToR("unknown reason");
       //error_return(exceptionMesg); 
-      ::Rf_error("c++ exception (unknown reason)");
+      ::Rf_error("%s", "c++ exception (unknown reason)");
     }
         
     return rl;
@@ -431,7 +431,7 @@ RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet,
   SEXP  rl=R_NilValue; // Use this when there is nothing to be returned.
 
    if( (s_formula==NULL) || !Rf_isString(s_formula) || Rf_length(s_formula) != 1)
-         Rf_error("formula is not a single string");
+         Rf_error("%s","formula is not a single string");
 
   typedef DistributionProbabilityScorer scorer_type;
   typedef scorer_type::score_type score_type;
@@ -484,7 +484,7 @@ RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet,
   } catch(std::exception& ex) {
     forward_exception_to_r(ex);
   } catch(...) {
-    ::Rf_error("c++ exception (unknown reason)");
+    ::Rf_error("%s","c++ exception (unknown reason)");
   }
 
   return rl;
@@ -501,7 +501,7 @@ RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet,
    if( (s_formula1==NULL) || s_formula2==NULL 
        || !Rf_isString(s_formula1) || !Rf_isString(s_formula2) 
        || Rf_length(s_formula2) != 1) {
-         Rf_error("formula is not a single string");
+         Rf_error("%s","formula is not a single string");
    }
 
   typedef DistributionProbabilityScorer scorer_type;
@@ -682,7 +682,7 @@ SEXP  rlistScores(multimap<score_type, ComposedElement, greater<score_type> > sc
 	UNPROTECT(1); // SEXP isotopes
 
 	if(exceptionMesg != NULL) {
-	  Rf_error("%s", exceptionMesg);
+	  Rf_error("%s",exceptionMesg);
 	}
 	
 	return(List::create(  _["formula"]  = formula,
