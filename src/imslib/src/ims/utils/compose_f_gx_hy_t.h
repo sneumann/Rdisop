@@ -54,26 +54,30 @@ ADDISON WESLEY LONGMAN AND THE AUTHOR DISCLAIM ALL WARRANTIES WITH REGARD TO THI
  */
 template <class OP1, class OP2, class OP3>
 class compose_f_gx_hy_t
- : public std::binary_function<typename OP2::argument_type,
-                               typename OP3::argument_type,
-                               typename OP1::result_type>
 {
-  private:
-    OP1 op1;    // process: op1(op2(x),op3(y))
-    OP2 op2;
-    OP3 op3;
-  public:
-    // constructor
-    compose_f_gx_hy_t (const OP1& o1, const OP2& o2, const OP3& o3)
-     : op1(o1), op2(o2), op3(o3) {
-    }
-
-    // function call
-    typename OP1::result_type
-    operator()(const typename OP2::argument_type& x,
-               const typename OP3::argument_type& y) const {
-        return op1(op2(x),op3(y));
-    }
+public:
+        // Define parameters
+        using first_argument_type = typename OP2::argument_type;
+        using second_argument_type = typename OP3::argument_type;
+        using result_type = typename OP1::result_type;
+        
+private:
+        OP1 op1;    // process: op1(op2(x),op3(y))
+        OP2 op2;
+        OP3 op3;
+        
+public:
+        // constructor
+        compose_f_gx_hy_t (const OP1& o1, const OP2& o2, const OP3& o3)
+                : op1(o1), op2(o2), op3(o3) {
+        }
+        
+        // function call
+        result_type
+        operator()(const first_argument_type& x,
+                 const second_argument_type& y) const {
+                return op1(op2(x),op3(y));
+        }
 };
 
 /** 
