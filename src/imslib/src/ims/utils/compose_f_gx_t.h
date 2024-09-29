@@ -3,6 +3,19 @@
 
 namespace ims {
 
+/**
+ * @brief Function object unary adapter.
+ *
+ * Composes two unary operations, using the result of one as input to another.
+ * Useful for combining multiple operations in a single function call.
+ *
+ * @tparam OP1 Type of the outer unary operation
+ * @tparam OP2 Type of the inner unary operation
+ *
+ * @note Inspired by concepts from "The C++ Standard Library" by Nicolai Josuttis,
+ *       but updated for modern C++ usage.
+ */
+
 template <class OP1, class OP2>
 class compose_f_gx_t
 {
