@@ -1,3 +1,7 @@
+2024-09-16  Miao Yu
+
+	* fix C++-17 issue on recent compilers reported by Prof. Ripley
+
 2024-05-16  Miao Yu
 
 	* fix cpp Rferror issues with help of @vjcitn
