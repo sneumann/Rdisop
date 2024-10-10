@@ -4,8 +4,9 @@
 #include <functional>
 #include <algorithm>
 #include <ims/alphabet.h>
-#include <ims/utils/compose_f_gx_t.h>
-#include <ims/utils/compose_f_gx_hy_t.h>
+// include statements out commented as they use deprecated functions
+// #include <ims/utils/compose_f_gx_t.h>
+// #include <ims/utils/compose_f_gx_hy_t.h>
 #include <ims/base/parser/alphabettextparser.h>
 
 
