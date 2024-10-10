@@ -22,7 +22,7 @@
 
 #include <ims/isotopedistribution.h>
 #include <ims/element.h>
-// #include <ims/utils/compose_f_gx_t.h>
+#include <ims/utils/compose_f_gx_t.h>
 
 using namespace std;
 using namespace ims;
