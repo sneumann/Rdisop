@@ -1,21 +1,38 @@
 Package: Rdisop
 Title: Decomposition of Isotopic Patterns
-Version: 1.65.1
-Date: 2023-05-16
-Author: Anton Pervukhin <apervukh@minet.uni-jena.de>, Steffen Neumann <sneumann@ipb-halle.de> 
-Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
-Description: Identification of metabolites using high precision mass
-             spectrometry. MS Peaks are used to derive a ranked list
-             of sum formulae, alternatively for a given sum formula
-             the theoretical isotope distribution can be calculated 
-             to search in MS peak lists.
+Version: 1.66.1
+Date: 2024-10-10
+Authors@R: c(
+    person("Anton", "Pervukhin", , "apervukh@minet.uni-jena.de", role = c("aut")),
+    person("Steffen", "Neumann", , "sneumann@ipb-halle.de", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-7899-7192")),
+    person("Jan", "Lisec", , "jan.lisec@bam.de", role = c("ctb"), comment = c(ORCID = "0000-0003-1220-2286"))
+  )
+Description: In high resolution mass spectrometry (HR-MS), the measured masses
+    can be decomposed into potential element combinations (chemical sum formulae). 
+    Where additional mass/intensity information of respective isotopic peaks is
+    available, decomposition can take this information into account to better
+    rank the potential candidate sum formulae. To compare measured mass/intensity
+    information with the theoretical distribution of candidate sum formulae, the
+    latter needs to be calculated.
+    This package implements fast algorithms to address both tasks, the 
+    calculation of isotopic distibutions for arbitrary sum formulae (assuming a
+    HR-MS resolution of roughly 30,000), and the ranked list of sum formulae
+    fitting an observed peak or isotopic peak set.
 Depends: R (>= 2.0.0), Rcpp
 LinkingTo: Rcpp
-Suggests: RUnit
+Suggests: 
+    knitr,
+    rmarkdown,
+    RUnit,
+    testthat (>= 3.0.0)
 SystemRequirements: None
 License: GPL-2
 StagedInstalll: no
 URL: https://github.com/sneumann/Rdisop
 BugReports: https://github.com/sneumann/Rdisop/issues/new
 biocViews: ImmunoOncology, MassSpectrometry, Metabolomics
-
+Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-US 
+RoxygenNote: 7.3.2
+VignetteBuilder: knitr

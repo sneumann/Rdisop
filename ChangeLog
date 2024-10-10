@@ -1,3 +1,13 @@
+2024-10-10 Jan Lisec <jan.lisec@bam.de>
+
+  * all R functions grouped to separate individual files
+  * all R functions documented using roxygen2
+  * `testthat` based testing environment set up
+  * Rdisop.dll bound to R using R_useDynamicSymbols()
+  * Vignette converted to Rmd format
+  * several include statements out-commented (compose_f_gx_t) referencing
+    deprecated functions
+
 2024-05-16  Miao Yu
 
 	* fix cpp Rferror issues with help of @vjcitn
