@@ -860,10 +860,13 @@ extern "C" {
     };
     
     R_registerRoutines(info, NULL, callMethods, NULL, NULL);
+    
+    /* included by jan.lisec@bam.de to account for RCHECK Note
+     */
+    R_useDynamicSymbols(info, FALSE);
   }
   
-  void
-  R_unload_disop(DllInfo *info)
+  void R_unload_disop(DllInfo *info)
   {
     /* Release resources. */
   }
