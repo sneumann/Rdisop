@@ -8,8 +8,7 @@ author:
   # - Anton Pervukhin^[Bioinformatics, Friedrich-Schiller-University Jena, apervukh@minet.uni-jena.de]
   # - Sebastian Böcker^[Bioinformatics, Friedrich-Schiller-University Jena, boecker@minet.uni-jena.de]
 date: "`r Sys.Date()`"
-output: 
-  rmarkdown::html_vignette
+output: rmarkdown::html_vignette
     # toc: true # toc and numbering is not supported
     # number_sections: true
 bibliography: Rdisop.bib
