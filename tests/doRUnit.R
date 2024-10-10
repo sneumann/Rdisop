@@ -29,8 +29,7 @@ if(require("RUnit", quietly=TRUE)) {
   ## --- Testing ---
 
   ## Define tests
-  testSuite <- defineTestSuite(name=paste(pkg, "unit testing"),
-                                          dirs=path)
+  testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs=path)
   ## Run
   tests <- runTestSuite(testSuite)
 
@@ -40,10 +39,8 @@ if(require("RUnit", quietly=TRUE)) {
   ## Report to stdout and text files
   cat("------------------- UNIT TEST SUMMARY ---------------------\n\n")
   printTextProtocol(tests, showDetails=FALSE)
-  printTextProtocol(tests, showDetails=FALSE,
-                    fileName=paste(pathReport, "Summary.txt", sep=""))
-  printTextProtocol(tests, showDetails=TRUE,
-                    fileName=paste(pathReport, ".txt", sep=""))
+  printTextProtocol(tests, showDetails=FALSE, fileName=paste(pathReport, "Summary.txt", sep=""))
+  printTextProtocol(tests, showDetails=TRUE, fileName=paste(pathReport, ".txt", sep=""))
 
   ## Report to HTML file
   printHTMLProtocol(tests, fileName=paste(pathReport, ".html", sep=""))
