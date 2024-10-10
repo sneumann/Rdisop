@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Steffen Neumann^\dagger, Anton Pervukhin^\ddagger, Sebastian Böcker^\ddagger" />
+<meta name="author" content="^\daggerLeibniz Institute of Plant Biochemistry, sneumann@IPB-Halle.DE" />
+<meta name="author" content="^\ddaggerFriedrich-Schiller-University Jena, apervukh@minet.uni-jena.de, boecker@minet.uni-jena.de" />
+
+<meta name="date" content="2024-10-10" />
+
+<title>Mass decomposition with the Rdisop package</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Mass decomposition with the Rdisop
+package</h1>
+<h4 class="author">Steffen Neumann<span class="math inline">\(^\dagger\)</span>, Anton Pervukhin<span class="math inline">\(^\ddagger\)</span>, Sebastian Böcker<span class="math inline">\(^\ddagger\)</span></h4>
+<h4 class="author"><span class="math inline">\(^\dagger\)</span>Leibniz
+Institute of Plant Biochemistry, <a href="mailto:sneumann@IPB-Halle.DE" class="email">sneumann@IPB-Halle.DE</a></h4>
+<h4 class="author"><span class="math inline">\(^\ddagger\)</span>Friedrich-Schiller-University
+Jena, <a href="mailto:apervukh@minet.uni-jena.de" class="email">apervukh@minet.uni-jena.de</a>, <a href="mailto:boecker@minet.uni-jena.de" class="email">boecker@minet.uni-jena.de</a></h4>
+<h4 class="date">2024-10-10</h4>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(Rdisop)</span></code></pre></div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>The BioConductor <code>Rdisop</code> package is designed to determine
+the sum formula of metabolites solely from their exact mass and isotope
+pattern as obtained from high resolution mass spectrometry measurements.
+Algorithms are described in <span class="citation">(Böcker et al. 2006,
+2008, 2009; Böcker and Lipták 2007)</span>.</p>
+<p>It is designed with compatibility to the Bioconductor packages
+<code>XCMS</code>, <code>MassSpecWavelet</code> and
+<code>rpubchem</code> in mind.</p>
+</div>
+<div id="decomposing-isotope-patterns" class="section level2">
+<h2>Decomposing isotope patterns</h2>
+<p>After preprocessing, the output of a mass spectrometer is a list of
+peaks which corresponds to the masses of the sample molecules and their
+abundance, i.e., the amount of sample compounds with a certain mass. In
+fact, sum formulas of small molecules can be identified using only
+accurate output masses. However, even with very high mass accuracy
+(&lt;1ppm), many chemically possible formulas are found in higher mass
+regions. It has been shown that applying only this data therefore does
+not suffice to identify a compound, and more information, such as
+isotopic abundances, needs to be taken into account. High resolution
+mass spectrometry allows us to obtain the isotope pattern of sample
+molecule with outstanding accuracy.</p>
+<div id="chemical-background" class="section level3">
+<h3>Chemical background</h3>
+<p>Atoms are composed of electrons, protons, and neutrons. The number of
+protons (the atomic number) is fixed and defines what element the atom
+is. The number of neutrons, on the other hand, can vary: Atoms with the
+same number of protons but different numbers of neutrons are called
+<em>isotopes</em> of the element. Each of these isotopes occurs in
+nature with a certain abundance. The <em>nominal mass</em> of a molecule
+is the sum of protons and neutrons of the constituting atoms. The
+<em>mass</em> of the molecule is the sum of masses of these atoms. The
+<em>monoisotopic (nominal) mass</em> of a molecule is the sum of
+(nominal) masses of the constituting atoms where for every element its
+most abundant natural isotope is chosen. Clearly, nominal mass and mass
+depend on the isotopes the molecule consists of, thus on the <em>isotope
+species</em> of the molecule.</p>
+<p>No present-day analysis technique is capable of resolving isotope
+species with identical nominal mass. Instead, these isotope species
+appear as one single peak in the mass spectrometry output. For this
+reason, we merge isotope species with identical nominal mass and refer
+to the resulting distribution as the molecule’s <em>isotope
+pattern</em>.</p>
+</div>
+<div id="identification-schema" class="section level3">
+<h3>Identification schema</h3>
+<p>Obtaining an accurate isotope pattern from a high resolution mass
+spectrometer, we apply this information to identify the elemental
+composition of the sample molecule. Our input is a list of masses with
+normalized abundances that corresponds to the isotope pattern of the
+sample molecule. We want to find that molecule’s elemental composition
+whose isotope pattern best matches the input.</p>
+<p>Solving this task is divided into the following parts: First, all
+elemental compositions are calculated that share some property, for
+example monoisotopic mass, with the input spectrum. Second, to remove
+those compositions that do not exist in nature, chemical bonding rules
+are applied, discarding formulas that have negative or non-integer
+degree of unsaturation. And third, for every remaining composition, its
+theoretical isotope pattern is calculated and compared to the measured
+isotope pattern. Candidate patterns are ranked using Bayesian
+Statistics, and the one with the highest score is chosen.</p>
+</div>
+</div>
+<div id="working-with-molecules-and-isotope-peaklists" class="section level2">
+<h2>Working with molecules and isotope peaklists</h2>
+<p>The central object in <code>Rdisop</code> is the molecule, which is a
+list containing the (sum-)formula, its isotope pattern, a score and
+other information. Molecules can either be created explicitly through
+functions <code>getMolecule</code>, <code>initializeXXX</code>, or
+through <code>decomposeMass</code> and <code>decomposeIsotopes</code>.
+Most functions operate only on a subset of the periodic system of
+elements (PSE) given as <em>elements</em> argument.</p>
+<p>The function <code>getMolecule</code> returns a list object
+containing the information for a named single atom or a more complex
+molecule.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>molecule <span class="ot">&lt;-</span> <span class="fu">getMolecule</span>(<span class="st">&quot;C2H5OH&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">getFormula</span>(molecule)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; [1] &quot;C2H6O&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">getMass</span>(molecule)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; [1] 46.04186</span></span></code></pre></div>
+<p>Note that the formula is in a canonical form, and the mass includes
+the decimals (the nominal mass for ethanol would be just 46).</p>
+<p>Without further arguments only the elements C, H, N, O, P and S are
+available. For metabolomics research, these are the most relevant ones.
+A different subset of the PSE can be returned and passed to the
+functions, but keep in mind that a larger set of elements yields a
+(much) larger result set when decomposing masses later.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>essentialElements <span class="ot">&lt;-</span> <span class="fu">initializeCHNOPSMgKCaFe</span>()</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>chlorophyll <span class="ot">&lt;-</span> <span class="fu">getMolecule</span>(<span class="st">&quot;C55H72MgN4O5H&quot;</span>, <span class="at">z=</span><span class="dv">1</span>, <span class="at">elements=</span>essentialElements)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>isotopes <span class="ot">&lt;-</span> <span class="fu">getIsotope</span>(chlorophyll, <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">4</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>isotopes</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt;             [,1]        [,2]       [,3]         [,4]</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; [1,] 893.5431390 894.5459934 895.546247 896.54752708</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; [2,]   0.4140648   0.3171228   0.178565   0.06773657</span></span></code></pre></div>
+<p>In this case we have created a complex molecule with a charge (z=+1)
+containing a metal ion and check its first four isotope peaks. For a
+visual inspection the isotope pattern can be plotted.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">t</span>(isotopes), <span class="at">type=</span><span class="st">&quot;h&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;m/z&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Intensity&quot;</span>)</span></code></pre></div>
+<div class="float">
+<img src="data:image/png;base64,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" alt="Isotope pattern for a protonated chlorophyll ion, which could be observed on a high-resolution mass spectrometer in positive mode." />
+<div class="figcaption">Isotope pattern for a protonated chlorophyll
+ion, which could be observed on a high-resolution mass spectrometer in
+positive mode.</div>
+</div>
+<div id="functions-decomposemass-and-decomposeisotopes" class="section level3">
+<h3>Functions <code>decomposeMass</code> and
+<code>decomposeIsotopes</code></h3>
+<p>The function <code>decomposeMass</code> returns a list of molecules
+which have a given exact mass (within an error window in ppm):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>molecules <span class="ot">&lt;-</span> <span class="fu">decomposeMass</span>(<span class="fl">46.042</span>, <span class="at">ppm=</span><span class="dv">20</span>, <span class="at">maxisotopes =</span> <span class="dv">4</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>molecules</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; $formula</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;C2H6O&quot;</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; $score</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; $exactmass</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; [1] 46.04186</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; $charge</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; $parity</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; [1] &quot;e&quot;</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; $valid</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Valid&quot;</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; $DBE</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co">#&gt; $isotopes</span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="co">#&gt; $isotopes[[1]]</span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="co">#&gt;            [,1]        [,2]        [,3]         [,4]</span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="co">#&gt; [1,] 46.0418648 47.04534542 48.04631711 4.904960e+01</span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="co">#&gt; [2,]  0.9749152  0.02293559  0.00210353 4.540559e-05</span></span></code></pre></div>
+<p>This call produces a list of potential molecules (with a single
+element in this case). The larger the masses, the allowed ppm deviation
+and the allowed elements list, the larger the result list will grow. For
+each hypothesis there is its formula and weight and score. The parity,
+validity (using the nitrogen rule) and double bond equivalents (DBE) are
+simple, yet commonly used hints for the plausibility of a solution and
+can be used for filtering the results list. For an amino acid this
+simple method guesses already eight hypotheses:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">decomposeMass</span>(<span class="fl">147.053</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt; [1] 8</span></span></code></pre></div>
+<p>On modern mass spectrometers a full isotope pattern can be obtained
+for a molecule, and the masses and intensities improve the accuracy of
+the sum formula prediction. Accessor functions return only subsets of
+the molecule data structure:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># glutamic acid (C5H9NO4)</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>masses <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">147.053</span>, <span class="fl">148.056</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>intensities <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">93</span>, <span class="fl">5.8</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>molecules <span class="ot">&lt;-</span> <span class="fu">decomposeIsotopes</span>(masses, intensities)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="fu">getFormula</span>(molecules), <span class="fu">getScore</span>(molecules), <span class="fu">getValid</span>(molecules))</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt;   getFormula.molecules. getScore.molecules. getValid.molecules.</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; 1               C5H9NO4        1.000000e+00               Valid</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; 2              C3H17P2S        1.935336e-09             Invalid</span></span></code></pre></div>
+<p>The first ranked solution already has a score close to one, and if
+using an N-rule filter, only one solution would remain. These cases are
+not removed by default, because a few compound classes do not obey the
+N-rule, which after all is just a simple heuristic.</p>
+<p>If the masses were obtained by an LC-ESI-MS, it is likely that the
+measured mass signal actually resembles an adduct ion, such as
+[M+H]<sup>+</sup>. The sum formula obtained through
+<code>decomposeIsotopes</code> will have one H too much, and will not be
+found in PubChem or other libraries, unless the adduct has been
+removed:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">getFormula</span>(<span class="fu">subMolecules</span>(<span class="st">&quot;C5H10NO4&quot;</span>, <span class="st">&quot;H&quot;</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;C5H9NO4&quot;</span></span></code></pre></div>
+<p>Similarly, if during ionization an in-source fragmentation occurred,
+the lost fragment can be added before querying using
+<code>addMolecules</code>.</p>
+</div>
+<div id="interaction-with-other-bioconductor-packages" class="section level3">
+<h3>Interaction with other BioConductor packages</h3>
+<p>This section will give some suggestions how the <code>Rdisop</code>
+functionality can be combined with other BioConductor packages.</p>
+<p>Usually the masses and intensities will be obtained from a
+high-resolution mass spectrometer such as an FT-ICR-MS or QTOF-MS.
+BioConductor currently has two packages dealing with peak picking on raw
+machine data, <code>MassSpecWavelet</code> and <code>XCMS</code>. The
+latter contains a wrapper for <code>MassSpecWavelet</code>, so we need
+to deal with <code>XCMS</code> peak lists only. The <code>ESI</code>
+package<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
+can extract a set of isotope clusters from peak lists.</p>
+<p>After <code>Rdisop</code> has created a set of candidate molecular
+formulae, the open-access compound databases PubChem or ChEBI can be
+queried whether any information about this compound exists. <em>Nota
+bene</em>: a hit or non-hit does not indicate a correct or incorrect
+formula, but merely helps in further verification or structure
+elucidation steps. For other cheminformatics functionality in
+BioConductor see e.g. <code>RCDK</code>.</p>
+</div>
+</div>
+<div id="acknowledgments" class="section level2">
+<h2>Acknowledgments</h2>
+<p>AP supported by Deutsche Forschungsgemeinschaft (BO 1910/1),
+additional programming by Marcel Martin, whom we thank for his unfailing
+support, and by Marco Kortkamp.</p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-boecker06decomposing" class="csl-entry">
+Böcker, Sebastian, Matthias Letzel, Zsuzsanna Lipták, and Anton
+Pervukhin. 2006. <span>“Decomposing Metabolomic Isotope
+Patterns.”</span> In <em>Proc. Of Workshop on Algorithms in
+Bioinformatics (WABI 2006)</em>, 4175:12–23. Lect. Notes Comput. Sci.
+Springer, Berlin. <a href="http://bio.informatik.uni-jena.de/bib2html/downloads/2006/BoeckerEtAl_DecomposingMetabolomicIsotopePatterns_WABI_2006.pdf">http://bio.informatik.uni-jena.de/bib2html/downloads/2006/BoeckerEtAl_DecomposingMetabolomicIsotopePatterns_WABI_2006.pdf</a>.
+</div>
+<div id="ref-boecker09sirius" class="csl-entry">
+———. 2009. <span>“<span>SIRIUS</span>: Decomposing Isotope Patterns for
+Metabolite Identification.”</span> <em>Bioinformatics</em> 25 (2):
+218–24. <a href="https://doi.org/10.1093/bioinformatics/btn603">https://doi.org/10.1093/bioinformatics/btn603</a>.
+</div>
+<div id="ref-boecker07fast" class="csl-entry">
+Böcker, Sebastian, and Zsuzsanna Lipták. 2007. <span>“A Fast and Simple
+Algorithm for the <span>M</span>oney <span>C</span>hanging
+<span>P</span>roblem.”</span> <em>Algorithmica</em> 48 (4): 413–32. <a href="https://doi.org/10.1007/s00453-007-0162-8">https://doi.org/10.1007/s00453-007-0162-8</a>.
+</div>
+<div id="ref-boecker08decomp" class="csl-entry">
+Böcker, Sebastian, Zsuzsanna Lipták, Marcel Martin, Anton Pervukhin, and
+Henner Sudek. 2008. <span>“<span>DECOMP</span>—from Interpreting Mass
+Spectrometry Peaks to Solving the <span>Money</span>
+<span>Changing</span> <span>Problem</span>.”</span>
+<em>Bioinformatics</em> 24 (4): 591–93. <a href="https://doi.org/10.1093/bioinformatics/btm631">https://doi.org/10.1093/bioinformatics/btm631</a>.
+</div>
+</div>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>not part of BioConductor, see <a href="http://msbi.ipb-halle.de/">http://msbi.ipb-halle.de/</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
