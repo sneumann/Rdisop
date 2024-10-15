@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/janlisec/Rdisop/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/janlisec/Rdisop/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/sneumann/Rdisop/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sneumann/Rdisop/actions/workflows/R-CMD-check.yaml)
 [![DOI](https://img.shields.io/badge/doi-10.1093/bioinformatics/btm631-yellow.svg)](https://doi.org/10.1093/bioinformatics/btm631)
 <!-- badges: end -->
 
