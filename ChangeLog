@@ -1,6 +1,16 @@
 2024-10-10 Jan Lisec <jan.lisec@bam.de>
 
-    # Rdisop-1.65.2
+    * Rdisop-1.65.3
+    * getMolecule now respects the charge parameter z
+    * exact masses will be corrected by z times the electron mass
+    * isotope masses will be additionally devided in case of abs(z)>=2
+    * a `testthat` function for getMolecule was set up 
+    * the documentation for getMolecule was updated
+    * previous users will be informed by a message when calling getMolecule with z!=0
+
+2024-10-10 Jan Lisec <jan.lisec@bam.de>
+
+    * Rdisop-1.65.2
     * all R functions grouped to separate individual files
     * all R functions documented using roxygen2
     * `testthat` based testing environment set up

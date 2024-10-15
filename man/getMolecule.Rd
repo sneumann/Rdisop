@@ -24,11 +24,11 @@ getValid(molecule)
 \arguments{
 \item{formula}{Sum formula.}
 
-\item{elements}{list of allowed chemical elements, defaults to full periodic system of elements.}
+\item{elements}{List of allowed chemical elements, defaults to full periodic system of elements.}
 
-\item{z}{charge z of molecule for exact mass calculation.}
+\item{z}{Charge z of molecule for exact mass calculation.}
 
-\item{maxisotopes}{maximum number of isotopes shown in the resulting molecules}
+\item{maxisotopes}{Maximum number of isotopes shown for the resulting molecule.}
 
 \item{molecule}{An initialized molecule as returned by getMolecule() or the decomposeMass() and decomposeIsotope() functions.}
 
@@ -48,6 +48,10 @@ Parse the sum formula and calculate the theoretical exact mass
 \code{getMolecule()} will parse the sum formula and calculate the 
     theoretical exact monoisotopic mass and the isotope distribution. For a 
     given element, return the different mass values.
+    Since of version 1-65-3, if a charge is specified, the exact mass of the 
+    molecule will be reduced or increased by n-times the electron mass (depending
+    on the sign). Also, isotopic masses will additionally be devided by the
+    charge specified to reflect what would be measured in HR-MS.
 }
 \examples{
 # Ethanol

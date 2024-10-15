@@ -6,13 +6,17 @@
 #'     and the isotope distribution.
 #'
 #' @param formula Sum formula.
-#' @param elements list of allowed chemical elements, defaults to full periodic system of elements.
-#' @param z charge z of molecule for exact mass calculation.
-#' @param maxisotopes maximum number of isotopes shown in the resulting molecules
+#' @param elements List of allowed chemical elements, defaults to full periodic system of elements.
+#' @param z Charge z of molecule for exact mass calculation.
+#' @param maxisotopes Maximum number of isotopes shown for the resulting molecule.
 #'
 #' @details \code{getMolecule()} will parse the sum formula and calculate the 
 #'     theoretical exact monoisotopic mass and the isotope distribution. For a 
 #'     given element, return the different mass values.
+#'     Since of version 1-65-3, if a charge is specified, the exact mass of the 
+#'     molecule will be reduced or increased by n-times the electron mass (depending
+#'     on the sign). Also, isotopic masses will additionally be devided by the
+#'     charge specified to reflect what would be measured in HR-MS.
 #' 
 #' @return A list with the elements `formula` repeated sum formula, `mass` exact 
 #'     monoisotopic mass of molecule, `score` probability, for given molecules a 
@@ -37,8 +41,8 @@ getMolecule <- function(formula, elements = NULL, z = 0, maxisotopes=10) {
   # Remember ordering of element names,
   # but ensure list of elements is ordered
   # by mass
-  element_order <- sapply(elements, function(x){x$name})
-  elements <- elements[order(sapply(elements, function(x){x$mass}))]
+  element_order <- sapply(elements, function(x){ x$name })
+  elements <- elements[order(sapply(elements, function(x) { x$mass }))]
   
   # Call imslib to parse formula and calculate
   # masses and isotope pattern
@@ -46,6 +50,20 @@ getMolecule <- function(formula, elements = NULL, z = 0, maxisotopes=10) {
                     formula, elements, element_order,
                     z, maxisotopes,
                     PACKAGE="Rdisop")
+  
+  # the charge parameter is not correctly used within C++ imslib to calculate
+  # appropriate deviations in exactmass and isotopes info
+  # to solve this the result is postprocessed here
+  if (z!=0) {
+      # JL: I would keep this message to inform previous users of Rdisop regarding
+      # the modification but remove it in the future (i.e. in 1 year, so 10/2025).
+      message("You specified a charge z different from 0. Please read the details part of the documentation.")
+      molecule[["exactmass"]] <- (molecule[["exactmass"]] - z * 0.00054858)/abs(z)
+      molecule[["isotopes"]] <- lapply(molecule[["isotopes"]], function(y) { 
+          y[1,] <- (y[1,] - z * 0.00054858)/abs(z) 
+          y
+      }) 
+  }
   
   molecule
 }
