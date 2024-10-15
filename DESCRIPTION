@@ -1,12 +1,13 @@
 Package: Rdisop
 Title: Decomposition of Isotopic Patterns
-Version: 1.66.1
+Version: 1.65.2
 Date: 2024-10-10
 Authors@R: 
     c(
         person("Anton", "Pervukhin", , "apervukh@minet.uni-jena.de", role = c("aut")),
         person("Steffen", "Neumann", , "sneumann@ipb-halle.de", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-7899-7192")),
-        person("Jan", "Lisec", , "jan.lisec@bam.de", role = c("ctb"), comment = c(ORCID = "0000-0003-1220-2286"))
+        person("Jan", "Lisec", , "jan.lisec@bam.de", role = c("ctb"), comment = c(ORCID = "0000-0003-1220-2286")),
+        person("Miao", "Yu", , "yufreecas@gmail.com", role = c("ctb") )
     )
 Description: In high resolution mass spectrometry (HR-MS), the measured masses
     can be decomposed into potential element combinations (chemical sum formulas). 

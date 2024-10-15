@@ -1,6 +1,6 @@
 2024-10-10 Jan Lisec <jan.lisec@bam.de>
 
-    # Rdisop-1.66.1
+    # Rdisop-1.65.2
     * all R functions grouped to separate individual files
     * all R functions documented using roxygen2
     * `testthat` based testing environment set up
