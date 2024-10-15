@@ -1,3 +1,13 @@
+2024-10-10 Jan Lisec <jan.lisec@bam.de>
+
+    # Rdisop-1.65.2
+    * all R functions grouped to separate individual files
+    * all R functions documented using roxygen2
+    * `testthat` based testing environment set up
+    * Rdisop.dll bound to R using R_useDynamicSymbols()
+    * Vignette converted to Rmd format
+    * GitHub actions included
+
 2024-09-16  Miao Yu
 
 	* fix C++-17 issue on recent compilers reported by Prof. Ripley

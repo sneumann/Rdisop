@@ -1,52 +1,74 @@
-#
-# Create a set of elements
-# as a subset of PSE
-#
-# Example:
-#
-# elements <- initializeCHNOPS()
-#
+#' @name initializeElements
+#' @title Initialize (a subset of) elements of the periodic system of elements (PSE)
+#' @aliases initializeCHNOPS
+#' @aliases initializeCHNOPSMgKCaFe
+#' @aliases initializeCHNOPSNaK
+#' @aliases initializePSE
+#' @aliases initializeCharges
+#' @aliases .getElement
+#' 
+#' @description Initialize the information about name, mass and isotopes. To 
+#'     reduce the number of decomposition hypotheses, subsets of elements can be 
+#'     created.
+#'     
+#' @param names Vector of element names within PSE.
+#'
+#' @details These functions return full, pre-defined or user-defined 
+#'     (sub-) lists of elements.
+#' 
+#' @return A list with the elements `name` repeated sum formula, `mass` nominal 
+#'     mass of molecule, `isotope` a list of isotopes. The function `initializeCharges` 
+#'     is special, since it allows to parse charges as shown in examples.
+#'     
+#' @export
+#'
+#' @examples
+#' initializeCHNOPS()
+#' getMolecule("H3O+", elements=c(initializeCHNOPS(),initializeCharges()))
+#' 
+#' @author Steffen Neumann <sneumann@IPB-Halle.DE>
+#' @references For a description of the underlying IMS see citation("Rdisop").
+#'     Isotope patterns were obtained through wikipedia.org
 initializeElements <- function(names) {
     elements <- initializePSE()
     lapply(names, function (name) {.getElement(name, elements)})
 }
 
-#
-# Create a set of elements
-# with standard CHNOPS
-#
-# Example:
-#
-# elements <- initializeCHNOPS()
-#
-initializeCHNOPS <- function() {
-    initializeElements(c("C", "H", "N", "O", "P", "S"))
+#' @rdname initializeElements
+#' @param name Chemical element name (abbr.).
+#' @param elements Character vector of chemical element names.
+#' @export
+.getElement <- function(name, elements = NULL) {
+  if (!is.list(elements) || length(elements) == 0) {
+    elements <- initializePSE()
+  }
+  rex <- paste("^", name, "$", sep = "")
+  
+  elements[[grep(rex, sapply(elements, function(x) {
+    x$name
+  }))]]
 }
 
-#
-# Create a set of elements
-# with standard CHNOPS+Ions
-#
-# Example:
-#
-# elements <- initializeCHNOPSMgKCaFe()
-#
+#' @rdname initializeElements
+#' @export
+initializeCHNOPS <- function() {
+  initializeElements(c("C", "H", "N", "O", "P", "S"))
+}
+
+#' @rdname initializeElements
+#' @export
 initializeCHNOPSMgKCaFe <- function() {
     initializeElements(c("C", "H", "N", "O", "P", "S", "Mg", "K", "Ca", "Fe"))
 }
 
+#' @rdname initializeElements
+#' @export
 initializeCHNOPSNaK <- function() {
     initializeElements(c("C", "H", "N", "O", "P", "S", "Na", "K"))
 }
 
-
-#
-# Create a set of Elements containing the full PSE
-#
-# Example:
-# names <- initializePSE()
-#
-
+#' @rdname initializeElements
+#' @export
 initializePSE <- function() {
 	
     D <- list(name="D", mass=2,  isotope = list(mass=c(0.014102), abundance=c(1))) #Heavy Water
@@ -157,17 +179,10 @@ initializePSE <- function() {
     list(D, Ac, Ag, Al, Am, Ar, As, At, Au, B, Ba, Be, Bi, Bk, Br, C, Ca, Cd, Ce, Cf, Cl, Cm, Co, Cr, Cs, Cu, Dy, Er, Es, Eu, F, Fe, Fm, Fr, Ga, Gd, Ge, H, He, Hf, Hg, Ho, I, In, Ir, K, Kr, La, Li, Lr, Lu, Md, Mg, Mn, Mo, N, Na, Nb, Nd, Ne, Ni, No, Np, O, Os, P, Pa, Pb, Pd, Pm, Po, Pr, Pt, Pu, Ra, Rb, Re, Rh, Rn, Ru, S, Sb, Sc, Se, Si, Sm, Sn, Sr, Ta, Tb, Tc, Te, Th, Ti, Tl, Tm, U, V, W, Xe, Y, Yb, Zn, Zr)
 }
 
+#' @rdname initializeElements
+#' @export
 initializeCharges <- function() {
     positive <- list(name="+", mass=0, isotope = list(mass=c(-0.00054858), abundance=c(1)))
     negative <- list(name="-", mass=0, isotope = list(mass=c(+0.00054858), abundance=c(1)))
     list(positive, negative)
 }
-
-
-#
-# Tests
-#
-
-# m <- initializePSE()
-# m <- initializeCHNOPS()
-# m <- initializeCHNOPSMgKCaFe()
