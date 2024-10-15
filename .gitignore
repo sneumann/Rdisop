@@ -7,3 +7,5 @@
 .deps
 .libs
 libims.la
+.Rproj.user
+inst/doc
