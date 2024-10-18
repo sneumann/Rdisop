@@ -9,3 +9,6 @@
 libims.la
 .Rproj.user
 inst/doc
+
+# Compiled binaries
+src/Rdisop.dll
