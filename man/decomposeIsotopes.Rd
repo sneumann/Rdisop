@@ -67,8 +67,8 @@ isotopeScore(
 }
 \value{
 A list of molecules, which contain the sub-lists `formulas` potential 
-    formulae, monoisotopic mass of hypothesis, `score` calculated score,
-    `isotopes` a list of isotopes.
+    formulas, `exactmass` exact mass of each hypothesis (not monoisotopic), 
+    `score` calculated score, `isotopes` a list of isotopes.
 }
 \description{
 Calculate the elementary compositions from an exact Mass or

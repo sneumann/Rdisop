@@ -121,7 +121,7 @@ later.
 ```{r exmpl2}
 essentialElements <- initializeCHNOPSMgKCaFe()
 chlorophyll <- getMolecule("C55H72MgN4O5H", z=1, elements=essentialElements)
-isotopes <- getIsotope(chlorophyll, seq(1,4))
+isotopes <- getIsotope(chlorophyll, seq(1,4))[[1]]
 isotopes
 ```
 

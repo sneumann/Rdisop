@@ -1,7 +1,7 @@
 Package: Rdisop
 Title: Decomposition of Isotopic Patterns
-Version: 1.65.2
-Date: 2024-10-10
+Version: 1.65.4
+Date: 2024-10-18
 Authors@R: 
     c(
         person("Anton", "Pervukhin", , "apervukh@minet.uni-jena.de", role = c("aut")),
@@ -20,7 +20,9 @@ Description: In high resolution mass spectrometry (HR-MS), the measured masses
     calculation of isotopic distributions for arbitrary sum formulas (assuming a
     HR-MS resolution of roughly 30,000), and the ranked list of sum formulas
     fitting an observed peak or isotopic peak set.
-Depends: R (>= 2.0.0), Rcpp
+Depends: 
+    R (>= 2.10),
+    Rcpp
 LinkingTo: Rcpp
 Suggests: 
     knitr,

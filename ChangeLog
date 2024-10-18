@@ -1,3 +1,21 @@
+2024-10-18 Jan Lisec <jan.lisec@bam.de>
+
+    * Rdisop-1.65.4
+    * !changed `getIsotope` function to return a list of matrices to be 
+      consistent with the other getter functions
+    * new exported function `getMono()` which will return the mono-isotopic mass
+      for a molecule object (also when a list of molecules as for decomposeMass)
+      or alternatively for a vector of chemical formulas
+    * modified documentation to clarify the difference of exactmass and mono-
+      isotopic mass
+    * `testthat` test for `getMono` were set up 
+    * new internal function to count chemical elements (imported/copied from the
+      CorMID package) to be utilized in `getMono`
+    * two data sets included in package and appropriately documented
+    * `isotopes` (a data.frame version of the PSE info) 
+    * `mono_masses` (a named vector containing only the most abundant isotope per 
+      element)
+    
 2024-10-10 Jan Lisec <jan.lisec@bam.de>
 
     * Rdisop-1.65.3

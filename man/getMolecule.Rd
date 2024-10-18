@@ -3,6 +3,7 @@
 \name{getMolecule}
 \alias{getMolecule}
 \alias{getMass}
+\alias{getMono}
 \alias{getIsotope}
 \alias{getFormula}
 \alias{getScore}
@@ -12,6 +13,8 @@
 getMolecule(formula, elements = NULL, z = 0, maxisotopes = 10)
 
 getMass(molecule)
+
+getMono(molecule)
 
 getIsotope(molecule, index)
 
@@ -32,26 +35,30 @@ getValid(molecule)
 
 \item{molecule}{An initialized molecule as returned by getMolecule() or the decomposeMass() and decomposeIsotope() functions.}
 
-\item{index}{Return the n-th isotope mass/abundance pair of the molecule}
+\item{index}{Return the n-th isotope mass/abundance pair(s) of the molecule}
 }
 \value{
-A list with the elements `formula` repeated sum formula, `mass` exact 
-    monoisotopic mass of molecule, `score` probability, for given molecules a 
+A list containing the elements `formula` (repeated sum formula), 
+    `mass` exact mass of molecule, `score` probability, for given molecules a 
     dummy value which is always 1.0, `valid` result of neutrogen rule check, 
-    `isotopes` a list of isotopes.
+    `isotopes` a list of isotope masses and abundances.
 }
 \description{
 Parse the sum formula and calculate the theoretical exact mass 
-    and the isotope distribution.
+    and the isotope distribution for an approximate MS resolution of 20,000.
 }
 \details{
 \code{getMolecule()} will parse the sum formula and calculate the 
-    theoretical exact monoisotopic mass and the isotope distribution. For a 
-    given element, return the different mass values.
+    exact mass and the isotope distribution.
+    The exact mass is the mass of the most abundant isotope and is not 
+    identical with the monoisotopic mass. The latter can be extracted using 
+    the function `getMono()`. This function can also be supplied with a 
+    vector of chemical formulas directly (in case that the isotopic 
+    distribution is of no interest).
     Since of version 1-65-3, if a charge is specified, the exact mass of the 
-    molecule will be reduced or increased by n-times the electron mass (depending
-    on the sign). Also, isotopic masses will additionally be devided by the
-    charge specified to reflect what would be measured in HR-MS.
+    molecule will be reduced or increased by n-times the electron mass 
+    (depending on the sign). Also, isotopic masses will additionally be 
+    divided by the charge specified to reflect what would be measured in HR-MS.
 }
 \examples{
 # Ethanol
