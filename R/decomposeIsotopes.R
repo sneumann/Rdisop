@@ -20,8 +20,8 @@
 #' @details Sum formulas are calculated which explain the given mass or isotope pattern.
 #'
 #' @return A list of molecules, which contain the sub-lists `formulas` potential 
-#'     formulae, monoisotopic mass of hypothesis, `score` calculated score,
-#'     `isotopes` a list of isotopes.
+#'     formulas, `exactmass` exact mass of each hypothesis (not monoisotopic), 
+#'     `score` calculated score, `isotopes` a list of isotopes.
 #'     
 #' @export
 #' @import Rcpp
