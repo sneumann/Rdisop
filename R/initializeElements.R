@@ -11,6 +11,9 @@
 #'     reduce the number of decomposition hypotheses, subsets of elements can be 
 #'     created.
 #'     
+#' @param method Use isotope mass and abundance data from either "IUPAC"
+#(default) or "NIST".
+#'
 #' @param names Vector of element names within PSE.
 #'
 #' @details These functions return full, pre-defined or user-defined 

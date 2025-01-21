@@ -20,7 +20,7 @@ initializeCHNOPSMgKCaFe()
 
 initializeCHNOPSNaK()
 
-initializePSE()
+initializePSE(method = "IUPAC")
 
 initializeCharges()
 }
@@ -28,6 +28,8 @@ initializeCharges()
 \item{names}{Vector of element names within PSE.}
 
 \item{name}{Chemical element name (abbr.).}
+
+\item{method}{Use isotope mass and abundance data from either "IUPAC" (default) or "NIST"}
 
 \item{elements}{Character vector of chemical element names.}
 }
