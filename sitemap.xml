@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://sneumann.github.io/Rdisop/404.html</loc>
   </url>
   <url>
-    <loc>/articles/Rdisop.html</loc>
+    <loc>https://sneumann.github.io/Rdisop/articles/Rdisop.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://sneumann.github.io/Rdisop/articles/index.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://sneumann.github.io/Rdisop/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://sneumann.github.io/Rdisop/index.html</loc>
   </url>
   <url>
-    <loc>/reference/addMolecules.html</loc>
+    <loc>https://sneumann.github.io/Rdisop/reference/addMolecules.html</loc>
   </url>
   <url>
-    <loc>/reference/decomposeIsotopes.html</loc>
+    <loc>https://sneumann.github.io/Rdisop/reference/decomposeIsotopes.html</loc>
   </url>
   <url>
-    <loc>/reference/getMolecule.html</loc>
+    <loc>https://sneumann.github.io/Rdisop/reference/getMolecule.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://sneumann.github.io/Rdisop/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeElements.html</loc>
+    <loc>https://sneumann.github.io/Rdisop/reference/initializeElements.html</loc>
   </url>
   <url>
-    <loc>/reference/isotopes.html</loc>
+    <loc>https://sneumann.github.io/Rdisop/reference/isotopes.html</loc>
   </url>
   <url>
-    <loc>/reference/mono_masses.html</loc>
+    <loc>https://sneumann.github.io/Rdisop/reference/mono_masses.html</loc>
   </url>
 </urlset>
