@@ -4,8 +4,8 @@
     * fix for issue #22; implementing atomic masses with higher precision
     * the new set of elemental definitions will be used as the default which can
       be considered a breaking change as it might lead to minor changes in 
-      previous analyseswill
-      
+      previous analyses; previous results can be obtained by setting `method = 'IUPAC'`
+      in function initialize
 
 2024-11-08 Jan Lisec <jan.lisec@bam.de>
 
