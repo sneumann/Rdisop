@@ -8,11 +8,9 @@
 \alias{initializePSE}
 \alias{initializeCharges}
 \alias{.getElement}
-\alias{.initializePSE_IUPAC}
-\alias{.initializePSE_NIST}
 \title{Initialize (a subset of) elements of the periodic system of elements (PSE)}
 \usage{
-initializeElements(names)
+initializeElements(names, method = c("NIST", "IUPAC"))
 
 .getElement(name, elements = NULL)
 
@@ -24,21 +22,17 @@ initializeCHNOPSNaK()
 
 initializePSE(method = c("NIST", "IUPAC"))
 
-.initializePSE_IUPAC()
-
-.initializePSE_NIST()
-
 initializeCharges()
 }
 \arguments{
 \item{names}{Vector of element names within PSE.}
 
+\item{method}{Use isotope mass and abundance data from either "NIST"
+(default) or "IUPAC".}
+
 \item{name}{Chemical element name (abbr.).}
 
 \item{elements}{Character vector of chemical element names.}
-
-\item{method}{Use isotope mass and abundance data from either "IUPAC"
-(default) or "NIST".}
 }
 \value{
 A list with the elements `name` repeated sum formula, `mass` nominal 
