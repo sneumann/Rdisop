@@ -1,3 +1,9 @@
+2025-01-22 Jan Lisec <jan.lisec@bam.de>
+
+    * Rdisop-1.67.5
+    * fix for issue #22; implementing atomic masses with higher precision
+    * the new set
+
 2024-11-08 Jan Lisec <jan.lisec@bam.de>
 
     * Rdisop-1.67.4
