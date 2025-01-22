@@ -2,7 +2,10 @@
 
     * Rdisop-1.67.5
     * fix for issue #22; implementing atomic masses with higher precision
-    * the new set
+    * the new set of elemental definitions will be used as the default which can
+      be considered a breaking change as it might lead to minor changes in 
+      previous analyseswill
+      
 
 2024-11-08 Jan Lisec <jan.lisec@bam.de>
 

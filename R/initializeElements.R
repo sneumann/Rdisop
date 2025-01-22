@@ -11,8 +11,8 @@
 #'     reduce the number of decomposition hypotheses, subsets of elements can be 
 #'     created.
 #'     
-#' @param method Use isotope mass and abundance data from either "IUPAC"
-#'     (default) or "NIST".
+#' @param method Use isotope mass and abundance data from either "NIST"
+#'     (default) or "IUPAC".
 #'
 #' @param names Vector of element names within PSE.
 #'
@@ -32,8 +32,9 @@
 #' @author Steffen Neumann <sneumann@IPB-Halle.DE>
 #' @references For a description of the underlying IMS see citation("Rdisop").
 #'     Isotope patterns were obtained through wikipedia.org
-initializeElements <- function(names) {
-    elements <- initializePSE()
+initializeElements <- function(names, method=c("NIST","IUPAC")) {
+    method <- match.arg(method)
+    elements <- initializePSE(method = method)
     lapply(names, function (name) {.getElement(name, elements)})
 }
 
@@ -82,8 +83,8 @@ initializePSE <- function(method=c("NIST","IUPAC")) {
         stop("Unknown table requested")
 }
 
-#' @rdname initializeElements
-#' @export
+#' @noRd
+#' @keywords internal
 .initializePSE_IUPAC <- function() {	
     D <- list(name="D", mass=2,  isotope = list(mass=c(0.014102), abundance=c(1))) #Heavy Water
     Ac <- list(name= 'Ac', mass=227, isotope=list(mass=c(0.02775),abundance=c(1)))
@@ -193,8 +194,8 @@ initializePSE <- function(method=c("NIST","IUPAC")) {
     list(D, Ac, Ag, Al, Am, Ar, As, At, Au, B, Ba, Be, Bi, Bk, Br, C, Ca, Cd, Ce, Cf, Cl, Cm, Co, Cr, Cs, Cu, Dy, Er, Es, Eu, F, Fe, Fm, Fr, Ga, Gd, Ge, H, He, Hf, Hg, Ho, I, In, Ir, K, Kr, La, Li, Lr, Lu, Md, Mg, Mn, Mo, N, Na, Nb, Nd, Ne, Ni, No, Np, O, Os, P, Pa, Pb, Pd, Pm, Po, Pr, Pt, Pu, Ra, Rb, Re, Rh, Rn, Ru, S, Sb, Sc, Se, Si, Sm, Sn, Sr, Ta, Tb, Tc, Te, Th, Ti, Tl, Tm, U, V, W, Xe, Y, Yb, Zn, Zr)
 }
 
-#' @rdname initializeElements
-#' @export
+#' @noRd
+#' @keywords internal
 .initializePSE_NIST <- function() {
     D <- list(name="D", mass=2,  isotope = list(mass=c(0.01410178), abundance=c(1))) #Heavy Water
     Ac <- list(name='Ac', mass=227, isotope=list(mass=c(0.02775230), abundance=c(1.00000000)))
