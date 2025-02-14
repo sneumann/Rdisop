@@ -11,8 +11,8 @@
 #'     reduce the number of decomposition hypotheses, subsets of elements can be 
 #'     created.
 #'     
-#' @param method Use isotope mass and abundance data from either "IUPAC"
-#(default) or "NIST".
+#' @param method Use isotope mass and abundance data from either "NIST"
+#'     (default) or "IUPAC".
 #'
 #' @param names Vector of element names within PSE.
 #'
@@ -32,8 +32,9 @@
 #' @author Steffen Neumann <sneumann@IPB-Halle.DE>
 #' @references For a description of the underlying IMS see citation("Rdisop").
 #'     Isotope patterns were obtained through wikipedia.org
-initializeElements <- function(names) {
-    elements <- initializePSE()
+initializeElements <- function(names, method=c("NIST","IUPAC")) {
+    method <- match.arg(method)
+    elements <- initializePSE(method = method)
     lapply(names, function (name) {.getElement(name, elements)})
 }
 
@@ -72,7 +73,8 @@ initializeCHNOPSNaK <- function() {
 
 #' @rdname initializeElements
 #' @export
-initializePSE <- function(method="IUPAC") {
+initializePSE <- function(method=c("NIST","IUPAC")) {
+    method <- match.arg(method)
     if (method=="IUPAC")
         return(.initializePSE_IUPAC())
     else if (method=="NIST")
@@ -81,8 +83,8 @@ initializePSE <- function(method="IUPAC") {
         stop("Unknown table requested")
 }
 
-#' @rdname initializeElements
-#' @export
+#' @noRd
+#' @keywords internal
 .initializePSE_IUPAC <- function() {	
     D <- list(name="D", mass=2,  isotope = list(mass=c(0.014102), abundance=c(1))) #Heavy Water
     Ac <- list(name= 'Ac', mass=227, isotope=list(mass=c(0.02775),abundance=c(1)))
@@ -192,10 +194,10 @@ initializePSE <- function(method="IUPAC") {
     list(D, Ac, Ag, Al, Am, Ar, As, At, Au, B, Ba, Be, Bi, Bk, Br, C, Ca, Cd, Ce, Cf, Cl, Cm, Co, Cr, Cs, Cu, Dy, Er, Es, Eu, F, Fe, Fm, Fr, Ga, Gd, Ge, H, He, Hf, Hg, Ho, I, In, Ir, K, Kr, La, Li, Lr, Lu, Md, Mg, Mn, Mo, N, Na, Nb, Nd, Ne, Ni, No, Np, O, Os, P, Pa, Pb, Pd, Pm, Po, Pr, Pt, Pu, Ra, Rb, Re, Rh, Rn, Ru, S, Sb, Sc, Se, Si, Sm, Sn, Sr, Ta, Tb, Tc, Te, Th, Ti, Tl, Tm, U, V, W, Xe, Y, Yb, Zn, Zr)
 }
 
-#' @rdname initializeElements_NIST
-#' @export
+#' @noRd
+#' @keywords internal
 .initializePSE_NIST <- function() {
-    D <- list(name="D", mass=2,  isotope = list(mass=c(0.014102), abundance=c(1))) #Heavy Water
+    D <- list(name="D", mass=2,  isotope = list(mass=c(0.01410178), abundance=c(1))) #Heavy Water
     Ac <- list(name='Ac', mass=227, isotope=list(mass=c(0.02775230), abundance=c(1.00000000)))
     Ag <- list(name='Ag', mass=107, isotope=list(mass=c(-0.09490840, 0.00000000, -0.09524470), abundance=c(0.51839000, 0.00000000, 0.48161000)))
     Al <- list(name='Al', mass=27, isotope=list(mass=c(-0.01846147), abundance=c(1.00000000)))
@@ -263,7 +265,7 @@ initializePSE <- function(method="IUPAC") {
     P <- list(name='P', mass=31, isotope=list(mass=c(-0.02623800), abundance=c(1.00000000)))
     Pa <- list(name='Pa', mass=231, isotope=list(mass=c(0.03588420), abundance=c(1.00000000)))
     Pb <- list(name='Pb', mass=204, isotope=list(mass=c(-0.02695600, 0.00000000, -0.02553430, -0.02410270, -0.02334750), abundance=c(0.01400000, 0.00000000, 0.24100000, 0.22100000, 0.52400000)))
-    Pd <- list(name='Pd', mass=102, isotope=list(mass=c(-0.09439780, 0.00000000, -0.09596950, -0.09492040, -0.09651960, 0.00000000, -0.09610840, 0.00000000, -0.09484700), abundance=c(0.01020000, 0.00000000, 0.11140000, 0.22330000, 0.27330000, 0.00000000, 0.26460000, 0.00000000, 0.11720000)))
+    Pd <- list(name='Pd', mass=102, isotope=list(mass=c(-0.09439780, 0.00000000, -0.09596950, -0.09492040, -0.09651960, 0.00000000, -0.09610840, 0.00000000, -0.09482780), abundance=c(0.01020000, 0.00000000, 0.11140000, 0.22330000, 0.27330000, 0.00000000, 0.26460000, 0.00000000, 0.11720000)))
     Pm <- list(name='Pm', mass=145, isotope=list(mass=c(-0.08724410), abundance=c(1.00000000)))
     Po <- list(name='Po', mass=209, isotope=list(mass=c(-0.01756920), abundance=c(1.00000000)))
     Pr <- list(name='Pr', mass=141, isotope=list(mass=c(-0.09234240), abundance=c(1.00000000)))

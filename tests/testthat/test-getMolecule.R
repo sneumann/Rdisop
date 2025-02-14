@@ -23,7 +23,9 @@ testthat::test_that(
         out <- getMolecule(fml)
         
         # the exact mass is the second isotope
-        testthat::expect_equal(getMass(out), getIsotope(out, 2)[[1]][1,])
+        # this test is no longer valid since v.1.67.5 due to defaulting to more precise NIST elemental definitions
+        # before v1.67.5 the rounding errors led to the 'exactmass' being the second isotope
+        # testthat::expect_equal(getMass(out), getIsotope(out, 2)[[1]][1,])
         
         # the monoisotopic mass is the first isotope
         testthat::expect_equal(unname(getMonoisotopic(out)), getIsotope(out, 1)[[1]][1,])
@@ -48,5 +50,24 @@ testthat::test_that(
         # elements contained in the formula need to exist in the provided elements list
         testthat::expect_error(getMolecule(formula = "CH4", elements = initializeElements("H")))
 
+    }
+)
+
+testthat::test_that(
+    desc = "getMolecule improves precision with NIST elemental definitions compared to IUPAC", 
+    code = {
+        
+        # this was an error reported in issue #22
+        # example fml returns a wrong monoisotopic peak due to rounding differences
+        fml <- "C89H166O17P2"
+        res_iupac <- Rdisop::getMolecule(formula = fml, elements = initializePSE(method = "IUPAC"), maxisotopes = 2)$isotopes[[1]]
+        res_nist <- Rdisop::getMolecule(formula = fml, elements = initializePSE(method = "NIST"), maxisotopes = 2)$isotopes[[1]]
+        
+        testthat::expect_equal(res_iupac, structure(c(1569.16002852, 0.494738964752399, 1570.16346006151, 0.505261035247601), dim = c(2L, 2L)))
+        testthat::expect_equal(res_nist, structure(c(1569.16002752, 0.502975666994795, 1570.16344446454, 0.497024333005205), dim = c(2L, 2L)))
+        
+        # the monoisotopic peak has changed
+        testthat::expect_true(res_iupac[2,1]<0.5 & res_nist[2,1]>0.5)
+        
     }
 )

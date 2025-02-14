@@ -1,7 +1,7 @@
 # to be more comparable with package `enviPat` and to allow easier access to the
 # isotope information the original functions defining the PSE as a list is used
 # to set up a data.frame which can be attended by Rdisop::isotopes
-ele <- initializePSE()
+ele <- initializePSE(method = "NIST")
 isotopes <- plyr::ldply(ele, function(x) {
     data.frame(
         "element" = rep(x$name, length(x$isotope$mass)),
