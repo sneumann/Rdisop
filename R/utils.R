@@ -72,3 +72,83 @@
     x <- names(.CountChemicalElements(fml))
     return(initializeElements(x))
 }
+
+#' @title .check_elements
+#' @description \code{.check_elements} will check this parameter in various
+#'     functions to ensure that it is within the specifications. It also allows
+#'     the user to provide the element definitions via the legacy way (as a list
+#'     similar to the initializeElements() output) or similar to the way the 
+#'     parameters `minElements`and `maxElements` are defined (character).
+#' @param x elements parameter.
+#' @param default A default valid element set.
+#' @return Either the default set or a correct elemental set based on x.
+#' @examples
+#' .check_elements(x = NULL)
+#' .check_elements(x = "CHNOPS")
+#' .check_elements(x = "NA")
+#' .check_elements(x = "Na")
+#' .check_elements(x = "AllWrong")
+#' .check_elements(x = initializeElements(c("C","H","N")))
+#' 
+#' @noRd
+#' @keywords internal
+.check_elements <- function(x = NULL, default = initializePSE()) {
+    # return default element set (PSE if not defined otherwise) for x = NULL
+    if (is.null(x)) return(default)
+    
+    # extract valid element name if x is a character vector of length = 1 and return their definitions
+    if (length(x)==1 & is.character(x)) {
+        ele <- names(.CountChemicalElements(x))
+        PSE <- initializePSE()
+        nms <- sapply(PSE, function(x) { x$name })
+        idx <- !(ele %in% nms)
+        if (any(idx)) {
+            warning("Could not find a definition for element", ifelse(sum(idx)>=2, "s ", " "), paste(ele[idx], collapse = ", "))
+        }
+        if (any(!idx)) {
+            return(PSE[nms %in% ele])
+        } else {
+            return(default)
+        }
+    }
+    
+    # return default element set (PSE if not defined otherwise) for x = anything else but a list
+    if (!is.list(x) || length(x) == 0) {
+        return(default)
+    } else {
+        # return the original input as it seems to be ok
+        return(x)
+    }
+}
+
+#' @title .check_limElements
+#' @description \code{.check_limElements} will check elemental limit parameters 
+#'     `minElements`and `maxElements` to ensure that they are within the 
+#'     specifications.
+#' @param x limit parameter.
+#' @param elements A valid element list.
+#' @param default A default value to be used as a limit.
+#' @return Either the input or stops with an error message.
+#' @examples
+#' .check_limElements(x = "C0", elements = initializeElements("Na"))
+#' .check_limElements(x = "CHNOPS")
+#' 
+#' @noRd
+#' @keywords internal
+.check_limElements <- function(x = NULL, elements = initializePSE(), default = 1) {
+    ele <- .CountChemicalElements(x)
+    nms <- sapply(elements, function(x) { x$name })
+    idx <- !(names(ele) %in% nms)
+    if (any(idx)) {
+        # elements with limit specifications but which are not present in the defined element set should be removed
+        warning("Removed element", ifelse(sum(idx)>=2, "s ", " "), paste(names(ele[idx]), collapse = ", "), " from input ", x)
+    }
+    if (any(!idx)) {
+        # filter original definition for allowed elements
+        x <- paste(names(ele[!idx]), ele[!idx], sep = "", collapse="")
+    } else {
+        # provide a vector based on the element set
+        x <- paste(nms, default, sep = "", collapse="")
+    }
+    return(x)
+}

@@ -13,8 +13,14 @@ testthat::test_that(
 testthat::test_that(
     desc = "decomposeIsotopes can handle element list without Carbon", 
     code = {
-        # $JL$ this should NOT return an error but currently does
-        testthat::expect_error(decomposeIsotopes(masses = 14.003, intensities = 1, elements = initializeElements("N")))
+        # this should return two warnings from v1.67.6 on
+        # reason is the default parameter of 'minElements' = C0 in decomposeIsotopes()
+        # --> this caused errors if parameter 'elements' did not specify C
+        testthat::expect_warning(
+            testthat::expect_warning(
+                decomposeIsotopes(masses = 14.003, intensities = 1, elements = initializeElements("N"))
+            )
+        )
     }
 )
 

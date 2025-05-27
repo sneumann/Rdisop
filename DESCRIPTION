@@ -1,7 +1,7 @@
 Package: Rdisop
 Title: Decomposition of Isotopic Patterns
-Version: 1.67.5
-Date: 2025-01-21
+Version: 1.67.6
+Date: 2025-05-27
 Authors@R: 
     c(
         person("Anton", "Pervukhin", , "apervukh@minet.uni-jena.de", role = c("aut")),

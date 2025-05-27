@@ -42,7 +42,11 @@ isotopeScore(molecule, masses, intensities)
 
 \item{mzabs}{Absolute deviation in Dalton (mzabs and ppm will be added).}
 
-\item{elements}{List of allowed chemical elements, defaults to CHNOPS. See \code{\link{initializeElements}}.}
+\item{elements}{List of allowed chemical elements, defaults to CHNOPS. 
+See \code{\link{initializeElements}}. Can also be specified similar to
+parameter `minElements` like a formula. 'CHNOPS' would define the elements
+C, H, N, O, P and S. 'NA' would specify the element N and return a warning
+regarding 'A' because this element is undefined in the PSE.}
 
 \item{filter}{NYI, will be a selection of DU, DBE and Nitrogen rules.}
 

@@ -10,7 +10,11 @@
 #' @param intensities Absolute or relative intensities of the \code{masses} peaks.
 #' @param ppm Allowed deviation of hypotheses from given mass.
 #' @param mzabs Absolute deviation in Dalton (mzabs and ppm will be added).
-#' @param elements List of allowed chemical elements, defaults to CHNOPS. See \code{\link{initializeElements}}.
+#' @param elements List of allowed chemical elements, defaults to CHNOPS. 
+#'     See \code{\link{initializeElements}}. Can also be specified similar to
+#'     parameter `minElements` like a formula. 'CHNOPS' would define the elements
+#'     C, H, N, O, P and S. 'NA' would specify the element N and return a warning
+#'     regarding 'A' because this element is undefined in the PSE.
 #' @param filter NYI, will be a selection of DU, DBE and Nitrogen rules.
 #' @param z Charge z of m/z peaks for calculation of real mass, keep z=0 for auto-detection.
 #' @param maxisotopes Maximum number of isotopes shown in the resulting molecules.
@@ -59,25 +63,30 @@ decomposeIsotopes <- function(
 ) {
   
     # Use CHNOPS unless stated otherwise
-    if (!is.list(elements) || length(elements) == 0) { elements <- initializeCHNOPS() }
-    
+    elements <- .check_elements(x = elements, default = initializeCHNOPS())
+
     # If only a single mass is given, intensities are irrelevant
     if (length(masses) == 1) { intensities <- 1 }
     
     if (length(masses) != length(intensities)) { stop("masses and intensities have different lengths!") }
     
     # Calculate (average) mass difference, guess charge and recalculate
-    charge <- 1
-    
+    # ToDo: we could calculate the absolute number of charges for typical CHNOPS compounds using
+    # z <- which.min(median(diff(masses))-1/1:5)
+    # however, we can not determine positive or negative ionization this way
+
     .check_maxisotopes(maxisotopes)
     
-    # Remember ordering of element names, but ensure list of elements is ordered by mass
+    # Remember ordering of element names (for Formula output), but ensure list of elements is ordered by mass
     element_order <- sapply(elements, function(x) { x$name })
     elements <- elements[order(sapply(elements, function(x) { x$mass }))]
     
     # Calculate relative Error based on masses[1] and mzabs
     ppm <- ppm + mzabs / masses[1] * 1000000
   
+    minElements <- .check_limElements(minElements, elements, default = 0)
+    maxElements <- .check_limElements(maxElements, elements, default = 999)
+    
     # Finally ready to make the call...
     # 20241106: de-couple 'intensities' from the calling environment using c(intensities) to solve issue #21
     .Call(
