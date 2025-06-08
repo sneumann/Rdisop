@@ -1,6 +1,6 @@
 2025-05-27 Jan Lisec <jan.lisec@bam.de>
 
-    * Rdisop-1.67.6
+    * Rdisop-1.69.1
     * parameter `elements` can now be specified using a character like 'CHNOPS' 
       similar to the parameters `minElements` and `maxElements`
     * fix for issue #5; implementing checks for parameters `minElements` and 
