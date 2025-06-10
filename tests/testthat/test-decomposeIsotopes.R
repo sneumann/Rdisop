@@ -58,12 +58,44 @@ testthat::test_that(
 )
 
 testthat::test_that(
+    desc = "'formula2' parameter is checked for all dependend functions", 
+    code = {
+        fml1 <- c("CH4", "C2H")
+        fml2 <- c("CH", "H")
+        testthat::expect_error(subMolecules(fml1, fml2))
+        testthat::expect_error(addMolecules(fml1, fml2))
+    }
+)
+
+testthat::test_that(
     desc = "decomposeIsotopes parameter 'maxIsotopes' does respect an upper limit of zero", 
     code = {
         # $JL$ this ensures that the fix for issue #12 and #5 works
         testthat::expect_equal(getFormula(decomposeMass(48, mzabs = 0.003)), c("C4", "H3NP"))
         # this did not work before version 1.67.3
         testthat::expect_equal(getFormula(decomposeMass(48, mzabs = 0.003, maxElements = "C0")), "H3NP")
+    }
+)
+
+testthat::test_that(
+    desc = "decomposeIsotopes stops if parameters masses and isotopes do not match", 
+    code = {
+        testthat::expect_error(decomposeIsotopes(c(147.0529, 148.0563), c(100.0)))
+    }
+)
+
+testthat::test_that(
+    desc = "decomposeIsotopes stops if parameters masses and isotopes do not match", 
+    code = {
+        x <- decomposeIsotopes(c(147.0529, 148.0563), c(100.0, 5.56))
+        # no molecule provided
+        testthat::expect_error(isotopeScore(masses = 147.0529))
+        # masses and intensities of different length
+        testthat::expect_error(isotopeScore(masses = c(147.0529, 148.0563), intensities = c(100.0)))
+        # this is what should happen
+        res <- isotopeScore(molecule = x, masses = c(147.0529, 148.0563), intensities = c(100.0, 5.56))
+        exp_res <- stats::setNames(c(6.64805843363e-05, 3.53202e-11), c("C5H9NO4","C3H17P2S"))
+        testthat::expect_equal(res, exp_res, tolerance = 10^-10)
     }
 )
 

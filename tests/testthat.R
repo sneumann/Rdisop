@@ -9,4 +9,4 @@
 library(testthat)
 library(Rdisop)
 
-test_check("Rdisop")
+testthat::test_check("Rdisop")
