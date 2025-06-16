@@ -71,3 +71,24 @@ testthat::test_that(
         
     }
 )
+
+testthat::test_that(
+    desc = "getMolecule getter functions work", 
+    code = {
+        
+        # single molecule
+        x <- getMolecule("H")
+        testthat::expect_equal(getMass(x), 1.00782503)
+        testthat::expect_equal(getFormula(x), "H")
+        testthat::expect_equal(getScore(x), 1)
+        testthat::expect_equal(getValid(x), "Invalid")
+        
+        # multiple molecules
+        x <- decomposeIsotopes(masses = getMolecule("CH2")$exact, intensities = 1, mzabs = 0.02)
+        testthat::expect_equal(getMass(x), c(14.01565, 14.00307), tolerance = 10^-4)
+        testthat::expect_equal(getFormula(x), c("CH2", "N"))
+        testthat::expect_equal(getScore(x), c(1, 0))
+        testthat::expect_equal(getValid(x), c("Valid", "Invalid"))
+    }
+)
+

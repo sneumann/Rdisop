@@ -1,3 +1,10 @@
+2025-06-10 Jan Lisec <jan.lisec@bam.de>
+
+    * Rdisop-1.69.2
+    * unit test system no uses test_that() consistently (all test previously
+      implemented in RUnit got converted to test_theat() equivalents and RUnit
+      was removed from the Suggests section in file DESCRIPTION)
+
 2025-05-27 Jan Lisec <jan.lisec@bam.de>
 
     * Rdisop-1.69.1

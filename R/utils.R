@@ -69,6 +69,7 @@
 #' @noRd
 #' @keywords internal
 .minset_elements <- function(fml) {
+    # $$ToDo$$ JL: .minset_elements() can be substituted against the more general .check_elements()
     x <- names(.CountChemicalElements(fml))
     return(initializeElements(x))
 }
@@ -135,9 +136,13 @@
 #' 
 #' @noRd
 #' @keywords internal
-.check_limElements <- function(x = NULL, elements = initializePSE(), default = 1) {
-    ele <- .CountChemicalElements(x)
+.check_limElements <- function(x = NULL, elements = initializePSE(), default = 0) {
     nms <- sapply(elements, function(x) { x$name })
+    if (is.null(x)) {
+        ele <- stats::setNames(rep(default, length(nms)), nms)
+    } else {
+        ele <- .CountChemicalElements(x)
+    }
     idx <- !(names(ele) %in% nms)
     if (any(idx)) {
         # elements with limit specifications but which are not present in the defined element set should be removed
