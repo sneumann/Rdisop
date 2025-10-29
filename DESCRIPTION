@@ -1,6 +1,6 @@
 Package: Rdisop
 Title: Decomposition of Isotopic Patterns
-Version: 1.69.2
+Version: 1.70.0
 Date: 2025-06-10
 Authors@R: 
     c(
