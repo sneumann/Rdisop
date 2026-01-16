@@ -830,13 +830,13 @@ void initializeAlphabet(const SEXP l_alphabet,
     double *mass = REAL(getListElement(isotope, "mass"));	
     double *abundance = REAL(getListElement(isotope, "abundance"));	
 
-    peaks_container *peaks = new peaks_container();
+    peaks_container peaks;
     for (int j=0; j<numisotopes; j++) {
-      peaks->push_back(peaks_container::value_type(mass[j], abundance[j]));
+      peaks.push_back(peaks_container::value_type(mass[j], abundance[j]));
     }
-    distribution_t *distribution = new distribution_t(*peaks, nominalmass);
+    distribution_t distribution(peaks, nominalmass);
 
-    element_type element(symbol, *distribution);	
+    element_type element(symbol, distribution);
     alphabet.push_back(element);
   }
 
