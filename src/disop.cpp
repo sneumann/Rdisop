@@ -841,7 +841,6 @@ void initializeAlphabet(const SEXP l_alphabet,
   }
 
   // }}}
-
 }
 
 extern "C" {
