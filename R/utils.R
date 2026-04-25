@@ -157,3 +157,15 @@
     }
     return(x)
 }
+# Returns the elements list reordered by nominal mass plus the original
+# name ordering. The C++ side wants masses in ascending order to build the
+# Weights table efficiently, but the formula serializer uses the caller's
+# preferred element ordering.
+.orderElementsByMass <- function(elements) {
+    element_order <- vapply(elements, `[[`, character(1), "name")
+    masses <- vapply(elements, `[[`, numeric(1), "mass")
+    list(
+        elements = elements[order(masses)],
+        element_order = element_order
+    )
+}

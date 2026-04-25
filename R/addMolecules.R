@@ -34,9 +34,9 @@ addMolecules <- function(
     
     maxisotopes <- .check_maxisotopes(maxisotopes)
   
-    # Remember ordering of element names, but ensure list of elements is ordered by mass
-    element_order <- sapply(elements, function(x) { x$name })
-    elements <- elements[order(sapply(elements, function(x) { x$mass }))]
+    ordered <- .orderElementsByMass(elements)
+    element_order <- ordered$element_order
+    elements <- ordered$elements
     
     # Call imslib to parse formula and calculate masses and isotope pattern
     .Call(
@@ -59,9 +59,9 @@ subMolecules <- function(
     
     maxisotopes <- .check_maxisotopes(maxisotopes)
     
-    # Remember ordering of element names, but ensure list of elements is ordered by mass
-    element_order <- sapply(elements, function(x) { x$name })
-    elements <- elements[order(sapply(elements, function(x) { x$mass }))]
+    ordered <- .orderElementsByMass(elements)
+    element_order <- ordered$element_order
+    elements <- ordered$elements
   
     # Call imslib to parse formula and calculate masses and isotope pattern
     .Call(

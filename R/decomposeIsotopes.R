@@ -77,9 +77,9 @@ decomposeIsotopes <- function(
 
     .check_maxisotopes(maxisotopes)
     
-    # Remember ordering of element names (for Formula output), but ensure list of elements is ordered by mass
-    element_order <- sapply(elements, function(x) { x$name })
-    elements <- elements[order(sapply(elements, function(x) { x$mass }))]
+    ordered <- .orderElementsByMass(elements)
+    element_order <- ordered$element_order
+    elements <- ordered$elements
     
     # Calculate relative Error based on masses[1] and mzabs
     ppm <- ppm + mzabs / masses[1] * 1000000
