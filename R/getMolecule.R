@@ -56,9 +56,8 @@ getMolecule <- function(formula, elements = NULL, z = 0, maxisotopes=10) {
     
     # Call imslib to parse formula and calculate masses and isotope pattern
     molecule <- .Call(
-        "getMolecule",
-        formula, elements, element_order, z, maxisotopes, 
-        PACKAGE="Rdisop"
+        C_getMolecule,
+        formula, elements, element_order, z, maxisotopes
     )
   
     # the charge parameter is not correctly used within C++ imslib to calculate

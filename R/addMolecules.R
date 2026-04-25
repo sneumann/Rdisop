@@ -40,9 +40,8 @@ addMolecules <- function(
     
     # Call imslib to parse formula and calculate masses and isotope pattern
     .Call(
-        "addMolecules",
-        formula1, formula2, elements, element_order, maxisotopes,
-        PACKAGE = "Rdisop"
+        C_addMolecules,
+        formula1, formula2, elements, element_order, maxisotopes
     )
 }
 
@@ -65,8 +64,7 @@ subMolecules <- function(
   
     # Call imslib to parse formula and calculate masses and isotope pattern
     .Call(
-        "subMolecules",
-        formula1, formula2, elements, element_order, maxisotopes,
-        PACKAGE = "Rdisop"
+        C_subMolecules,
+        formula1, formula2, elements, element_order, maxisotopes
     )
 }
