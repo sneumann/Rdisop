@@ -845,17 +845,17 @@ void initializeAlphabet(const SEXP l_alphabet,
 
 extern "C" {
 
-  void R_init_disop(DllInfo *info)
+  void R_init_Rdisop(DllInfo *info)
   {
     /* Register routines, allocate resources.
-     * We call most functions with .Call 
+     * We call most functions with .Call
      */
     R_CallMethodDef callMethods[]  = {
-      {"getMolecule", (void* (*)())&getMolecule, 4},
-      {"addMolecules", (void* (*)())&addMolecules, 4},
-      {"subMolecules", (void* (*)())&subMolecules, 4},
-      {"decomposeIsotopes", (void* (*)())&decomposeIsotopes, 9},
-      {"calculateScore", (void* (*)())&calculateScore, 7},
+      {"getMolecule",       (DL_FUNC) &getMolecule,       5},
+      {"addMolecules",      (DL_FUNC) &addMolecules,      5},
+      {"subMolecules",      (DL_FUNC) &subMolecules,      5},
+      {"decomposeIsotopes", (DL_FUNC) &decomposeIsotopes, 9},
+      {"calculateScore",    (DL_FUNC) &calculateScore,    4},
       {NULL, NULL, 0}
     };
     
@@ -866,7 +866,7 @@ extern "C" {
     R_useDynamicSymbols(info, FALSE);
   }
   
-  void R_unload_disop(DllInfo *info)
+  void R_unload_Rdisop(DllInfo *info)
   {
     /* Release resources. */
   }

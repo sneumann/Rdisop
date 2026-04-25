@@ -29,7 +29,7 @@
 #'     
 #' @export
 #' @import Rcpp
-#' @useDynLib Rdisop, .registration = TRUE
+#' @useDynLib Rdisop, .registration = TRUE, .fixes = "C_"
 #' 
 #' @examples
 #' # query some measurement values from a Glutamate peak which will return two
@@ -90,10 +90,9 @@ decomposeIsotopes <- function(
     # Finally ready to make the call...
     # 20241106: de-couple 'intensities' from the calling environment using c(intensities) to solve issue #21
     .Call(
-        "decomposeIsotopes",
-        masses, c(intensities), ppm, elements, element_order, 
-        z, maxisotopes, minElements, maxElements, 
-        PACKAGE = "Rdisop"
+        C_decomposeIsotopes,
+        masses, c(intensities), ppm, elements, element_order,
+        z, maxisotopes, minElements, maxElements
     )
 }
 
@@ -131,7 +130,7 @@ isotopeScore <- function(
         predictedMass <- x[1,]
         predictedAbundances <- x[2,]
         # call the score function
-        .Call("calculateScore", predictedMass, predictedAbundances, masses, intensities, PACKAGE = "Rdisop")
+        .Call(C_calculateScore, predictedMass, predictedAbundances, masses, intensities)
     })
     
     return(unlist(scores))
