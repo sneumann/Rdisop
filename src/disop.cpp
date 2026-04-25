@@ -20,9 +20,7 @@
 #include <ims/isotopedistribution.h>
 #include <ims/distributionprobabilityscorer.h>
 #include <ims/composedelement.h>
-#include <ims/nitrogenrulefilter.h>
 #include <ims/utils/math.h>
-#include <ims/base/exception/ioexception.h>
 #include <ims/decomp/realmassdecomposer.h>
 #include <ims/decomp/integermassdecomposer.h>
 #include <ims/decomp/decomputils.h>

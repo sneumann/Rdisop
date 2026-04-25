@@ -6,9 +6,7 @@
 #include <ostream>
 
 #include <ims/element.h>
-#include <ims/base/parser/alphabetparser.h>
 #include <ims/base/exception/unknowncharacterexception.h>
-#include <ims/base/exception/ioexception.h>
 
 
 namespace ims {
@@ -208,30 +206,6 @@ class Alphabet {
 		 * @see sortByNames()
 		 */
 		virtual void sortByValues();
-
-
-		/**
-		 * Loads the alphabet data from the file @c fname using the default
-		 * parser. If there is no file @c fname, throws an @c IOException.
-		 *
-		 * @param fname The file name to be loaded.
-		 * @see load(const std::string& fname, AlphabetParser<>* parser)
-		 */
-		virtual void load(const std::string& fname) /*throw (IOException)*/;
-
-
-		/**
-		 * Loads the alphabet data from the file @c fname using @c parser.
-		 * If there is no file @c fname found, throws an @c IOException.
-		 *
-		 * @param fname File name to be loaded.
-		 * @param parser Parser to be used by loading.
-		 * 
-		 * @see load(const std::string& fname)
-		 * @see AlphabetParser
-		 */
-		virtual void load(const std::string& fname, AlphabetParser<>* parser)
-			/*throw (IOException)*/;
 
 
 		/**
