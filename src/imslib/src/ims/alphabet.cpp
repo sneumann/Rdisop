@@ -6,7 +6,6 @@
 #include <ims/alphabet.h>
 #include <ims/utils/compose_f_gx_t.h>
 #include <ims/utils/compose_f_gx_hy_t.h>
-#include <ims/base/parser/alphabettextparser.h>
 
 
 namespace ims {
@@ -76,24 +75,6 @@ void Alphabet::sortByNames() {
 
 void Alphabet::sortByValues() {
 	std::sort(elements.begin(), elements.end(), MassSortingCriteria());
-}
-
-
-void Alphabet::load(const std::string& fname) /*throw (IOException)*/ {
-	this->load(fname, new AlphabetTextParser);
-}
-
-
-void Alphabet::load(const std::string& fname, AlphabetParser<>* parser)
-														/*throw (IOException)*/ {
-	parser->load(fname);
-	this->clear();
-	for (AlphabetParser<>::ContainerType::const_iterator pos =
-			parser->getElements().begin(),
-			end = parser->getElements().end();	pos != end; ++pos) {
-		this->push_back(pos->first, pos->second);
-	}
-	this->sortByValues();
 }
 
 

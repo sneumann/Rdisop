@@ -20,9 +20,7 @@
 #include <ims/isotopedistribution.h>
 #include <ims/distributionprobabilityscorer.h>
 #include <ims/composedelement.h>
-#include <ims/nitrogenrulefilter.h>
 #include <ims/utils/math.h>
-#include <ims/base/exception/ioexception.h>
 #include <ims/decomp/realmassdecomposer.h>
 #include <ims/decomp/integermassdecomposer.h>
 #include <ims/decomp/decomputils.h>
@@ -44,24 +42,12 @@ typedef Alphabet alphabet_t;
 typedef IsotopeDistribution distribution_t;
 typedef IntegerMassDecomposer<>::decompositions_type decompositions_t;
 
-void initializeCHNOPS(alphabet_t&, 
-		      const int maxisotopes);
-void initializeAlphabet(const SEXP l_alphabet, 
-			alphabet_t &alphabet, 
-			const int maxisotopes);
+static void loadAlphabet(SEXP l_alphabet, SEXP v_element_order,
+                         alphabet_t& alphabet, std::vector<std::string>& elements_order,
+                         int maxisotopes);
 
 template <typename score_type>
-SEXP  rlistScores(multimap<score_type, ComposedElement, greater<score_type> > scores, int z);
-
-// }}}
-
-         
-template <typename MassType>
-SEXP rlistDecompositions(const decompositions_t& decompositions, 
-			  const alphabet_t& alphabet, const Weights& weights,
-			  MassType mass, unsigned int maxNumber);
-
-char* exceptionMesg=NULL;
+SEXP rlistScores(std::multimap<score_type, ComposedElement, std::greater<score_type> > scores, int z);
 
 float getDBE(const ComposedElement& molecule, int z) {
   // {{{ 
@@ -94,27 +80,15 @@ char getParity(const ComposedElement& molecule, int charge=0) {
 // }}}
 
 bool isValidMyNitrogenRule(const ComposedElement& molecule, int z) {
-  // {{{
-
-  bool massodd =  static_cast<int>(molecule.getNominalMass()) % 2 == 1 ? true : false;
-  bool masseven = !massodd;
-
-  bool nitrogenodd = static_cast<int>(molecule.getElementAbundance("N")) % 2 == 1 ? true : false;
-  bool nitrogeneven = !nitrogenodd;
-
-  bool parityodd = getParity(molecule, z) == 'o' ? true : false;
-  bool parityeven = !parityodd;
-
-  bool zodd = z % 2 == 1 ? true : false;
-  bool zeven = !zodd;
-
-  return (  zeven & masseven & nitrogeneven )
-    |    (  zeven & massodd  & nitrogenodd  )
-    |    (  zodd  & masseven & nitrogenodd  )
-    |    (  zodd  & massodd  & nitrogeneven );
-
+  // Valid iff the parities of nominal mass, nitrogen count, and charge sum
+  // to even -- that is the four-row truth table the original wrote out.
+  // The (z % 2 == 1) idiom is preserved verbatim so that negative odd z
+  // behaves the same as before (z=-1 reports zodd=false on this platform).
+  bool zodd = (z % 2 == 1);
+  bool massodd = (static_cast<int>(molecule.getNominalMass()) % 2) == 1;
+  bool nitrogenodd = (static_cast<int>(molecule.getElementAbundance("N")) % 2) == 1;
+  return !(zodd ^ massodd ^ nitrogenodd);
 }
-// }}}
 
 bool isWithinElementRange(const ComposedElement& molecule, const ComposedElement& minElements, const ComposedElement& maxElements) {
 // {{{
@@ -174,9 +148,6 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
     typedef vector<pair<ComposedElement, score_type> > nonnormalized_scores_container;
     typedef decompositions_t::value_type decomposition_type;
 
-    // Reset error state
-    exceptionMesg = NULL;
-
     SEXP  rl=R_NilValue; // Use this when there is nothing to be returned.
     try {
 
@@ -184,38 +155,16 @@ RcppExport SEXP decomposeIsotopes(SEXP v_masses, SEXP v_abundances, SEXP s_error
 	NumericVector abundances = NumericVector(v_abundances);
 	double error = *REAL(s_error);
 
-	// converts relative (ppm) in absolute error 
+	// converts relative (ppm) in absolute error
 	error *= masses(0) * 1.0e-06;
 
-	// initializes precision
 	double precision = 1.0e-05;
-	int number_molecules_shown = 100;
-	
-	// initializes alphabet
+
 	int maxisotopes = Rf_asInteger(i_maxisotopes);
 	alphabet_t alphabet;
 	vector<string> elements_order;
+	loadAlphabet(l_alphabet, v_element_order, alphabet, elements_order, maxisotopes);
 
-	if (l_alphabet == NULL || Rf_length(l_alphabet) < 1  ) {
-	  initializeCHNOPS(alphabet, maxisotopes); 
-	  // initializes order of atoms in which one would
-	  // like them to appear in the molecules sequence
-	  elements_order.push_back("C");
-	  elements_order.push_back("H");
-	  elements_order.push_back("N");
-	  elements_order.push_back("O");
-	  elements_order.push_back("P");
-	  elements_order.push_back("S");
-	} else {
-	  initializeAlphabet(l_alphabet, alphabet, maxisotopes);
-	  
-	  int element_length = Rf_length(v_element_order);
-	  for (int i=0; i<element_length; i++) {
-	    elements_order.push_back(string(CHAR(STRING_ELT(v_element_order,i))));
-	  }
-	}
-	
-	// initializes weights
 	Weights weights(alphabet.getMasses(), precision);
 	
 	// checks if weights could become smaller, by dividing on gcd.
@@ -438,38 +387,13 @@ RcppExport SEXP getMolecule(SEXP s_formula, SEXP l_alphabet,
   typedef scorer_type::score_type score_type;
   typedef multimap<score_type, ComposedElement, greater<score_type> > scores_container;
 
-  // Reset error state
-  exceptionMesg = NULL;
-
-  // initializes alphabet
   int maxisotopes = Rf_asInteger(i_maxisotopes);
   alphabet_t alphabet;
   vector<string> elements_order;
-
-  if (l_alphabet == NULL || Rf_length(l_alphabet) < 1  ) {
-    initializeCHNOPS(alphabet, maxisotopes); 
-    // initializes order of atoms in which one would
-    // like them to appear in the molecules sequence
-    elements_order.push_back("C");
-    elements_order.push_back("H");
-    elements_order.push_back("N");
-    elements_order.push_back("O");
-    elements_order.push_back("P");
-    elements_order.push_back("S");
-  } else {
-    initializeAlphabet(l_alphabet, alphabet, maxisotopes);
-
-    int element_length = Rf_length(v_element_order);
-    for (int i=0; i<element_length; i++) {
-      elements_order.push_back(string(CHAR(STRING_ELT(v_element_order,i))));
-    }
-  }
+  loadAlphabet(l_alphabet, v_element_order, alphabet, elements_order, maxisotopes);
 
   try {
-    // initializes precision
     double precision = 1.0e-05;
-    
-    // initializes weights
     Weights weights(alphabet.getMasses(), precision);
 
     // initializes storage for scores
@@ -509,37 +433,14 @@ RcppExport SEXP addMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet,
   typedef scorer_type::score_type score_type;
   typedef multimap<score_type, ComposedElement, greater<score_type> > scores_container;
 
-  // initializes alphabet
   int maxisotopes = Rf_asInteger(i_maxisotopes);
   alphabet_t alphabet;
   vector<string> elements_order;
+  loadAlphabet(l_alphabet, v_element_order, alphabet, elements_order, maxisotopes);
 
-  if (l_alphabet == NULL || Rf_length(l_alphabet) < 1  ) {
-    initializeCHNOPS(alphabet, maxisotopes);
-    // initializes order of atoms in which one would
-    // like them to appear in the molecules sequence
-    elements_order.push_back("C");
-    elements_order.push_back("H");
-    elements_order.push_back("N");
-    elements_order.push_back("O");
-    elements_order.push_back("P");
-    elements_order.push_back("S");
-  } else {
-    initializeAlphabet(l_alphabet, alphabet, maxisotopes);    
-
-    int element_length = Rf_length(v_element_order);
-    for (int i=0; i<element_length; i++) {
-      elements_order.push_back(string(CHAR(STRING_ELT(v_element_order,i))));
-    }
-  }
-//  cout << alphabet << endl;
-  // initializes precision
   double precision = 1.0e-05;
-  
-  // initializes weights
   Weights weights(alphabet.getMasses(), precision);
 
-  // initializes storage for scores
   scores_container scores;
 
   ComposedElement molecule( CHAR(Rf_asChar(s_formula1)), alphabet);
@@ -572,37 +473,14 @@ RcppExport SEXP subMolecules(SEXP s_formula1, SEXP s_formula2, SEXP l_alphabet, 
   typedef scorer_type::score_type score_type;
   typedef multimap<score_type, ComposedElement, greater<score_type> > scores_container;
 
-  // initializes alphabet
   int maxisotopes = Rf_asInteger(i_maxisotopes);
   alphabet_t alphabet;
   vector<string> elements_order;
+  loadAlphabet(l_alphabet, v_element_order, alphabet, elements_order, maxisotopes);
 
-  if (l_alphabet == NULL || Rf_length(l_alphabet) < 1  ) { 
-   initializeCHNOPS(alphabet, maxisotopes);
-    // initializes order of atoms in which one would
-    // like them to appear in the molecules sequence
-    elements_order.push_back("C");
-    elements_order.push_back("H");
-    elements_order.push_back("N");
-    elements_order.push_back("O");
-    elements_order.push_back("P");
-    elements_order.push_back("S");
-  } else {
-    initializeAlphabet(l_alphabet, alphabet, maxisotopes);
-
-    int element_length = Rf_length(v_element_order);
-    for (int i=0; i<element_length; i++) {
-      elements_order.push_back(string(CHAR(STRING_ELT(v_element_order,i))));
-    }
-  }
-//  cout << alphabet << endl;
-  // initializes precision
   double precision = 1.0e-05;
-  
-  // initializes weights
   Weights weights(alphabet.getMasses(), precision);
 
-  // initializes storage for scores
   scores_container scores;
 
   ComposedElement molecule( CHAR(Rf_asChar(s_formula1)), alphabet);
@@ -682,10 +560,6 @@ SEXP  rlistScores(multimap<score_type, ComposedElement, greater<score_type> > sc
 
 	UNPROTECT(1); // SEXP isotopes
 
-	if(exceptionMesg != NULL) {
-	  Rf_error("%s", exceptionMesg);
-	}
-	
 	return(List::create(  _["formula"]  = formula,
                        _["score"]  = score,
                        _["exactmass"]  = exactmass,
@@ -699,148 +573,50 @@ SEXP  rlistScores(multimap<score_type, ComposedElement, greater<score_type> > sc
 }
 
 //
-// Initialisation of Standard Element Alphabet 
+// Build the alphabet from the R-supplied elements list and remember the
+// caller's preferred element ordering for formula serialization.
 //
-void initializeCHNOPS(alphabet_t& chnops, const int maxisotopes) {
-  // {{{ 
-
-	typedef distribution_t::peaks_container peaks_container;
-	typedef distribution_t::nominal_mass_type nominal_mass_type;
-	typedef alphabet_t::element_type element_type;
-	typedef alphabet_t::container elements_type;
-
-	distribution_t::SIZE = maxisotopes;
-	distribution_t::ABUNDANCES_SUM_ERROR = 0.00001;
-
-// Hydrogen
-	nominal_mass_type massH = 1;
-	peaks_container peaksH;
-	peaksH.push_back(peaks_container::value_type(0.007825, 0.99985));
-	peaksH.push_back(peaks_container::value_type(0.014102, 0.00015));
-
-	distribution_t distributionH(peaksH, massH);
-
-// Oxygen
-	nominal_mass_type massO = 16;
-	peaks_container peaksO;
-	peaksO.push_back(peaks_container::value_type(-0.005085, 0.99762));
-	peaksO.push_back(peaks_container::value_type(-0.000868, 0.00038));
-	peaksO.push_back(peaks_container::value_type(-0.000839, 0.002));
-
-	distribution_t distributionO(peaksO, massO);
-
-// Carbonate
-	nominal_mass_type massC = 12;
-	peaks_container peaksC;
-	peaksC.push_back(peaks_container::value_type(0.0, 0.9889));
-	peaksC.push_back(peaks_container::value_type(0.003355, 0.0111));
-
-	distribution_t distributionC(peaksC, massC);
-
-// Nitrogen
-	nominal_mass_type massN = 14;
-	peaks_container peaksN;
-	peaksN.push_back(peaks_container::value_type(0.003074, 0.99634));
-	peaksN.push_back(peaks_container::value_type(0.000109, 0.00366));
-
-	distribution_t distributionN(peaksN, massN);
-
-// Sulfur
-	nominal_mass_type massS = 32;
-	peaks_container peaksS;
-	peaksS.push_back(peaks_container::value_type(-0.027929, 0.9502));
-	peaksS.push_back(peaks_container::value_type(-0.028541, 0.0075));
-	peaksS.push_back(peaks_container::value_type(-0.032133, 0.0421));
-	peaksS.push_back(peaks_container::value_type());
-	peaksS.push_back(peaks_container::value_type(-0.032919, 0.0002));
-
-	distribution_t distributionS(peaksS, massS);
-
-// Phosphor
-	nominal_mass_type massP = 31;
-	peaks_container peaksP;
-	peaksP.push_back(peaks_container::value_type(-0.026238, 1.0));
-
-	distribution_t distributionP(peaksP, massP);
-
-	element_type H("H", distributionH);
-	element_type C("C", distributionC);
-	element_type N("N", distributionN);
-	element_type O("O", distributionO);
-	element_type P("P", distributionP);
-	element_type S("S", distributionS);
-
-	chnops.push_back(H);
-	chnops.push_back(C);
-	chnops.push_back(N);
-	chnops.push_back(O);
-	chnops.push_back(P);
-	chnops.push_back(S);
-
-	// }}}
-}
-
-//
-// Initialisation of User-defined Alphabet 
-//
-
-/* get the list element named str, or return NULL */
-/* http://cran.r-project.org/doc/manuals/R-exts.html#Handling-lists */
-
-SEXP getListElement(SEXP list, char const *str)
-  // {{{ 
-
-{
-  SEXP elmt = R_NilValue, names = Rf_getAttrib(list, R_NamesSymbol);
-  int i;
-  
-  for (i = 0; i < Rf_length(list); i++)
-    if(strcmp(CHAR(STRING_ELT(names, i)), str) == 0) {
-      elmt = VECTOR_ELT(list, i);
-      break;
-    }
-  return elmt;
-}
-
-// }}}
-
-void initializeAlphabet(const SEXP l_alphabet, 
-			alphabet_t &alphabet,
-			const int maxisotopes) {
-  // {{{ 
-
+static void loadAlphabet(SEXP l_alphabet, SEXP v_element_order,
+                         alphabet_t& alphabet, std::vector<std::string>& elements_order,
+                         int maxisotopes) {
   typedef distribution_t::peaks_container peaks_container;
   typedef distribution_t::nominal_mass_type nominal_mass_type;
   typedef alphabet_t::element_type element_type;
-  typedef alphabet_t::container elements_type;
+
+  if (l_alphabet == NULL || Rf_length(l_alphabet) < 1) {
+    Rf_error("%s", "elements list must be non-empty");
+  }
 
   distribution_t::SIZE = maxisotopes;
   distribution_t::ABUNDANCES_SUM_ERROR = 0.0001;
-       
-  for (int i=0; i < Rf_length(l_alphabet); i++) {
-    SEXP l = VECTOR_ELT(l_alphabet,i);
-	  
-    char const *symbol = CHAR(Rf_asChar(getListElement(l, "name")));
 
-    nominal_mass_type nominalmass = (nominal_mass_type) REAL(getListElement(l, "mass"))[0];
-	  	  
-    SEXP isotope = getListElement(l, "isotope");	
+  Rcpp::List elementList(l_alphabet);
+  for (R_xlen_t i = 0; i < elementList.size(); ++i) {
+    Rcpp::List el = elementList[i];
+    std::string symbol = Rcpp::as<std::string>(el["name"]);
+    nominal_mass_type nominalmass =
+      static_cast<nominal_mass_type>(Rcpp::as<double>(el["mass"]));
 
-    int numisotopes = Rf_length(getListElement(isotope, "mass"));
-    double *mass = REAL(getListElement(isotope, "mass"));	
-    double *abundance = REAL(getListElement(isotope, "abundance"));	
+    Rcpp::List isotope = el["isotope"];
+    Rcpp::NumericVector mass = isotope["mass"];
+    Rcpp::NumericVector abundance = isotope["abundance"];
+    R_xlen_t numisotopes = mass.size();
 
     peaks_container peaks;
-    for (int j=0; j<numisotopes; j++) {
+    peaks.reserve(numisotopes);
+    for (R_xlen_t j = 0; j < numisotopes; ++j) {
       peaks.push_back(peaks_container::value_type(mass[j], abundance[j]));
     }
     distribution_t distribution(peaks, nominalmass);
 
-    element_type element(symbol, distribution);
-    alphabet.push_back(element);
+    alphabet.push_back(element_type(symbol, distribution));
   }
 
-  // }}}
+  R_xlen_t order_length = Rf_length(v_element_order);
+  elements_order.reserve(order_length);
+  for (R_xlen_t i = 0; i < order_length; ++i) {
+    elements_order.push_back(std::string(CHAR(STRING_ELT(v_element_order, i))));
+  }
 }
 
 extern "C" {

@@ -44,9 +44,9 @@ getMolecule <- function(formula, elements = NULL, z = 0, maxisotopes=10) {
     
     .check_maxisotopes(maxisotopes)
   
-    # Remember ordering of element names, but ensure list of elements is ordered by mass
-    element_order <- sapply(elements, function(x){ x$name })
-    elements <- elements[order(sapply(elements, function(x) { x$mass }))]
+    ordered <- .orderElementsByMass(elements)
+    element_order <- ordered$element_order
+    elements <- ordered$elements
     
     # check if provided formula can be processed by `getMolecule`
     elements_formula <- .CountChemicalElements(formula)

@@ -8,7 +8,6 @@
 #include <map>
 #include <ostream>
 
-#include <ims/utils/print.h>
 #include <ims/alphabet.h>
 
 namespace ims {

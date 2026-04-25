@@ -3,12 +3,21 @@ PKG_CXXFLAGS=-I./imslib/src/
 .PHONY: all
 all: $(SHLIB)
 
-IMSOBJECTS=imslib/src/ims/element.o imslib/src/ims/composedelement.o imslib/src/ims/isotopedistribution.o imslib/src/ims/alphabet.o imslib/src/ims/weights.o imslib/src/ims/distributedalphabet.o imslib/src/ims/transformation.o imslib/src/ims/isotopespecies.o imslib/src/ims/base/parser/alphabettextparser.o imslib/src/ims/base/parser/distributedalphabettextparser.o imslib/src/ims/base/parser/massestextparser.o imslib/src/ims/base/parser/moleculesequenceparser.o imslib/src/ims/base/parser/standardmoleculesequenceparser.o imslib/src/ims/base/parser/keggligandcompoundsparser.o imslib/src/ims/base/parser/moleculeionchargemodificationparser.o imslib/src/ims/calib/linepairstabber.o imslib/src/ims/calib/matchmatrix.o imslib/src/ims/calib/linearpointsetmatcher.o imslib/src/ims/decomp/realmassdecomposer.o imslib/src/ims/utils/distribution.o imslib/src/ims/distributionprobabilityscorer.o imslib/src/ims/characteralphabet.o imslib/src/ims/nitrogenrulefilter.o
+IMSOBJECTS = \
+    imslib/src/ims/alphabet.o \
+    imslib/src/ims/composedelement.o \
+    imslib/src/ims/distributionprobabilityscorer.o \
+    imslib/src/ims/element.o \
+    imslib/src/ims/isotopedistribution.o \
+    imslib/src/ims/weights.o \
+    imslib/src/ims/base/parser/moleculesequenceparser.o \
+    imslib/src/ims/base/parser/standardmoleculesequenceparser.o \
+    imslib/src/ims/decomp/realmassdecomposer.o
 
 DISOPOBJECTS=disop.o
 
-OBJECTS=$(DISOPOBJECTS) $(IMSOBJECTS) 
+OBJECTS=$(DISOPOBJECTS) $(IMSOBJECTS)
 
 clean:
-	rm -f $(OBJECTS) 
+	rm -f $(OBJECTS)
 
